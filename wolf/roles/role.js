@@ -42,20 +42,20 @@ Role.prototype.eventNight = function () {
 
 Role.prototype.eventDayCallback = function (queue) {
   // check event done
-  if (!this.done || !queue.isEnded()) {
+  if (!this.done && !queue.isEnded()) {
     this.done = true;
     // current waiting time queue.getTime();
   }
 };
 
 Role.prototype.eventDuskCallback = function (queue) {
-  if (!this.done || !queue.isEnded()) {
+  if (!this.done && !queue.isEnded()) {
     this.done = true;
   }
 };
 
 Role.prototype.eventNightCallback = function (queue) {
-  if (!this.done || !queue.isEnded()) {
+  if (!this.done && !queue.isEnded()) {
     this.done = true;
     // TODO: add to queue
     // queue.add('kill', whom);
