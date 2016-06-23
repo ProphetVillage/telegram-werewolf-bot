@@ -42,7 +42,7 @@ ba.commands.on('start', (upd, followString) => {
     game_sessions[chat_id] = wolf;
     wolf.join(user);
 
-    let msg = wolf.format_name(user) + ' start a new game, /join';
+    let msg = wolf.format_name(user) + ' started a new game, /join';
     ba.sendMessage({
       chat_id: chat_id,
       reply_to_message_id: upd.message.message_id,
