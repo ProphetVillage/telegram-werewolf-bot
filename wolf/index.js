@@ -3,7 +3,7 @@
 const _ = require('underscore');
 const co = require('co');
 
-const timer_durations = [ 6000, 3000, 2000, 1000 ];
+const timer_durations = [ 60000, 30000, 20000, 10000 ];
 const timer_tips = [ '', 'last 1 min', 'last 30 sec', 'last 10 sec' ];
 
 function Wolf(botapi, chat_id, opts) {
@@ -46,7 +46,6 @@ Wolf.prototype.setTimer = function () {
   }
   var tips = timer_tips[this.itimer];
   this.timer = setTimeout(() => {
-    console.log('timer!');
     if (tips) self.message(tips);
     self.setTimer();
   }, timer_durations[this.itimer]);
