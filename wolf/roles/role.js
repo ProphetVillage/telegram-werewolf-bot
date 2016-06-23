@@ -19,21 +19,18 @@ function Role(wolf, player) {
 Role.prototype.eventDay = function () {
   if (!this.done) {
     // check event done
-    this.done = true;
   }
 };
 
 Role.prototype.eventDusk = function () {
   if (!this.done) {
     // check event done
-    this.done = true;
   }
 };
 
 Role.prototype.eventNight = function () {
   if (!this.done) {
     // check event done
-    this.done = true;
 
     // current waiting time queue.getTime();
     // such as
