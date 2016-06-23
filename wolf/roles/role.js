@@ -16,6 +16,10 @@ function Role(wolf, player) {
   this.allowEvents = []; // allowed events' name, such as 'kill'
 }
 
+Role.prototype.isAllowed = function (ev) {
+  return this.allowEvents.indexOf(ev) >= 0;
+};
+
 Role.prototype.eventDay = function () {
 
 };
@@ -40,24 +44,50 @@ Role.prototype.eventNight = function () {
   }); */
 };
 
-Role.prototype.eventDayCallback = function (queue) {
-  // check event done
+Role.prototype.eventCallback = function (time, queue, upd, data) {
+  if (!(upd.callback_query && upd.callback_query.message)) {
+    // check valid data
+    return;
+  }
   if (!this.done && !queue.isEnded()) {
+    // check event done
     this.done = true;
     // current waiting time queue.getTime();
+    switch (time) {
+      case 'day':
+        this.eventDayCallback(queue, upd, data);
+        break;
+      case 'dusk':
+        this.eventDuskCallback(queue, upd, data);
+        break;
+      case 'night':
+        this.eventNightCallback(queue, upd, data);
+        break;
+    }
   }
 };
 
-Role.prototype.eventDuskCallback = function (queue) {
-  if (!this.done && !queue.isEnded()) {
-    this.done = true;
+Role.defaultCallback = function (queue, upd, data) {
+  let sdata = data.split(' ');
+  if (sdata.length >= 2) {
+    let ev = this.isAllowed(sdata[0].substr(1));
+    // /ev id priority
+    queue.add(ev, parseInt(sdata[1]), this.priority);
   }
 };
 
-Role.prototype.eventNightCallback = function (queue) {
-  if (!this.done && !queue.isEnded()) {
-    this.done = true;
-    // TODO: add to queue
-    // queue.add('kill', whom);
-  }
+Role.prototype.eventDayCallback = function (queue, upd, data) {
+  Role.defaultCallback.call(this, queue, upd, data);
 };
+
+Role.prototype.eventDuskCallback = function (queue, upd, data) {
+  Role.defaultCallback.call(this, queue, upd, data);
+};
+
+Role.prototype.eventNightCallback = function (queue, upd, data) {
+  // TODO: add to queue
+  // queue.add('kill', whom);
+  Role.defaultCallback.call(this, queue, upd, data);
+};
+
+module.exports = Role;
