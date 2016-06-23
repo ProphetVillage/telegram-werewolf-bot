@@ -17,53 +17,47 @@ function Role(wolf, player) {
 }
 
 Role.prototype.eventDay = function () {
-  if (!this.done) {
-    // check event done
-  }
+
 };
 
 Role.prototype.eventDusk = function () {
-  if (!this.done) {
-    // check event done
-  }
+
 };
 
 Role.prototype.eventNight = function () {
-  if (!this.done) {
-    // check event done
-
-    // current waiting time queue.getTime();
-    // such as
-    /*var self = this;
-    var timer = setTimeout(() => {
-      if (!self.done) {
-
-      }
-    }, queue.getTime());
-    // player
-    ba.sendMessage({
-      chat_id: this.chat_id,
-      text: msg,
-      reply_markup: JSON.stringify({
-        inline_keyboard: [ [ { text: 'Player 1', callback_data: '/kill ' + player1.id },
-          { text: 'Player 2', callback_data: '/kill ' + player2.id }] ]
-      }),
-    }, (err, r) {
-      if (err) console.log(err);
-    }); */
-  }
+  // such as
+  /*var self = this;
+  // player
+  ba.sendMessage({
+    chat_id: this.chat_id,
+    text: msg,
+    reply_markup: JSON.stringify({
+      inline_keyboard: [ [ { text: 'Player 1', callback_data: '/kill ' + player1.id },
+        { text: 'Player 2', callback_data: '/kill ' + player2.id }] ]
+    }),
+  }, (err, r) {
+    if (err) console.log(err);
+  }); */
 };
 
 Role.prototype.eventDayCallback = function (queue) {
-  this.done = true;
+  // check event done
+  if (!this.done || !queue.isEnded()) {
+    this.done = true;
+    // current waiting time queue.getTime();
+  }
 };
 
 Role.prototype.eventDuskCallback = function (queue) {
-  this.done = true;
+  if (!this.done || !queue.isEnded()) {
+    this.done = true;
+  }
 };
 
 Role.prototype.eventNightCallback = function (queue) {
-  this.done = true;
-  // TODO: add to queue
-  // queue.add('kill', whom);
+  if (!this.done || !queue.isEnded()) {
+    this.done = true;
+    // TODO: add to queue
+    // queue.add('kill', whom);
+  }
 };
