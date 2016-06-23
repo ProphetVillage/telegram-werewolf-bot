@@ -16,8 +16,8 @@ var ba = new BotApi(config.token, {
   botName: config.bot_name,
 });
 
-function game_ended(chat_id) {
-  game_sessions[chat_id] = null;
+function game_ended() {
+  game_sessions[this.chat_id] = null;
 }
 
 // define command

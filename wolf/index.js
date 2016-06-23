@@ -3,8 +3,10 @@
 const _ = require('underscore');
 const co = require('co');
 
-const timer_durations = [ 60000, 30000, 20000, 10000 ];
-const timer_tips = [ '', 'last 1 min', 'last 30 sec', 'last 10 sec' ];
+const game_process = require('./process');
+
+const timer_durations = [ 6000, 3000, 2000, 1000 ];
+const timer_tips = [ '', 'last 1 min, /join', 'last 30 sec, /join', 'last 10 sec, /join' ];
 
 function Wolf(botapi, chat_id, opts) {
   this.ba = botapi;
@@ -70,7 +72,13 @@ Wolf.prototype.start = function () {
   this.timer = null;
   this.status = 'playing';
   this.message('game started');
-  this.end();
+
+  var fn = co.wrap(game_process);
+  fn.call(this).then(() => {
+    this.end();
+  }).catch((err) => {
+    console.error(err.stack);
+  });
 };
 
 Wolf.prototype.end = function () {
