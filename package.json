@@ -1,0 +1,29 @@
+{
+  "name": "telegram-werewolf-bot",
+  "version": "0.1.0",
+  "description": "A werewolf game bot for Telegram written in Node.js",
+  "main": "werewolf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProphetVillage/telegram-werewolf-bot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "werewolf"
+  ],
+  "dependencies": {
+    "underscore": "*",
+    "request": "*",
+    "co": "*"
+  },
+  "author": "tengattack",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ProphetVillage/telegram-werewolf-bot/issues"
+  },
+  "homepage": "https://github.com/ProphetVillage/telegram-werewolf-bot#readme"
+}
