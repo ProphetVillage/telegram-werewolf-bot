@@ -11,7 +11,9 @@ function timeout(ms) {
 }
 
 function *game_process() {
+  console.log('game_start');
   yield timeout(2000);
+  console.log('game_end');
 }
 
 module.exports = game_process;
