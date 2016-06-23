@@ -39,22 +39,45 @@ Wolf.prototype.message = function (text) {
 Wolf.prototype.setStartTimer = function (i) {
   var self = this;
   if (!i) i = 0;
+  this.itimer = i;
   if (i >= timer_durations.length) {
     // start the game
     this.start();
     return;
   }
   var tips = timer_tips[i];
+  if (tips) self.message(tips);
   this.timer = setTimeout(() => {
-    if (tips) self.message(tips);
     self.setStartTimer(i + 1);
   }, timer_durations[i]);
+};
+
+Wolf.prototype.updateStartTimer = function (i) {
+  if (this.status !== 'open') {
+    return;
+  }
+  if (this.itimer > 1) {
+    clearTimeout(this.timer);
+    this.setStartTimer(2);
+  } else if (this.itimer > 0) {
+    clearTimeout(this.timer);
+    this.setStartTimer(1);
+  }
 };
 
 Wolf.prototype.start = function () {
   // TODO: call co
   this.timer = null;
+  this.status = 'playing';
   this.message('game started');
+  this.end();
+};
+
+Wolf.prototype.end = function () {
+  this.message('game ended');
+  if (this.opts.end) {
+    this.opts.end.call(this);
+  }
 };
 
 Wolf.prototype.forcestart = function () {
@@ -92,6 +115,7 @@ Wolf.prototype.join = function (user) {
     return true;
   }
   this.players.push(user);
+  this.updateStartTimer();
   return true;
 };
 

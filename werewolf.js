@@ -46,7 +46,7 @@ ba.commands.on('start', (upd, followString) => {
     ba.sendMessage({
       chat_id: chat_id,
       reply_to_message_id: upd.message.message_id,
-      text: 'A new game started.',
+      text: msg,
     }, (err, result) => {
       if (err) {
         console.log(err);
@@ -85,6 +85,7 @@ ba.commands.on('flee', (upd, followString) => {
 });
 
 ba.commands.on('forcestart', (upd, followString) => {
+  let chat_id = upd.message.chat.id;
   var wolf = game_sessions[chat_id];
   let msg;
   if (wolf) {
