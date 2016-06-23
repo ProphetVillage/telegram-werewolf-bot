@@ -18,7 +18,7 @@ function Wolf(botapi, chat_id, opts) {
   this.when = 'night'; // 'day'
 
   this.itimer = -1;
-  this.setTimer();
+  this.setStartTimer();
 }
 
 Wolf.prototype.format_name = function (user) {
@@ -36,19 +36,19 @@ Wolf.prototype.message = function (text) {
   });
 };
 
-Wolf.prototype.setTimer = function () {
+Wolf.prototype.setStartTimer = function (i) {
   var self = this;
-  this.itimer++;
-  if (this.itimer >= timer_durations.length) {
+  if (!i) i = 0;
+  if (i >= timer_durations.length) {
     // start the game
     this.start();
     return;
   }
-  var tips = timer_tips[this.itimer];
+  var tips = timer_tips[i];
   this.timer = setTimeout(() => {
     if (tips) self.message(tips);
-    self.setTimer();
-  }, timer_durations[this.itimer]);
+    self.setStartTimer(i + 1);
+  }, timer_durations[i]);
 };
 
 Wolf.prototype.start = function () {
