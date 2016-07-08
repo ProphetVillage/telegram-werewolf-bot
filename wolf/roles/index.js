@@ -21,6 +21,13 @@ exports.setRandomRoles = function (wolf, players) {
   }
 };
 
-exports.processCallback = function (wolf, ev, followString) {
-  console.log(wolf, ev, followString);
+exports.processCallback = function (wolf, upd, followString) {
+  console.log(wolf, upd, followString);
+  for (var u of wolf.players) {
+    if (u.id === upd.from.id) {
+      console.log('got user', u.id);
+      u.role.eventCallback(wolf.when, wolf.queue, upd, upd.callback_query.data);
+      break;
+    }
+  }
 };

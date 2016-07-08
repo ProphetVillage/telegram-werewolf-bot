@@ -10,6 +10,7 @@ EventQueue.prototype.add = function (ev, user_id, priority) {
     user_id: user_id,
     priority: priority
   });
+  console.log(this.queue[this.queue.length - 1]);
 };
 
 module.exports = EventQueue;

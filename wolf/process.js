@@ -23,6 +23,7 @@ function *game_process() {
   }
   
   yield this.ymessage('Tonight, a beautiful night. 120s to wait.');
+  this.enter(0, 'night');
   for (var u of this.players) {
     u.role.eventNight();
   }

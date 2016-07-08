@@ -3,6 +3,7 @@
 const _ = require('underscore');
 const co = require('co');
 
+const EventQueue = require('./queue');
 const game_process = require('./process');
 
 const timer_durations = [ 12000, 6000, 4000, 2000 ]; //[ 60000, 30000, 20000, 10000 ];
@@ -50,6 +51,12 @@ Wolf.prototype.ymessage = function *(text) {
       resolve();
     });
   });
+};
+
+Wolf.prototype.enter = function (day, time) {
+  this.day = day;
+  this.when = time;
+  this.queue = new EventQueue();
 };
 
 Wolf.prototype.setStartTimer = function (i) {
