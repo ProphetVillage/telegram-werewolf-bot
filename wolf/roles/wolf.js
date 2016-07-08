@@ -43,8 +43,7 @@ class Wolf extends Role {
 
     for (var u of players) {
       var pname = this.wolf.format_name(u);
-      if (u.id === this.user_id) {
-        // TODO: check is wolf?
+      if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
       }
       // [chat_id] \/[evname] [user_id] [username]
