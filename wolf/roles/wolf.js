@@ -10,8 +10,23 @@ class Wolf extends Role {
     this.name = 'Wolf';
     this.priority = 1;
 
-    this.allowEvents = ['bite'];
+    this.allowEvents = [ 'vote', 'bite' ];
   }
+  
+  action(ev, target) {
+    console.log('action', ev, target.username);
+    if (ev === 'bite') {
+      // killed
+      target.role.dead = true;
+      this.ba.sendMessage({
+        chat_id: target.id,
+        text: 'You have been bitten.'
+      }, (err, r) => {
+        if (err) console.log(err);
+      });
+      return this.wolf.format_name(target) + ' has been bitten.';
+    }
+  };
   
   eventAnnouncement() {
     this.ba.sendMessage({
@@ -38,6 +53,12 @@ class Wolf extends Role {
         callback_data: '/bite ' + u.id + ' ' + pname + ' ' + this.chat_id
       }]);
     }
+    
+    // skip
+    keyboard.push([{
+      text: 'Skip',
+      callback_data: '/bite 0 Skip ' + this.chat_id
+    }]);
 
     this.ba.sendMessage({
       chat_id: this.user_id,

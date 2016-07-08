@@ -10,7 +10,7 @@ class Villager extends Role {
     this.name = 'Villager';
     this.priority = 0;
 
-    this.allowEvents = [''];
+    this.allowEvents = [ 'vote' ];
   }
 
   eventAnnouncement() {

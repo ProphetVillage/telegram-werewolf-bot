@@ -17,7 +17,7 @@ var ba = new BotApi(config.token, {
 });
 
 function game_ended() {
-  game_sessions[this.chat_id] = null;
+  delete game_sessions[this.chat_id];
 }
 
 // callback commands
@@ -30,7 +30,7 @@ for (var ev of Wolf.Roles.event_list) {
         var chat_id = parseInt(s.pop());
         if (chat_id && chat_id in game_sessions) {
           var wolf = game_sessions[chat_id];
-          if (wolf.status === 'playing') {
+          if (wolf && wolf.status === 'playing') {
             Wolf.Roles.processCallback(wolf, upd, s.join(' '));
             return;
           }

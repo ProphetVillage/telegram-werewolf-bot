@@ -23,37 +23,44 @@ function *game_process() {
   }
   
   var day = 0;
+  var msg = '';
   while (true) {
     
-    yield this.ymessage('Tonight, a beautiful night. 120s to wait.');
+    yield this.ymessage(msg + 'Tonight, a beautiful night. 120s to wait.');
     
     this.enter(day, 'night');
     for (var u of this.players) {
-      u.role.eventNight();
+      if (!u.role.dead) {
+        u.role.eventNight();
+      }
     }
     // wait night end
     yield timeout(12000);
-    this.runQueue();
+    msg = this.runQueue();
     
     // the next day
     day++;
     this.enter(day, 'day');
-    yield this.ymessage('Day ' + day + ', we have 120s to talk.');
+    yield this.ymessage(msg + 'Day ' + day + ', we have 120s to talk.');
     for (var u of this.players) {
-      u.role.eventDay();
+      if (!u.role.dead) {
+        u.role.eventDay();
+      }
     }
     // wait day end
     yield timeout(12000);
-    this.runQueue();
+    msg = this.runQueue();
     
     this.enter(day, 'dusk');
-    yield this.ymessage('Sun falling, we have 120s to vote.');
+    yield this.ymessage(msg + 'Sun falling, we have 120s to vote.');
     for (var u of this.players) {
-      u.role.eventDusk();
+      if (!u.role.dead) {
+        u.role.eventDusk();
+      }
     }
     // wait day end
     yield timeout(12000);
-    this.runQueue();
+    msg = this.runQueue();
     
     if (this.checkEnded()) {
       
@@ -63,10 +70,10 @@ function *game_process() {
       for (var u of players) {
         playerlist += this.format_name(u)
           + ' ' + u.role.name
-          + ' - ' + (u.dead ? 'Dead' : 'Alive') + '\n';
+          + ' - ' + (u.role.dead ? 'Dead' : 'Alive') + '\n';
       }
       
-      yield this.ymessage(playerlist);
+      yield this.ymessage(msg + playerlist);
       break;
     }
   }

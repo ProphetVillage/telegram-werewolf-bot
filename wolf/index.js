@@ -60,15 +60,25 @@ Wolf.prototype.enter = function (day, time) {
   for (var u of this.players) {
     u.role.done = false;
   }
-  this.queue = new EventQueue();
+  this.queue = new EventQueue(this);
 };
 
 Wolf.prototype.runQueue = function () {
-  this.queue.finish();
+  var msg = this.queue.finish();
+  return msg ? msg + '\n' : '';
 };
 
 Wolf.prototype.checkEnded = function () {
   return true;
+};
+
+Wolf.prototype.findPlayer = function (user_id) {
+  for (var u of this.players) {
+    if (u.id === user_id) {
+      return u;
+    }
+  }
+  return null;
 };
 
 Wolf.prototype.getSortedPlayers = function () {
@@ -146,6 +156,9 @@ Wolf.prototype.flee = function (user) {
 
 Wolf.prototype.join = function (user) {
   if (this.players.length >= 35) {
+    return false;
+  }
+  if (this.status !== 'open') {
     return false;
   }
   var found = false;

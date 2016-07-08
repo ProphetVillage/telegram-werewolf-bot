@@ -14,11 +14,19 @@ function Role(wolf, player) {
 
   // event done flag, refresh every event time
   this.done = false;
-  this.allowEvents = []; // allowed events' name, such as 'kill'
+  this.allowEvents = [ 'vote' ]; // allowed events' name, such as 'kill'
 }
 
 Role.prototype.isAllowed = function (ev) {
   return this.allowEvents.indexOf(ev) >= 0;
+};
+
+Role.prototype.action = function (ev, target) {
+  if (!this.dead) {
+    // do something
+  }
+  // msg
+  return '';
 };
 
 Role.prototype.eventAnnouncement = function () {
@@ -105,9 +113,11 @@ Role.prototype.eventCallback = function (time, queue, upd, data) {
 Role.defaultCallback = function (queue, upd, data) {
   let sdata = data.split(' ');
   if (sdata.length >= 2) {
-    let ev = this.isAllowed(sdata[0].substr(1));
-    // /ev id priority
-    queue.add(ev, parseInt(sdata[1]), this.priority);
+    let ev = sdata[0].substr(1)
+    if (this.isAllowed(ev)) {
+      // /ev id priority
+      queue.add(this.player, ev, parseInt(sdata[1]), this.priority);
+    }
   }
 };
 
