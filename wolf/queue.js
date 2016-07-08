@@ -2,6 +2,7 @@
 
 function EventQueue() {
   this.queue = [];
+  this.ended = false;
 }
 
 EventQueue.prototype.add = function (ev, user_id, priority) {
@@ -10,7 +11,14 @@ EventQueue.prototype.add = function (ev, user_id, priority) {
     user_id: user_id,
     priority: priority
   });
-  console.log(this.queue[this.queue.length - 1]);
+};
+
+EventQueue.prototype.finish = function () {
+  this.ended = true;
+};
+
+EventQueue.prototype.isEnded = function () {
+  return this.ended;
 };
 
 module.exports = EventQueue;

@@ -56,10 +56,10 @@ class Wolf extends Role {
     // update message
     let sdata = data.split(' ');
     let cq = upd.callback_query;
-    ba.editMessageText({
+    this.ba.editMessageText({
       chat_id: cq.message.chat.id,
       message_id: cq.message.message_id,
-      text: 'Selected - ' + sdata[3]
+      text: 'Selected - ' + sdata[2]
     });
   }
 };

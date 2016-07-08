@@ -29,16 +29,18 @@ for (var ev of Wolf.Roles.event_list) {
       if (s.length > 1) {
         var chat_id = parseInt(s.pop());
         if (chat_id && chat_id in game_sessions) {
-          Wolf.Roles.processCallback(
-            game_sessions[chat_id], upd, s.join(' '));
-        } else {
-          // just remove selections
-          ba.editMessageReplyMarkup({
-            chat_id: cq.message.chat.id,
-            message_id: cq.message.message_id,
-          }, (err, result) => {
-          });
+          var wolf = game_sessions[chat_id];
+          if (wolf.status === 'playing') {
+            Wolf.Roles.processCallback(wolf, upd, s.join(' '));
+            return;
+          }
         }
+        // just remove selections
+        ba.editMessageReplyMarkup({
+          chat_id: cq.message.chat.id,
+          message_id: cq.message.message_id,
+        }, (err, result) => {
+        });
       }
     }
   });

@@ -18,7 +18,7 @@ function Wolf(botapi, chat_id, opts) {
   this.players = [];
   this.status = 'open'; // 'playing'
   this.day = 0;
-  this.when = 'night'; // 'day'
+  this.when = 'night'; // 'day', 'dusk'
 
   this.itimer = -1;
   this.setStartTimer();
@@ -56,7 +56,23 @@ Wolf.prototype.ymessage = function *(text) {
 Wolf.prototype.enter = function (day, time) {
   this.day = day;
   this.when = time;
+  // reset status
+  for (var u of this.players) {
+    u.role.done = false;
+  }
   this.queue = new EventQueue();
+};
+
+Wolf.prototype.runQueue = function () {
+  this.queue.finish();
+};
+
+Wolf.prototype.checkEnded = function () {
+  return true;
+};
+
+Wolf.prototype.getSortedPlayers = function () {
+  return this.players;
 };
 
 Wolf.prototype.setStartTimer = function (i) {

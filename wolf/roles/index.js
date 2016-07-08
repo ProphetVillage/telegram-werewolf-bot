@@ -10,7 +10,7 @@ exports.Roles = Roles;
 
 // list of Roles' id
 exports.role_list = [ 'villager', 'wolf' ];
-exports.event_list = [ 'bite' ];
+exports.event_list = [ 'vote', 'bite' ];
 
 exports.setRandomRoles = function (wolf, players) {
   // TODO: set player role here
@@ -22,11 +22,10 @@ exports.setRandomRoles = function (wolf, players) {
 };
 
 exports.processCallback = function (wolf, upd, followString) {
-  console.log(wolf, upd, followString);
+  let cq = upd.callback_query;
   for (var u of wolf.players) {
-    if (u.id === upd.from.id) {
-      console.log('got user', u.id);
-      u.role.eventCallback(wolf.when, wolf.queue, upd, upd.callback_query.data);
+    if (u.id === cq.from.id) {
+      u.role.eventCallback(wolf.when, wolf.queue, upd, cq.data);
       break;
     }
   }

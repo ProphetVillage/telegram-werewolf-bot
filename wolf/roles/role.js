@@ -30,7 +30,37 @@ Role.prototype.eventDay = function () {
 };
 
 Role.prototype.eventDusk = function () {
+  // default vote
+  let players = this.wolf.players;
+  let keyboard = [];
 
+  for (var u of players) {
+    var pname = this.wolf.format_name(u);
+    if (u.id === this.user_id) {
+      continue;
+    }
+    // [chat_id] \/[evname] [user_id] [username]
+    keyboard.push([{
+      text: pname,
+      callback_data: '/vote ' + u.id + ' ' + pname + ' ' + this.chat_id
+    }]);
+  }
+  
+  // not allow skip
+  /*keyboard.push([{
+    text: 'Skip',
+    callback_data: '/vote 0 * ' + this.chat_id
+  }]);*/
+
+  this.ba.sendMessage({
+    chat_id: this.user_id,
+    text: 'Now, you can vote to kill someone as suspect.',
+    reply_markup: JSON.stringify({
+      inline_keyboard: keyboard
+    }),
+  }, (err, r) => {
+    if (err) console.log(err);
+  });
 };
 
 Role.prototype.eventNight = function () {
@@ -87,6 +117,14 @@ Role.prototype.eventDayCallback = function (queue, upd, data) {
 
 Role.prototype.eventDuskCallback = function (queue, upd, data) {
   Role.defaultCallback.call(this, queue, upd, data);
+  
+  let sdata = data.split(' ');
+  let cq = upd.callback_query;
+  this.ba.editMessageText({
+    chat_id: cq.message.chat.id,
+    message_id: cq.message.message_id,
+    text: 'Voted - ' + sdata[2]
+  });
 };
 
 Role.prototype.eventNightCallback = function (queue, upd, data) {
