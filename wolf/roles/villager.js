@@ -3,8 +3,8 @@
 const Role = require('./role');
 
 class Villager extends Role {
-  constructor(villager, player) {
-    super(villager, player);
+  constructor(wolf, player) {
+    super(wolf, player);
 
     this.id = 'villager';
     this.name = 'Villager';
