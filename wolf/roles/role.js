@@ -5,6 +5,7 @@ function Role(wolf, player) {
   this.chat_id = wolf.chat_id;
   this.ba = wolf.ba;
   this.player = player;
+  this.user_id = player.id;
 
   this.priority = 0; // higher first
   this.name = '';
@@ -18,6 +19,10 @@ function Role(wolf, player) {
 
 Role.prototype.isAllowed = function (ev) {
   return this.allowEvents.indexOf(ev) >= 0;
+};
+
+Role.prototype.eventAnnouncement = function () {
+
 };
 
 Role.prototype.eventDay = function () {

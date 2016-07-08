@@ -1,6 +1,7 @@
 'use strict'
 
 const _ = require('underscore');
+const Roles = require('./roles');
 
 function timeout(ms) {
   return new Promise(function (resolve, reject) {
@@ -12,7 +13,8 @@ function timeout(ms) {
 
 function *game_process() {
   console.log('game_start');
-  yield timeout(2000);
+  
+  yield timeout(15000);
   console.log('game_end');
 }
 

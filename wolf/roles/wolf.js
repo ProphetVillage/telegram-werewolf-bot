@@ -12,6 +12,15 @@ class Wolf extends Role {
 
     this.allowEvents = ['bite'];
   }
+  
+  eventAnnouncement() {
+    this.ba.sendMessage({
+      chat_id: this.user_id,
+      text: 'You are a wolf, every night you can eat someone.',
+    }, (err, r) {
+      if (err) console.log(err);
+    });
+  }
 
   eventNight() {
     let players = this.wolf.players;
@@ -19,6 +28,10 @@ class Wolf extends Role {
 
     for (var u of players) {
       var pname = this.ba.format_name(u);
+      if (u.id === this.user_id) {
+        // TODO: check is wolf?
+        continue;
+      }
       keyboard.push([{
         text: pname,
         callback_data: '/bite ' + u.id + ' ' + pname
@@ -26,7 +39,7 @@ class Wolf extends Role {
     }
 
     this.ba.sendMessage({
-      chat_id: this.chat_id,
+      chat_id: this.user_id,
       text: 'This night, you want to eat someone, which one you want?',
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
