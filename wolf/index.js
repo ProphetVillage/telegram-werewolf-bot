@@ -5,7 +5,7 @@ const co = require('co');
 
 const game_process = require('./process');
 
-const timer_durations = [ 6000, 3000, 2000, 1000 ];
+const timer_durations = [ 12000, 6000, 4000, 2000 ]; //[ 60000, 30000, 20000, 10000 ];
 const timer_tips = [ '', 'last 1 min, /join', 'last 30 sec, /join', 'last 10 sec, /join' ];
 
 function Wolf(botapi, chat_id, opts) {
@@ -23,6 +23,8 @@ function Wolf(botapi, chat_id, opts) {
   this.setStartTimer();
 }
 
+Wolf.Roles = require('./roles');
+
 Wolf.prototype.format_name = function (user) {
   return user.first_name + (user.last_name ? ' ' + user.last_name : '');
 };
@@ -35,6 +37,18 @@ Wolf.prototype.message = function (text) {
     if (err) {
       console.log(err);
     }
+  });
+};
+
+Wolf.prototype.ymessage = function *(text) {
+  var self = this;
+  return new Promise(function (resolve, reject) {
+    self.ba.sendMessage({
+      chat_id: self.chat_id,
+      text: text,
+    }, (err, result) => {
+      resolve();
+    });
   });
 };
 

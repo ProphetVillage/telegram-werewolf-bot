@@ -17,7 +17,7 @@ class Wolf extends Role {
     this.ba.sendMessage({
       chat_id: this.user_id,
       text: 'You are a wolf, every night you can eat someone.',
-    }, (err, r) {
+    }, (err, r) => {
       if (err) console.log(err);
     });
   }
@@ -27,14 +27,15 @@ class Wolf extends Role {
     let keyboard = [];
 
     for (var u of players) {
-      var pname = this.ba.format_name(u);
+      var pname = this.wolf.format_name(u);
       if (u.id === this.user_id) {
         // TODO: check is wolf?
         continue;
       }
+      // [chat_id] \/[evname] [user_id] [username]
       keyboard.push([{
         text: pname,
-        callback_data: '/bite ' + u.id + ' ' + pname
+        callback_data: '/bite ' + u.id + ' ' + pname + ' ' + this.chat_id
       }]);
     }
 
@@ -44,7 +45,7 @@ class Wolf extends Role {
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       }),
-    }, (err, r) {
+    }, (err, r) => {
       if (err) console.log(err);
     });
   }
@@ -58,7 +59,9 @@ class Wolf extends Role {
     ba.editMessageText({
       chat_id: cq.message.chat.id,
       message_id: cq.message.message_id,
-      text: 'Selected - ' + sdata[2]
+      text: 'Selected - ' + sdata[3]
     });
   }
-}
+};
+
+module.exports = Wolf;

@@ -17,8 +17,10 @@ class Villager extends Role {
     this.ba.sendMessage({
       chat_id: this.user_id,
       text: 'You are a villager.',
-    }, (err, r) {
+    }, (err, r) => {
       if (err) console.log(err);
     });
   }
-}
+};
+
+module.exports = Villager;
