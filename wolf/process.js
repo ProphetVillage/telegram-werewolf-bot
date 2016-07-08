@@ -51,6 +51,7 @@ function *game_process() {
     yield timeout(12000);
     msg = this.runQueue();
     
+    // vote stage
     this.enter(day, 'dusk');
     yield this.ymessage(msg + 'Sun falling, we have 120s to vote.');
     for (var u of this.players) {

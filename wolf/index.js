@@ -60,7 +60,8 @@ Wolf.prototype.enter = function (day, time) {
   for (var u of this.players) {
     u.role.done = false;
   }
-  this.queue = new EventQueue(this);
+  // dusk: vote stage
+  this.queue = new EventQueue(this, time === 'dusk');
 };
 
 Wolf.prototype.runQueue = function () {

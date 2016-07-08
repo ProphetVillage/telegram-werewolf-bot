@@ -2,11 +2,11 @@
 
 const _ = require('underscore');
 
-function EventQueue(wolf) {
+function EventQueue(wolf, isVote) {
   this.wolf = wolf;
   this.queue = [];
   this.ended = false;
-  this.isVote = false;
+  this.isVote = isVote;
 }
 
 EventQueue.prototype.add = function (from, ev, user_id, priority) {
@@ -18,9 +18,6 @@ EventQueue.prototype.add = function (from, ev, user_id, priority) {
   });
   
   console.log('queue add', ev, user_id);
-  if (ev === 'vote') {
-    this.isVote = true;
-  }
   
   if (this.queue.length >= this.wolf.players.length) {
     // all selected, run first
@@ -59,14 +56,18 @@ EventQueue.prototype.finish = function () {
       }
     }
     
-    if (!maxdup) {
+    if (max && !maxdup) {
       // vote to dead
-      var target = this.wolf.findPlayer(q.user_id);
+      var target = this.wolf.findPlayer(maxUserId);
       target.role.dead = true;
       msg = this.wolf.format_name(target) + ' was voted to die.';
     } else {
       msg = 'No one has to die.';
     }
+    
+    msg += '\n';
+    this.msg = msg;
+    
     return msg;
   }
 
