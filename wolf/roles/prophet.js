@@ -18,7 +18,7 @@ class Prophet extends Role {
     if (ev === 'know') {
       this.ba.sendMessage({
         chat_id: this.user_id,
-        text: 'You see ' + this.wolf.format_name(target) + ' is ' + target.name + '.'
+        text: 'You see ' + this.wolf.format_name(target) + ' is ' + target.role.name + '.'
       }, (err, r) => {
         if (err) console.log(err);
       });

@@ -21,9 +21,8 @@ class Fool extends Prophet {
         if (u.role.dead) {
           continue;
         }
-        names.push(u.name);
+        names.push(u.role.name);
       }
-
       var name = names[Math.floor(Math.random() * names.length)];
       this.ba.sendMessage({
         chat_id: this.user_id,
