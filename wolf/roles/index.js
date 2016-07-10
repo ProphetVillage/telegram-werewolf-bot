@@ -51,7 +51,7 @@ exports.setRandomRoles = function (wolf, players) {
   }
 
   for (let player of players) {
-    let role = roles[getRandom(roles.length)];
+    let role = roles[getRandom(roles.length - 1)];
     switch (role) {
       case 'wolf':
         player.role = new Roles.Wolf(wolf, player);
