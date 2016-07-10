@@ -12,7 +12,7 @@ class Wolf extends Role {
 
     this.allowEvents = [ 'vote', 'bite' ];
   }
-  
+
   action(ev, target) {
     console.log('action', ev, target.username);
     if (ev === 'bite') {
@@ -27,7 +27,7 @@ class Wolf extends Role {
       return this.wolf.format_name(target) + ' has been bitten.';
     }
   };
-  
+
   eventAnnouncement() {
     var msg = 'You are a wolf, every night you can eat someone.';
     
@@ -75,7 +75,7 @@ class Wolf extends Role {
         callback_data: '/bite ' + u.id + ' ' + pname + ' ' + this.chat_id
       }]);
     }
-    
+
     // skip
     keyboard.push([{
       text: 'Skip',
@@ -112,7 +112,7 @@ class Wolf extends Role {
 
   eventNightCallback(queue, upd, data) {
     super.eventNightCallback(queue, upd, data);
-    
+
     // update message
     let sdata = data.split(' ');
     let cq = upd.callback_query;
