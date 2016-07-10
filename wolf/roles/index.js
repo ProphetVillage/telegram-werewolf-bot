@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('underscore');
+
 var Roles = {
   // list of roles
   Villager: require('./villager'),
@@ -11,32 +13,67 @@ var Roles = {
 exports.Roles = Roles;
 
 // list of Roles' id
-var role_list = [ 'villager', 'wolf', 'prophet', 'fool' ];
 exports.role_list = [ 'villager', 'wolf', 'prophet', 'fool' ];
 exports.event_list = [ 'vote', 'bite', 'know' ];
+
+var getRandom = function (max = 1, base = 0) {
+  return Math.floor(Math.random() * (max + 1 - base) + base);
+};
 
 exports.setRandomRoles = function (wolf, players) {
   // TODO: set player role here
   // for test
-  let list = role_list;
+  // var list = [ 'prophet', 'fool', 'witch', 'guardian' ];
+  var list = [ 'prophet', 'fool' ];
+  var player_count = players.length;
+  var roles = [];
+  var wolfs;
+
+  if (player_count < 7) {
+    wolfs = 1;
+  } else if (player_count < 10) {
+    wolfs = getRandom(2, 1);
+  } else {
+    wolfs = getRandom(3, 2);
+  }
+
+  for (let count of _.range(wolfs)) {
+    roles.push('wolf');
+    player_count -= 1;
+  }
+
+  for (let count of player_count) {
+    if (getRandom() && list.length > 0) {
+      roles.push(list.splice(getRandom(list.length), 1)[0]);
+    } else {
+      roles.push('villager');
+    }
+  }
+
   for (let player of players) {
-    let role = list[Math.floor(Math.random() * list.length)];
+    let role = roles[getRandom(roles.length)];
     switch (role) {
       case 'wolf':
         player.role = new Roles.Wolf(wolf, player);
         break;
       case 'prophet':
         player.role = new Roles.Prophet(wolf, player);
-        list.splice(list.indexOf('prophet'));
         break;
       case 'fool':
         player.role = new Roles.Fool(wolf, player);
-        list.splice(list.indexOf('fool'));
+        break;
+      case 'witch':
+        player.role = new Roles.Witch(wolf, player);
+        break;
+      case 'guardian':
+        player.role = new Roles.Guardian(wolf, player);
         break;
       default:
         player.role = new Roles.Villager(wolf, player);
     }
+    roles.splice(roles.indexOf(role), 1);
   }
+
 };
 
 exports.processCallback = function (wolf, upd, followString) {
