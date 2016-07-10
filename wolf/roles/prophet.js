@@ -50,15 +50,31 @@ class Prophet extends Role {
       }]);
     }
 
+    var self = this;
+    this.know_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'pick someone to ask about.',
+      text: 'Pick someone to ask about.',
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       }),
     }, (err, r) => {
-      if (err) console.log(err);
+      if (err) {
+        console.log(err);
+      } else {
+        self.know_message_id = r.message_id;
+      }
     });
+  }
+
+  nightTimeUp() {
+    if (this.know_message_id) {
+      this.ba.editMessageText({
+        chat_id: this.user_id,
+        message_id: this.know_message_id,
+        text: 'Timeup!'
+      });
+    }
   }
 
   eventNightCallback(queue, upd, data) {
