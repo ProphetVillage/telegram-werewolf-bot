@@ -17,14 +17,24 @@ class Wolf extends Role {
     console.log('action', ev, target.username);
     if (ev === 'bite') {
       // killed
-      target.role.dead = true;
-      this.ba.sendMessage({
-        chat_id: target.id,
-        text: 'You have been bitten.'
-      }, (err, r) => {
-        if (err) console.log(err);
-      });
-      return this.wolf.format_name(target) + ' has been bitten.';
+      if (target.role.hasBuff('guard')) {
+        this.ba.sendMessage({
+          chat_id: target.id,
+          text: 'You have been protected.'
+        }, (err, r) => {
+          if (err) console.log(err);
+        });
+        return;
+      } else {
+        target.role.dead = true;
+        this.ba.sendMessage({
+          chat_id: target.id,
+          text: 'You have been bitten.'
+        }, (err, r) => {
+          if (err) console.log(err);
+        });
+        return this.wolf.format_name(target) + ' has been bitten.';
+      }
     }
   };
 

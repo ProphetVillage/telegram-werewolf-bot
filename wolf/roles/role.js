@@ -14,6 +14,7 @@ function Role(wolf, player) {
   this.id = '';
   this.dead = false;
   this.novotetimes = 0;
+  this.buff = {};
 
   // event done flag, refresh every event time
   this.done = false;
@@ -26,6 +27,29 @@ Role.prototype.symbol = function () {
 
 Role.prototype.makeCommand = function (action, user_id, chat_id) {
   return '/' + action + ' ' + user_id + ' ' + chat_id;
+};
+
+Role.prototype.addBuff = function (buff, time) {
+  return this.buff[buff] = time;
+};
+
+Role.prototype.hasBuff = function (buff) {
+  return (buff in this.buff);
+};
+
+Role.prototype.updateBuff = function () {
+  var passedBuff = [];
+  for (var b in this.buff) {
+    if (this.buff[b] > 0) {
+      this.buff[b]--;
+    }
+    if (this.buff[b] === 0) {
+      passedBuff.push(b);
+    }
+  }
+  for (let b of passedBuff) {
+    delete this.buff[b];
+  }
 };
 
 Role.prototype.isAllowed = function (ev) {
