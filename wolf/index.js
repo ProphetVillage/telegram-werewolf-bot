@@ -65,7 +65,18 @@ Wolf.prototype.enter = function (day, time) {
 };
 
 Wolf.prototype.runQueue = function () {
-  var msg = this.queue.finish();
+  var msg = '';
+  var __t = '';
+  // run time up first
+  for (var u of this.players) {
+    if (!u.role.dead) {
+      __t = u.role.timeUp(this.when);
+      if (__t) {
+        msg += __t + '\n';
+      }
+    }
+  }
+  msg += this.queue.finish();
   return msg ? msg + '\n' : '';
 };
 

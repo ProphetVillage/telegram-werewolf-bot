@@ -29,9 +29,32 @@ class Wolf extends Role {
   };
   
   eventAnnouncement() {
+    var msg = 'You are a wolf, every night you can eat someone.';
+    
+    let players = this.wolf.players;
+    var hasotherwolf = 0;
+    for (var u of players) {
+      if (u.id !== this.user_id && u.role.id === 'wolf') {
+        var pname = this.wolf.format_name(u);
+        if (hasotherwolf > 0) {
+          msg += ', ';
+        } else {
+          msg += ' ';
+        }
+        msg += pname;
+        hasotherwolf++;
+      }
+    }
+    
+    if (hasotherwolf === 1) {
+      msg += ' is also wolf.';
+    } else if (hasotherwolf > 1) {
+      msg += ' are also wolves.';
+    }
+    
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'You are a wolf, every night you can eat someone.',
+      text: msg
     }, (err, r) => {
       if (err) console.log(err);
     });
@@ -59,6 +82,8 @@ class Wolf extends Role {
       callback_data: '/bite 0 Skip ' + this.chat_id
     }]);
 
+    var self = this;
+    this.bite_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
       text: 'This night, you want to eat someone, which one you want?',
@@ -66,8 +91,23 @@ class Wolf extends Role {
         inline_keyboard: keyboard
       }),
     }, (err, r) => {
-      if (err) console.log(err);
+      if (err) {
+        console.log(err);
+      } else {
+        self.bite_message_id = r.message_id;
+      }
     });
+  }
+  
+  nightTimeUp() {
+    // TODO: update selections
+    if (this.bite_message_id) {
+      this.ba.editMessageText({
+        chat_id: this.user_id,
+        message_id: this.bite_message_id,
+        text: 'Timeup!'
+      });
+    }
   }
 
   eventNightCallback(queue, upd, data) {
@@ -81,6 +121,19 @@ class Wolf extends Role {
       message_id: cq.message.message_id,
       text: 'Selected - ' + sdata[2]
     });
+    
+    // tell other wolves
+    let players = this.wolf.players;
+    var mname = this.wolf.format_name(this.player);
+    var msg = mname + ' selected ' + sdata[2];
+    for (var u of players) {
+      if (u.id !== this.user_id && u.role.id === 'wolf') {
+        this.ba.sendMessage({
+          chat_id: u.id,
+          text: msg
+        });
+      }
+    }
   }
 };
 

@@ -15,7 +15,7 @@ exports.event_list = [ 'vote', 'bite' ];
 exports.setRandomRoles = function (wolf, players) {
   // TODO: set player role here
   // for test
-  players[0].role = new Roles.Villager(wolf, players[0]);
+  players[0].role = new Roles.Wolf(wolf, players[0]);
   if (players.length > 1) {
     players[1].role = new Roles.Wolf(wolf, players[1]);
   }

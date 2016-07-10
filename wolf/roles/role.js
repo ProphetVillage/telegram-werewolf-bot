@@ -11,6 +11,7 @@ function Role(wolf, player) {
   this.name = '';
   this.id = '';
   this.dead = false;
+  this.novotetimes = 0;
 
   // event done flag, refresh every event time
   this.done = false;
@@ -27,6 +28,47 @@ Role.prototype.action = function (ev, target) {
   }
   // msg
   return '';
+};
+
+Role.prototype.timeUp = function (time) {
+  if (this.done) {
+    return;
+  }
+  
+  switch (time) {
+    case 'day':
+      this.dayTimeUp();
+      break;
+    case 'dusk':
+      this.duskTimeUp();
+      break;
+    case 'night':
+      this.nightTimeUp();
+      break;
+  }
+};
+
+Role.prototype.dayTimeUp = function () {
+};
+
+Role.prototype.duskTimeUp = function () {
+  // TODO: update vote status
+  if (this.vote_message_id) {
+    this.ba.editMessageText({
+      chat_id: this.user_id,
+      message_id: this.vote_message_id,
+      text: 'Timeup!'
+    });
+  }
+  this.novotetimes++;
+  if (this.novotetimes > 2) {
+    this.dead = true;
+    var mname = this.wolf.format_name(this.player);
+    return mname + ' hasn\'t voted for 2 times, the god punished him/her.';
+  }
+};
+
+Role.prototype.nightTimeUp = function () {
 };
 
 Role.prototype.eventAnnouncement = function () {
@@ -60,6 +102,8 @@ Role.prototype.eventDusk = function () {
     callback_data: '/vote 0 * ' + this.chat_id
   }]);*/
 
+  var self = this;
+  this.vote_message_id = null;
   this.ba.sendMessage({
     chat_id: this.user_id,
     text: 'Now, you can vote to kill someone as suspect.',
@@ -67,7 +111,11 @@ Role.prototype.eventDusk = function () {
       inline_keyboard: keyboard
     }),
   }, (err, r) => {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+    } else {
+      self.vote_message_id = r.message_id;
+    }
   });
 };
 
