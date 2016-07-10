@@ -42,7 +42,7 @@ exports.setRandomRoles = function (wolf, players) {
     player_count -= 1;
   }
 
-  for (let count of player_count) {
+  for (let count of _.range(player_count)) {
     if (getRandom() && list.length > 0) {
       roles.push(list.splice(getRandom(list.length), 1)[0]);
     } else {
