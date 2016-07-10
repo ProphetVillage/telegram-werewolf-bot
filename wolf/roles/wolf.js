@@ -7,7 +7,7 @@ class Wolf extends Role {
     super(wolf, player);
 
     this.id = 'wolf';
-    this.name = 'Wolf';
+    this.name = this.symbol() + 'Wolf';
     this.priority = 2;
 
     this.allowEvents = [ 'vote', 'bite' ];
@@ -69,17 +69,17 @@ class Wolf extends Role {
       if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
       }
-      // [chat_id] \/[evname] [user_id] [username]
+      // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,
-        callback_data: '/bite ' + u.id + ' ' + pname + ' ' + this.chat_id
+        callback_data: this.makeCommand('bite', u.id, this.chat_id)
       }]);
     }
 
     // skip
     keyboard.push([{
       text: 'Skip',
-      callback_data: '/bite 0 Skip ' + this.chat_id
+      callback_data: this.makeCommand('bite', 0, this.chat_id)
     }]);
 
     var self = this;
@@ -114,18 +114,17 @@ class Wolf extends Role {
     super.eventNightCallback(queue, upd, data);
 
     // update message
-    let sdata = data.split(' ');
     let cq = upd.callback_query;
     this.ba.editMessageText({
       chat_id: cq.message.chat.id,
       message_id: cq.message.message_id,
-      text: 'Selected - ' + sdata[2]
+      text: 'Selected - ' + data.name
     });
     
     // tell other wolves
     let players = this.wolf.players;
     var mname = this.wolf.format_name(this.player);
-    var msg = mname + ' selected ' + sdata[2];
+    var msg = mname + ' selected ' + data.name;
     for (var u of players) {
       if (u.id !== this.user_id && u.role.id === 'wolf') {
         this.ba.sendMessage({

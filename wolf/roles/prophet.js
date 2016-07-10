@@ -7,7 +7,7 @@ class Prophet extends Role {
     super(wolf, player);
 
     this.id = 'prophet';
-    this.name = 'Prophet';
+    this.name = this.symbol() + 'Prophet';
     this.priority = 1;
 
     this.allowEvents = [ 'vote', 'know' ];
@@ -43,10 +43,10 @@ class Prophet extends Role {
       if (u.id === this.user_id || u.role.dead) {
         continue;
       }
-      // [chat_id] \/[evname] [user_id] [username]
+      // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,
-        callback_data: '/know ' + u.id + ' ' + pname + ' ' + this.chat_id
+        callback_data: this.makeCommand('know', u.id, this.chat_id)
       }]);
     }
 
@@ -81,12 +81,11 @@ class Prophet extends Role {
     super.eventNightCallback(queue, upd, data);
 
     // update message
-    let sdata = data.split(' ');
     let cq = upd.callback_query;
     this.ba.editMessageText({
       chat_id: cq.message.chat.id,
       message_id: cq.message.message_id,
-      text: 'Selected - ' + sdata[2]
+      text: 'Selected - ' + data.name
     });
   }
 };

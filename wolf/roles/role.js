@@ -1,5 +1,7 @@
 'use strict'
 
+const symbol = require('./../../i18n/symbol');
+
 function Role(wolf, player) {
   this.wolf = wolf;
   this.chat_id = wolf.chat_id;
@@ -17,6 +19,14 @@ function Role(wolf, player) {
   this.done = false;
   this.allowEvents = [ 'vote' ]; // allowed events' name, such as 'kill'
 }
+
+Role.prototype.symbol = function () {
+  return symbol[this.id];
+};
+
+Role.prototype.makeCommand = function (action, user_id, chat_id) {
+  return '/' + action + ' ' + user_id + ' ' + chat_id;
+};
 
 Role.prototype.isAllowed = function (ev) {
   return this.allowEvents.indexOf(ev) >= 0;
@@ -86,20 +96,20 @@ Role.prototype.eventDusk = function () {
 
   for (var u of players) {
     var pname = this.wolf.format_name(u);
-    if (u.id === this.user_id) {
+    if (u.id === this.user_id || u.role.dead) {
       continue;
     }
-    // [chat_id] \/[evname] [user_id] [username]
+    // \/[evname] [user_id] [chat_id]
     keyboard.push([{
       text: pname,
-      callback_data: '/vote ' + u.id + ' ' + pname + ' ' + this.chat_id
+      callback_data: this.makeCommand('vote', u.id, this.chat_id)
     }]);
   }
   
   // not allow skip
   /*keyboard.push([{
     text: 'Skip',
-    callback_data: '/vote 0 * ' + this.chat_id
+    callback_data: this.makeCommand('vote', 0, this.chat_id)
   }]);*/
 
   var self = this;
@@ -159,13 +169,9 @@ Role.prototype.eventCallback = function (time, queue, upd, data) {
 };
 
 Role.defaultCallback = function (queue, upd, data) {
-  let sdata = data.split(' ');
-  if (sdata.length >= 2) {
-    let ev = sdata[0].substr(1)
-    if (this.isAllowed(ev)) {
-      // /ev id priority
-      queue.add(this.player, ev, parseInt(sdata[1]), this.priority);
-    }
+  if (this.isAllowed(data.action)) {
+    // /ev id priority
+    queue.add(this.player, data.action, data.user_id, this.priority);
   }
 };
 
@@ -175,19 +181,16 @@ Role.prototype.eventDayCallback = function (queue, upd, data) {
 
 Role.prototype.eventDuskCallback = function (queue, upd, data) {
   Role.defaultCallback.call(this, queue, upd, data);
-  
-  let sdata = data.split(' ');
+
   let cq = upd.callback_query;
   this.ba.editMessageText({
     chat_id: cq.message.chat.id,
     message_id: cq.message.message_id,
-    text: 'Voted - ' + sdata[2]
+    text: 'Voted - ' + data.name
   });
 };
 
 Role.prototype.eventNightCallback = function (queue, upd, data) {
-  // TODO: add to queue
-  // queue.add('kill', whom);
   Role.defaultCallback.call(this, queue, upd, data);
 };
 

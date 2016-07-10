@@ -7,7 +7,7 @@ class Fool extends Prophet {
     super(wolf, player);
 
     this.id = 'fool';
-    this.name = 'Fool';
+    this.name = this.symbol() + 'Fool';
     this.priority = 1;
 
     this.allowEvents = [ 'vote', 'know' ];

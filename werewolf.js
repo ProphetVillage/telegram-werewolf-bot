@@ -27,7 +27,8 @@ for (var ev of Wolf.Roles.event_list) {
     if (cq && cq.message) {
       var s = followString.split(' ');
       if (s.length > 1) {
-        var chat_id = parseInt(s.pop());
+        // the last one is [chat_id]
+        let chat_id = parseInt(s.pop());
         if (chat_id && chat_id in game_sessions) {
           var wolf = game_sessions[chat_id];
           if (wolf && wolf.status === 'playing') {

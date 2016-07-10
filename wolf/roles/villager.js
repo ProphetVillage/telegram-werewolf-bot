@@ -7,7 +7,7 @@ class Villager extends Role {
     super(wolf, player);
 
     this.id = 'villager';
-    this.name = 'Villager';
+    this.name = this.symbol() + 'Villager';
     this.priority = 0;
 
     this.allowEvents = [ 'vote' ];

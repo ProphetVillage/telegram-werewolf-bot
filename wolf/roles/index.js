@@ -80,7 +80,28 @@ exports.processCallback = function (wolf, upd, followString) {
   let cq = upd.callback_query;
   for (var u of wolf.players) {
     if (u.id === cq.from.id) {
-      u.role.eventCallback(wolf.when, wolf.queue, upd, cq.data);
+      let endOfAction = cq.data.indexOf(' ');
+      if (endOfAction < 0) {
+        break;
+      }
+      let sdata = cq.data.split(' ');
+      if (sdata.length < 3) {
+        break;
+      }
+      let data = {
+        action: sdata[0].substr(1),
+        user_id: parseInt(sdata[1]),
+        chat_id: parseInt(sdata[2]),
+      };
+      if (data.user_id) {
+        data.target = wolf.findPlayer(data.user_id);
+        if (data.target) {
+          data.name = wolf.format_name(data.target);
+        }
+      } else {
+        data.name = 'Skip';
+      }
+      u.role.eventCallback(wolf.when, wolf.queue, upd, data);
       break;
     }
   }

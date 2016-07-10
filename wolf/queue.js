@@ -58,9 +58,13 @@ EventQueue.prototype.finish = function () {
     
     if (max && !maxdup) {
       // vote to dead
-      var target = this.wolf.findPlayer(maxUserId);
-      target.role.dead = true;
-      msg = this.wolf.format_name(target) + ' was voted to die.';
+      var target = this.wolf.findPlayer(parseInt(maxUserId));
+      if (target) {
+        target.role.dead = true;
+        msg = this.wolf.format_name(target) + ' was voted to die.';
+      } else {
+        msg = 'Something went wrong.';
+      }
     } else {
       msg = 'No one has to die.';
     }
