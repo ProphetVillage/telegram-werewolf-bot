@@ -64,7 +64,8 @@ ba.commands.on('start', (upd, followString) => {
   } else {
     let user = upd.message.from;
     wolf = new Wolf(ba, chat_id, {
-      end: game_ended
+      end: game_ended,
+      locale: 'en'
     });
     game_sessions[chat_id] = wolf;
     wolf.join(user);

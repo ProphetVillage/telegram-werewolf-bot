@@ -7,7 +7,7 @@ class Witch extends Role {
     super(wolf, player);
 
     this.id = 'witch';
-    this.name = this.symbol() + 'Witch';
+    this.name = this.i18n.job_name('witch');
     this.priority = 1;
     
     this.pill_cure = 1;

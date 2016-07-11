@@ -7,7 +7,7 @@ class Guardian extends Role {
     super(wolf, player);
 
     this.id = 'guardian';
-    this.name = this.symbol() + 'Guardian';
+    this.name = this.i18n.job_name('guardian');
     this.priority = 3;
 
     this.allowEvents = [ 'vote', 'protect' ];

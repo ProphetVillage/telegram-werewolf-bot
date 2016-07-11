@@ -16,9 +16,10 @@
     "werewolf"
   ],
   "dependencies": {
-    "underscore": "*",
+    "co": "*",
+    "i18n-2": "^0.6.3",
     "request": "*",
-    "co": "*"
+    "underscore": "*"
   },
   "author": "tengattack",
   "license": "GPL-3.0",

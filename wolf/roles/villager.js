@@ -7,7 +7,7 @@ class Villager extends Role {
     super(wolf, player);
 
     this.id = 'villager';
-    this.name = this.symbol() + 'Villager';
+    this.name = this.i18n.job_name('villager');
     this.priority = 0;
 
     this.allowEvents = [ 'vote' ];
@@ -16,7 +16,7 @@ class Villager extends Role {
   eventAnnouncement() {
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'You are a villager.',
+      text: this.i18n.__("villager.announcement"),
     }, (err, r) => {
       if (err) console.log(err);
     });

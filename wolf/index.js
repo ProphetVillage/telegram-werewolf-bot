@@ -5,6 +5,7 @@ const co = require('co');
 
 const EventQueue = require('./queue');
 const game_process = require('./process');
+const i18nJ = require('./../i18n');
 
 const timer_durations = [ 12000, 6000, 4000, 2000 ]; //[ 60000, 30000, 20000, 10000 ];
 const timer_tips = [ '', 'last 1 min, /join', 'last 30 sec, /join', 'last 10 sec, /join' ];
@@ -19,6 +20,7 @@ function Wolf(botapi, chat_id, opts) {
   this.status = 'open'; // 'playing'
   this.day = 0;
   this.when = 'night'; // 'day', 'dusk'
+  this.i18n = new i18nJ(opts.locale ? opts.locale : 'en');
 
   this.itimer = -1;
   this.setStartTimer();

@@ -7,7 +7,7 @@ class Fool extends Prophet {
     super(wolf, player);
 
     this.id = 'fool';
-    this.name = this.symbol() + 'Fool';
+    this.name = this.i18n.job_name('fool');
     this.priority = 1;
 
     this.allowEvents = [ 'vote', 'know' ];

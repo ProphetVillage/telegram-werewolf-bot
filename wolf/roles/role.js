@@ -1,11 +1,10 @@
 'use strict'
 
-const symbol = require('./../../i18n/symbol');
-
 function Role(wolf, player) {
   this.wolf = wolf;
   this.chat_id = wolf.chat_id;
   this.ba = wolf.ba;
+  this.i18n = wolf.i18n;
   this.player = player;
   this.user_id = player.id;
 
@@ -20,10 +19,6 @@ function Role(wolf, player) {
   this.done = false;
   this.allowEvents = [ 'vote' ]; // allowed events' name, such as 'kill'
 }
-
-Role.prototype.symbol = function () {
-  return symbol[this.id];
-};
 
 Role.prototype.makeCommand = function (action, user_id, chat_id) {
   return '/' + action + ' ' + user_id + ' ' + chat_id;
