@@ -22,14 +22,14 @@ var getRandom = function (max = 1, base = 0) {
   return Math.floor(Math.random() * (max + 1 - base) + base);
 };
 
-exports.setRandomRoles = function (wolf, players) {
+exports.setRandomRolesT = function (wolf, players) {
   players[0].role = new Roles.Witch(wolf, players[0]);
   if (players.length > 1) {
     players[1].role = new Roles.Wolf(wolf, players[1]);
   }
 };
 
-exports.setRandomRolesT = function (wolf, players) {
+exports.setRandomRoles = function (wolf, players) {
   // TODO: set player role here
   // for test
   var list = [ 'prophet', 'fool', 'witch', 'guardian' ];
