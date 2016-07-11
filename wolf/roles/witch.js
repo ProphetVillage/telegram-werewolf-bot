@@ -19,7 +19,7 @@ class Witch extends Role {
   eventAnnouncement() {
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'You are a witch, you have two pills. One for curing and another for posisoning.',
+      text: this.i18n.__('witch.announcement'),
     }, (err, r) => {
       if (err) console.log(err);
     });
@@ -112,7 +112,7 @@ class Witch extends Role {
       this.ba.editMessageText({
         chat_id: this.user_id,
         message_id: this.w_message_id,
-        text: 'Timeup!'
+        text: this.i18n.__('common.timeup')
       });
     }
   }

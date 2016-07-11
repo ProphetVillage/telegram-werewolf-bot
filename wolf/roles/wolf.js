@@ -14,13 +14,12 @@ class Wolf extends Role {
   }
 
   action(ev, target, queue) {
-    console.log('action', ev, target.username);
     if (ev === 'bite') {
       // killed
       if (target.role.hasBuff('guard')) {
         this.ba.sendMessage({
           chat_id: target.id,
-          text: 'You have been protected.'
+          text: this.i18n.__('guardian.protected')
         }, (err, r) => {
           if (err) console.log(err);
         });
@@ -117,7 +116,7 @@ class Wolf extends Role {
       this.ba.editMessageText({
         chat_id: this.user_id,
         message_id: this.bite_message_id,
-        text: 'Timeup!'
+        text: this.i18n.__('common.timeup')
       });
     }
   }

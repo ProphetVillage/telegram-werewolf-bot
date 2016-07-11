@@ -14,7 +14,6 @@ class Prophet extends Role {
   }
 
   action(ev, target) {
-    console.log('action', ev, target.username);
     if (ev === 'know') {
       this.ba.sendMessage({
         chat_id: this.user_id,
@@ -28,7 +27,7 @@ class Prophet extends Role {
   eventAnnouncement() {
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'You are a prophet. You can see somebody\'s job.',
+      text: this.i18n.__('prophet.announcement')
     }, (err, r) => {
       if (err) console.log(err);
     });
@@ -72,7 +71,7 @@ class Prophet extends Role {
       this.ba.editMessageText({
         chat_id: this.user_id,
         message_id: this.know_message_id,
-        text: 'Timeup!'
+        text: this.i18n.__('common.timeup')
       });
     }
   }

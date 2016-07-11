@@ -14,18 +14,15 @@ class Guardian extends Role {
   }
   
   action(ev, target, queue) {
-    console.log('action', ev, target.username);
     if (ev === 'protect') {
       target.role.addBuff('guard', 1);
     }
   }
   
   eventAnnouncement() {
-    var msg = 'You are a guardian, you can protect someone from the wolf in night.';
-    
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: msg
+      text: this.i18n.__("guardian.announcement")
     }, (err, r) => {
       if (err) console.log(err);
     });
@@ -72,7 +69,7 @@ class Guardian extends Role {
       this.ba.editMessageText({
         chat_id: this.user_id,
         message_id: this.protect_message_id,
-        text: 'Timeup!'
+        text: this.i18n.__('common.timeup')
       });
     }
   }

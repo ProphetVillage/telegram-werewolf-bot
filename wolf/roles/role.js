@@ -89,7 +89,7 @@ Role.prototype.duskTimeUp = function () {
     this.ba.editMessageText({
       chat_id: this.user_id,
       message_id: this.vote_message_id,
-      text: 'Timeup!'
+      text: this.i18n.__('common.timeup')
     });
   }
   this.novotetimes++;
