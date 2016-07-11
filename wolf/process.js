@@ -31,12 +31,21 @@ function *game_process() {
     this.enter(day, 'night');
     for (var u of this.players) {
       if (!u.role.dead) {
-        u.role.eventNight();
+        u.role.eventNight(this.queue);
       }
     }
     // wait night end
     yield timeout(12000);
     msg = this.runQueue();
+    
+    this.enter(day, 'dawn');
+    for (var u of this.players) {
+      if (!u.role.dead) {
+        u.role.eventDawn(this.queue);
+      }
+    }
+    yield timeout(12000);
+    msg += this.runQueue();
     
     // the next day
     day++;
@@ -44,7 +53,7 @@ function *game_process() {
     yield this.ymessage(msg + 'Day ' + day + ', we have 120s to talk.');
     for (var u of this.players) {
       if (!u.role.dead) {
-        u.role.eventDay();
+        u.role.eventDay(this.queue);
       }
     }
     // wait day end
@@ -56,7 +65,7 @@ function *game_process() {
     yield this.ymessage(msg + 'Sun falling, we have 120s to vote.');
     for (var u of this.players) {
       if (!u.role.dead) {
-        u.role.eventDusk();
+        u.role.eventDusk(this.queue);
       }
     }
     // wait day end

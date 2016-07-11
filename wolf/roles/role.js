@@ -56,7 +56,7 @@ Role.prototype.isAllowed = function (ev) {
   return this.allowEvents.indexOf(ev) >= 0;
 };
 
-Role.prototype.action = function (ev, target) {
+Role.prototype.action = function (ev, target, queue) {
   if (!this.dead) {
     // do something
   }
@@ -78,6 +78,9 @@ Role.prototype.timeUp = function (time) {
       break;
     case 'night':
       this.nightTimeUp();
+      break;
+    case 'dawn':
+      this.dawnTimeUp();
       break;
   }
 };
@@ -105,15 +108,18 @@ Role.prototype.duskTimeUp = function () {
 Role.prototype.nightTimeUp = function () {
 };
 
+Role.prototype.dawnTimeUp = function () {
+};
+
 Role.prototype.eventAnnouncement = function () {
 
 };
 
-Role.prototype.eventDay = function () {
+Role.prototype.eventDay = function (queue) {
 
 };
 
-Role.prototype.eventDusk = function () {
+Role.prototype.eventDusk = function (queue) {
   // default vote
   let players = this.wolf.players;
   let keyboard = [];
@@ -153,7 +159,7 @@ Role.prototype.eventDusk = function () {
   });
 };
 
-Role.prototype.eventNight = function () {
+Role.prototype.eventNight = function (queue) {
   // such as
   /*var self = this;
   // player
@@ -167,6 +173,9 @@ Role.prototype.eventNight = function () {
   }, (err, r) {
     if (err) console.log(err);
   }); */
+};
+
+Role.prototype.eventDawn = function (queue) {
 };
 
 Role.prototype.eventCallback = function (time, queue, upd, data) {
@@ -187,6 +196,9 @@ Role.prototype.eventCallback = function (time, queue, upd, data) {
         break;
       case 'night':
         this.eventNightCallback(queue, upd, data);
+        break;
+      case 'dawn':
+        this.eventDawnCallback(queue, upd, data);
         break;
     }
   }
@@ -215,6 +227,10 @@ Role.prototype.eventDuskCallback = function (queue, upd, data) {
 };
 
 Role.prototype.eventNightCallback = function (queue, upd, data) {
+  Role.defaultCallback.call(this, queue, upd, data);
+};
+
+Role.prototype.eventDawnCallback = function (queue, upd, data) {
   Role.defaultCallback.call(this, queue, upd, data);
 };
 

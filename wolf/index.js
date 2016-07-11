@@ -56,6 +56,12 @@ Wolf.prototype.ymessage = function *(text) {
 Wolf.prototype.enter = function (day, time) {
   this.day = day;
   this.when = time;
+
+  if (time === 'dawn') {
+    // no update after night
+    return;
+  }
+  
   // reset status
   for (var u of this.players) {
     u.role.done = false;
@@ -78,6 +84,7 @@ Wolf.prototype.runQueue = function () {
     }
   }
   msg += this.queue.finish();
+  this.queue.clearQueue();
   return msg ? msg + '\n' : '';
 };
 

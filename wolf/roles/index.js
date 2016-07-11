@@ -9,30 +9,30 @@ var Roles = {
   Prophet: require('./prophet'),
   Fool: require('./fool'),
   Guardian: require('./guardian'),
+  Witch: require('./witch'),
 };
 
 exports.Roles = Roles;
 
 // list of Roles' id
-exports.role_list = [ 'villager', 'wolf', 'prophet', 'fool', 'guardian' ];
-exports.event_list = [ 'vote', 'bite', 'know', 'protect' ];
+exports.role_list = [ 'villager', 'wolf', 'prophet', 'fool', 'guardian', 'witch' ];
+exports.event_list = [ 'vote', 'bite', 'know', 'protect', 'cure', 'poison' ];
 
 var getRandom = function (max = 1, base = 0) {
   return Math.floor(Math.random() * (max + 1 - base) + base);
 };
 
-exports.setRandomRolesTest = function (wolf, players) {
-  players[0].role = new Roles.Guardian(wolf, players[0]);
+exports.setRandomRoles = function (wolf, players) {
+  players[0].role = new Roles.Witch(wolf, players[0]);
   if (players.length > 1) {
     players[1].role = new Roles.Wolf(wolf, players[1]);
   }
 };
 
-exports.setRandomRoles = function (wolf, players) {
+exports.setRandomRolesT = function (wolf, players) {
   // TODO: set player role here
   // for test
-  // var list = [ 'prophet', 'fool', 'witch', 'guardian' ];
-  var list = [ 'prophet', 'fool', 'guardian' ];
+  var list = [ 'prophet', 'fool', 'witch', 'guardian' ];
   var player_count = players.length;
   var roles = [];
   var wolfs;

@@ -13,7 +13,7 @@ class Fool extends Prophet {
     this.allowEvents = [ 'vote', 'know' ];
   }
 
-  action(ev, target) {
+  action(ev, target, queue) {
     console.log('action', ev, target.username);
     if (ev === 'know') {
       let names = [];

@@ -13,7 +13,7 @@ class Wolf extends Role {
     this.allowEvents = [ 'vote', 'bite' ];
   }
 
-  action(ev, target) {
+  action(ev, target, queue) {
     console.log('action', ev, target.username);
     if (ev === 'bite') {
       // killed
@@ -27,12 +27,14 @@ class Wolf extends Role {
         return;
       } else {
         target.role.dead = true;
-        this.ba.sendMessage({
+        queue.addDeath(ev, target);
+        // disable message
+        /*this.ba.sendMessage({
           chat_id: target.id,
           text: 'You have been bitten.'
         }, (err, r) => {
           if (err) console.log(err);
-        });
+        });*/
         return this.wolf.format_name(target) + ' has been bitten.';
       }
     }
@@ -70,15 +72,15 @@ class Wolf extends Role {
     });
   }
 
-  eventNight() {
+  eventNight(queue) {
     let players = this.wolf.players;
     let keyboard = [];
 
     for (var u of players) {
-      var pname = this.wolf.format_name(u);
-      if (u.id === this.user_id || u.role.id === 'wolf') {
+      /*if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
-      }
+      }*/
+      var pname = this.wolf.format_name(u);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,

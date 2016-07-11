@@ -13,7 +13,7 @@ class Guardian extends Role {
     this.allowEvents = [ 'vote', 'protect' ];
   }
   
-  action(ev, target) {
+  action(ev, target, queue) {
     console.log('action', ev, target.username);
     if (ev === 'protect') {
       target.role.addBuff('guard', 1);
@@ -31,7 +31,7 @@ class Guardian extends Role {
     });
   }
   
-  eventNight() {
+  eventNight(queue) {
     let players = this.wolf.players;
     let keyboard = [];
 
