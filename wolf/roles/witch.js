@@ -29,6 +29,10 @@ class Witch extends Role {
     if (ev === 'cure' && this.pill_cure) {
       this.pill_cure = 0;
       target.role.dead = false;
+      
+      let deadPlayers = queue.deadPlayers;
+      deadPlayers.splice(deadPlayers.indexOf(target), 1);
+      
       this.ba.sendMessage({
         chat_id: target.id,
         text: 'You have been cured.'
