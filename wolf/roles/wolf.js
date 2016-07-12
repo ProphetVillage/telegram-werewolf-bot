@@ -40,7 +40,7 @@ class Wolf extends Role {
   };
 
   eventAnnouncement() {
-    var msg = 'You are a wolf, every night you can eat someone.';
+    var msg = this.i18n.__('wolf.announcement');
     
     let players = this.wolf.players;
     var hasotherwolf = 0;
@@ -129,7 +129,7 @@ class Wolf extends Role {
     this.ba.editMessageText({
       chat_id: cq.message.chat.id,
       message_id: cq.message.message_id,
-      text: 'Selected - ' + data.name
+      text: this.i18n.__('common.selected', { name: data.name })
     });
     
     // tell other wolves

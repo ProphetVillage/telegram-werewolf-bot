@@ -1,6 +1,7 @@
 'use strict'
 
 const i18nI = require('i18n-2');
+const S = require('string');
 const symbol = require('./symbol');
 
 function i18nJ(locale) {
@@ -9,9 +10,20 @@ function i18nJ(locale) {
   });
 }
 
-i18nJ.prototype.__ = function (text) {
-  // TODO: add format
-  return this._i18n.__(text);
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+i18nJ.prototype.__ = function (text, values) {
+  var t = this._i18n.__(text);
+  if (t instanceof Array) {
+    // random pick one up
+    t = t[getRandomInt(0, t.length)];
+  }
+  if (values) {
+    t = S(t).template(values).s;
+  }
+  return t;
 };
 
 i18nJ.prototype.job_name = function (job) {

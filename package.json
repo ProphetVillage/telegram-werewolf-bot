@@ -19,6 +19,7 @@
     "co": "*",
     "i18n-2": "^0.6.3",
     "request": "*",
+    "string": "^3.3.1",
     "underscore": "*"
   },
   "author": "tengattack",

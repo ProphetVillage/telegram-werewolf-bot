@@ -217,7 +217,7 @@ Role.prototype.eventDuskCallback = function (queue, upd, data) {
   this.ba.editMessageText({
     chat_id: cq.message.chat.id,
     message_id: cq.message.message_id,
-    text: 'Voted - ' + data.name
+    text: this.i18n.__('common.voted', { name: data.name })
   });
 };
 

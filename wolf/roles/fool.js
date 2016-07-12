@@ -14,7 +14,6 @@ class Fool extends Prophet {
   }
 
   action(ev, target, queue) {
-    console.log('action', ev, target.username);
     if (ev === 'know') {
       let names = [];
       for (var u of this.wolf.players) {

@@ -125,7 +125,7 @@ class Witch extends Role {
     this.ba.editMessageText({
       chat_id: cq.message.chat.id,
       message_id: cq.message.message_id,
-      text: 'Selected - ' + data.name
+      text: this.i18n.__('common.selected', { name: data.name })
     });
   }
 };
