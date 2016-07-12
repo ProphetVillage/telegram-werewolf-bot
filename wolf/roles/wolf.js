@@ -25,6 +25,22 @@ class Wolf extends Role {
         });
         return;
       } else {
+        var msg;
+
+        if (target.role.id === 'drunk') {
+          this.addBuff('drunk', 3);
+          this.ba.sendMessage({
+            chat_id: this.user_id,
+            text: 'balabala.'
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+          // i18n
+          // 'wolf.drunk'?
+          msg = 'balabala';
+        } else {
+          msg = 'balaba';
+        }
         target.role.dead = true;
         queue.addDeath(ev, target);
         // disable message
@@ -34,14 +50,14 @@ class Wolf extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });*/
-        return this.wolf.format_name(target) + ' has been bitten.';
+        return msg;
       }
     }
   };
 
   eventAnnouncement() {
     var msg = this.i18n.__('wolf.announcement');
-    
+
     let players = this.wolf.players;
     var hasotherwolf = 0;
     for (var u of players) {
@@ -56,13 +72,13 @@ class Wolf extends Role {
         hasotherwolf++;
       }
     }
-    
+
     if (hasotherwolf === 1) {
       msg += ' is also wolf.';
     } else if (hasotherwolf > 1) {
       msg += ' are also wolves.';
     }
-    
+
     this.ba.sendMessage({
       chat_id: this.user_id,
       text: msg
@@ -109,7 +125,7 @@ class Wolf extends Role {
       }
     });
   }
-  
+
   nightTimeUp() {
     // TODO: update selections
     if (this.bite_message_id) {
@@ -131,7 +147,7 @@ class Wolf extends Role {
       message_id: cq.message.message_id,
       text: this.i18n.__('common.selected', { name: data.name })
     });
-    
+
     // tell other wolves
     let players = this.wolf.players;
     var mname = this.wolf.format_name(this.player);
