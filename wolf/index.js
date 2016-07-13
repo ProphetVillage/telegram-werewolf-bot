@@ -8,7 +8,7 @@ const game_process = require('./process');
 const i18nJ = require('./../i18n');
 
 const timer_durations = [ 12000, 6000, 4000, 2000 ]; //[ 60000, 30000, 20000, 10000 ];
-const timer_tips = [ '', 'last 1 min, /join', 'last 30 sec, /join', 'last 10 sec, /join' ];
+const timer_tips = [ '', 'game.last_1_min', 'game.last_30_sec', 'game.last_10_sec' ];
 
 function Wolf(botapi, chat_id, opts) {
   this.ba = botapi;
@@ -23,6 +23,7 @@ function Wolf(botapi, chat_id, opts) {
   this.i18n = new i18nJ(opts.locale ? opts.locale : 'en');
 
   this.itimer = -1;
+  this.winner_message = '';
   this.setStartTimer();
 }
 
@@ -74,7 +75,7 @@ Wolf.prototype.runQueue = function () {
   // run time up first
   for (var u of this.players) {
     if (!u.role.dead) {
-      u.role.timeUp(this.when, queue);
+      u.role.timeUp(this.when, this.queue);
     }
   }
   this.queue.finish();
@@ -83,15 +84,34 @@ Wolf.prototype.runQueue = function () {
   msg = this.queue.getDyingMessages();
   
   this.queue.clearQueue();
-  return msg ? msg + '\n' : '';
+  return msg ? msg + '\n\n' : '';
 };
 
 Wolf.prototype.checkEnded = function () {
+  let alive_vill_count = 0;
+  let alive_wolf_count = 0;
+  for (let u of this.players) {
+    if (u.role.dead) {
+      continue;
+    }
+    if (u.role.id === 'wolf') {
+      alive_wolf_count++;
+    } else {
+      alive_vill_count++;
+    }
+  }
+  if (alive_vill_count === 0 && alive_wolf_count > 0) {
+    this.winner_message = 'winner.wolf';
+  } else if (alive_vill_count > 0 && alive_wolf_count === 0) {
+    this.winner_message = 'winner.villager';
+  } else {
+    return false;
+  }
   return true;
 };
 
 Wolf.prototype.findPlayer = function (user_id) {
-  for (var u of this.players) {
+  for (let u of this.players) {
     if (u.id === user_id) {
       return u;
     }
@@ -113,7 +133,7 @@ Wolf.prototype.setStartTimer = function (i) {
     return;
   }
   var tips = timer_tips[i];
-  if (tips) self.message(tips);
+  if (tips) self.message(this.i18n.__(tips));
   this.timer = setTimeout(() => {
     self.setStartTimer(i + 1);
   }, timer_durations[i]);
@@ -135,7 +155,6 @@ Wolf.prototype.updateStartTimer = function (i) {
 Wolf.prototype.start = function () {
   this.timer = null;
   this.status = 'playing';
-  this.message(this.i18n.__('game.start'));
 
   var fn = co.wrap(game_process);
   fn.call(this).then(() => {
@@ -146,7 +165,6 @@ Wolf.prototype.start = function () {
 };
 
 Wolf.prototype.end = function () {
-  this.message('game ended');
   if (this.opts.end) {
     this.opts.end.call(this);
   }

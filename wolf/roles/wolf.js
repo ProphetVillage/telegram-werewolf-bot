@@ -48,10 +48,10 @@ class Wolf extends Role {
       }
     }
 
-    if (wolfs.length === 1) {
-      msg += this.i18n.player_list(wolfs) + ' is also wolf.';
-    } else if (wolfs.length > 1) {
-      msg += this.i18n.player_list(wolfs) + ' are also wolves.';
+    if (wolfs.length > 0) {
+      msg += ' ' + this.i18n.__n('wolf.partner', wolfs.length, {
+        playerlist: player_list(wolfs)
+      });
     }
 
     this.ba.sendMessage({

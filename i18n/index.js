@@ -26,6 +26,10 @@ i18nJ.prototype.__ = function (text, values) {
   return t;
 };
 
+i18nJ.prototype.__n = function (text, count, values) {
+  return this.__(text + (count > 1 ? '.other' : '.one'), values);
+};
+
 i18nJ.prototype.job_name = function (job) {
   return symbol[job] + this._i18n.__(job + '.name');
 };

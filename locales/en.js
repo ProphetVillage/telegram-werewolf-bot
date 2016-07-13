@@ -3,20 +3,36 @@
 		"timeup": "Timeup!",
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
-		"voted_choose": "Now, you can vote to kill someone as suspect."
+		"voted_choose": "Now, you can vote to kill someone as suspect.",
+		"players": "Players:"
 	},
 	"game": {
 		"start": "Game start!",
-    "no_game": "No game, /start",
+		"no_game": "No game, /start",
+		"joined": "{{name}} joined the game, /join",
+		"fail_to_join": "{{name}} failed to join the game.",
+		"fail_to_forcestart": "You can't force start the game.",
 		"too_many_players": "Too many players.",
-		"already_started": "Game already started.",
+		"already_started": "A game already started.",
 		"already_in": "You are already in the game.",
-		"allocate_roles": "Now allocate roles for players.",
-    "start_a_game": "{{name}} started a new game, /join"
+		"allocate_roles": "Now allocating roles for players.",
+		"start_a_game": "{{name}} started a new game, /join",
+		"last_1_min": "last 1 min, /join",
+		"last_30_sec": "last 30 sec, /join",
+		"last_10_sec": "last 10 sec, /join"
 	},
 	"status": {
 		"dead": "Dead",
 		"alive": "Alive"
+	},
+	"scene": {
+		"night": "Tonight, a beautiful night. {{time}}s to wait.",
+		"day": "'Day {{day}}, we have {{time}}s to talk.",
+		"dusk": "Sun falling, we have {{time}}s to vote."
+	},
+	"winner": {
+		"wolf": "Wolf win!",
+		"villager": "Villager win!"
 	},
 	"death": {
 		"vote": "{{name}} was voted to die.",
@@ -33,8 +49,12 @@
 		"announcement": "You are a wolf, every night you can eat someone.",
 		"choose": "This night, you want to eat someone, which one you want?",
 		"drunk_night": "You drunk tonight, nothing to do.",
-    "eat_drunk": "You ate a drunk, you won't able to eat others in next night.",
-		"selected": "{{wolf_name}} selected {{target_name}}"
+		"eat_drunk": "You ate a drunk, you won't able to eat others in next night.",
+		"selected": "{{wolf_name}} selected {{target_name}}",
+		"partner": {
+			"one": "{{playerlist}} is also a wolf.",
+			"other": "{{playerlist}} are also wolves."
+		}
 	},
 	"prophet": {
 		"name": "Prophet",
@@ -49,9 +69,14 @@
 	"witch": {
 		"name": "Witch",
 		"announcement": "You are a witch, you have two pills. One for curing and another for posisoning.",
-    "cured": "You have been cured.",
-    "selection_cure": "Cure {{name}}",
-    "selection_poison": "Poison {{name}}"
+		"cured": "You have been cured.",
+		"selection_cure": "Cure {{name}}",
+		"selection_poison": "Poison {{name}}",
+		"choose_silent_night": "No person dead tonight, do you want to poison someone?",
+		"choose_bloody_night": {
+			"one": "Tonight {{playerlist}} was dead, do you want to cure him/her or poison someone else?",
+			"other": "Tonight {{playerlist}} was dead, do you want to cure one of them or poison someone else?"
+		}
 	},
 	"guardian": {
 		"name": "Guardian",

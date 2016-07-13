@@ -55,7 +55,7 @@ ba.commands.on('start', (upd, followString) => {
     ba.sendMessage({
       chat_id: chat_id,
       reply_to_message_id: upd.message.message_id,
-      text: 'A game already started.',
+      text: wolf.i18n.__('game.already_started'),
     }, (err, result) => {
       if (err) {
         console.log(err);
@@ -95,9 +95,13 @@ ba.commands.on('join', (upd, followString) => {
   } else {
     let r = wolf.join(user);
     if (r === 1) {
-      msg = wolf.i18n.player_name(user) + ' joined the game, /join';
+      msg = wolf.i18n.__('game.joined', {
+        name: wolf.i18n.player_name(user)
+      });
     } else {
-      msg = wolf.i18n.player_name(user) + ' failed to join the game.';
+      msg = wolf.i18n.__('game.fail_to_join', {
+        name: wolf.i18n.player_name(user)
+      });
       if (r) {
         msg += ' ' + r;
       }
@@ -128,7 +132,7 @@ ba.commands.on('forcestart', (upd, followString) => {
     if (wolf.forcestart()) {
       return;
     } else {
-      msg = 'You can\'t force start the game.';
+      msg = wolf.i18n.__('game.fail_to_forcestart');
     }
   } else {
     msg = wolf.i18n.__('game.no_game');

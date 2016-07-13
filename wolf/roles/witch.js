@@ -48,26 +48,26 @@ class Witch extends Role {
     let deadPlayers = queue.deadPlayers;
     let keyboard = [];
     
-    var msg = '';
-    if (deadPlayers.length > 0) {
-      msg += 'Tonight';
-    } else {
-      msg += 'No person dead tonight, '
-    }
-
-    for (var u of deadPlayers) {    
+    for (let u of deadPlayers) {    
+      let pname = this.i18n.player_name(u);
       keyboard.push([{
         text: this.i18n.__('witch.selection_cure', { name: pname }),
         callback_data: this.makeCommand('cure', u.id, this.chat_id)
       }]);
     }
     
-    msg += this.i18n.player_list(deadPlayers);
-    msg += ' were dead, do you want to cure one of them? or';
+    var msg;
+    if (deadPlayers.length > 0) {
+      msg = this.i18n.__n('witch.choose_silent_night', deadPlayers.length, {
+        playerlist: this.i18n.player_list(deadPlayers)
+      });
+    } else {
+      msg = this.i18n.__('witch.choose_silent_night');
+    }
     
-    for (var u of players) {
+    for (let u of players) {
       if (!u.role.dead) {
-        var pname = this.wolf.i18n.player_name(u);
+        let pname = this.wolf.i18n.player_name(u);
         // \/[evname] [user_id] [chat_id]
         keyboard.push([{
           text: this.i18n.__('witch.selection_poison', { name: pname }),
@@ -86,7 +86,7 @@ class Witch extends Role {
     this.w_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: msg + 'do you want to poison someone?',
+      text: msg,
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       }),

@@ -142,7 +142,7 @@ Role.prototype.eventDusk = function (queue) {
   this.vote_message_id = null;
   this.ba.sendMessage({
     chat_id: this.user_id,
-    text: this.i18n.__('common.vote_choose'),
+    text: this.i18n.__('common.voted_choose'),
     reply_markup: JSON.stringify({
       inline_keyboard: keyboard
     }),

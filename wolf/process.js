@@ -13,8 +13,10 @@ function timeout(ms) {
 
 function *game_process() {
   console.log('game_start', this.chat_id);
-  
-  yield this.ymessage(this.i18n.__('game.allocate_roles'));
+
+  yield this.ymessage(this.i18n.__('game.start')
+    + '\n\n'
+    + this.i18n.__('game.allocate_roles'));
   Roles.setRandomRoles(this, this.players);
   
   // announcement
@@ -26,7 +28,8 @@ function *game_process() {
   var msg = '';
   while (true) {
     
-    yield this.ymessage(msg + 'Tonight, a beautiful night. 120s to wait.');
+    yield this.ymessage(msg
+      + this.i18n.__('scene.night', { time: 120 }));
     
     this.enter(day, 'night');
     for (var u of this.players) {
@@ -36,7 +39,7 @@ function *game_process() {
     }
     // wait night end
     yield timeout(12000);
-    msg = this.runQueue();
+    this.runQueue();  // no msg this time
     
     this.enter(day, 'dawn');
     for (var u of this.players) {
@@ -45,12 +48,17 @@ function *game_process() {
       }
     }
     yield timeout(12000);
-    msg += this.runQueue();
+    msg = this.runQueue();
+    
+    if (this.checkEnded()) {
+      break;
+    }
     
     // the next day
     day++;
     this.enter(day, 'day');
-    yield this.ymessage(msg + 'Day ' + day + ', we have 120s to talk.');
+    yield this.ymessage(msg
+      + this.i18n.__('scene.day', { time: 120, day: day }));
     for (var u of this.players) {
       if (!u.role.dead) {
         u.role.eventDay(this.queue);
@@ -60,9 +68,14 @@ function *game_process() {
     yield timeout(12000);
     msg = this.runQueue();
     
+    if (this.checkEnded()) {
+      break;
+    }
+    
     // vote stage
     this.enter(day, 'dusk');
-    yield this.ymessage(msg + 'Sun falling, we have 120s to vote.');
+    yield this.ymessage(msg
+      + this.i18n.__('scene.dusk', { time: 120 }));
     for (var u of this.players) {
       if (!u.role.dead) {
         u.role.eventDusk(this.queue);
@@ -73,22 +86,25 @@ function *game_process() {
     msg = this.runQueue();
     
     if (this.checkEnded()) {
-      
-      // show player list
-      var players = this.getSortedPlayers();
-      var playerlist = 'Players:\n';
-      for (var u of players) {
-        playerlist += this.i18n.player_name(u)
-          + ' ' + u.role.name
-          + ' - ' + (u.role.dead
-            ? this.i18n.__('status.dead')
-            : this.i18n.__('status.alive')) + '\n';
-      }
-      
-      yield this.ymessage(msg + playerlist);
       break;
     }
   }
+  
+  if (msg) yield this.ymessage(msg);
+  
+  // show player list
+  var players = this.getSortedPlayers();
+  var playerlist = this.i18n.__('common.players') + '\n';
+  for (var u of players) {
+    playerlist += this.i18n.player_name(u)
+      + ' ' + u.role.name
+      + ' - ' + (u.role.dead
+        ? this.i18n.__('status.dead')
+        : this.i18n.__('status.alive')) + '\n';
+  }
+  
+  msg = this.i18n.__(this.winner_message);
+  yield this.ymessage(msg + '\n\n' + playerlist);
   
   console.log('game_end', this.chat_id);
 }
