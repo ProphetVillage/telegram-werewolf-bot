@@ -44,17 +44,49 @@ EventQueue.prototype.removeDeath = function (ev, dead) {
   this.death.splice(i, 1);
 };
 
-EventQueue.prototype.finish = function () {
-  if (this.ended) return;
+EventQueue.prototype.processVote = function () {
+  var userlist = {};
+  for (var q of this.queue) {
+    if (q.user_id) {
+      if (!userlist[q.user_id]) {
+        userlist[q.user_id] = 1;
+      } else {
+        userlist[q.user_id]++;
+      }
+    }
+  }
   
-  this.ended = true;
-  var msg = '';
+  var max = 0, maxdup = false;
+  var maxUserId;
+  for (var user_id in userlist) {
+    if (userlist[user_id] > max) {
+      max = userlist[user_id];
+      maxdup = false;
+      maxUserId = user_id;
+    } else if (userlist[user_id] === max) {
+      maxdup = true;
+    }
+  }
   
-  if (this.isVote) {
-    // process vote
-    var userlist = {};
-    for (var q of this.queue) {
-      if (q.user_id) {
+  if (max && !maxdup) {
+    // vote to dead
+    var target = this.wolf.findPlayer(parseInt(maxUserId));
+    if (target) {
+      target.role.endOfLife('vote', null, this);
+    } else {
+      console.log('vote', 'Something went wrong.');
+    }
+  }
+};
+
+EventQueue.prototype.combineQueue = function () {
+  var combine_action_list = [ 'bite' ];
+  for (let ac of combine_action_list) {
+    let userlist = {};
+    for (let i = 0; i < this.queue.length; i++) {
+      let q = this.queue[i];
+      if (q.event === ac && q.user_id) {
+        // check & not skip
         if (!userlist[q.user_id]) {
           userlist[q.user_id] = 1;
         } else {
@@ -65,7 +97,7 @@ EventQueue.prototype.finish = function () {
     
     var max = 0, maxdup = false;
     var maxUserId;
-    for (var user_id in userlist) {
+    for (let user_id in userlist) {
       if (userlist[user_id] > max) {
         max = userlist[user_id];
         maxdup = false;
@@ -75,15 +107,40 @@ EventQueue.prototype.finish = function () {
       }
     }
     
-    if (max && !maxdup) {
-      // vote to dead
-      var target = this.wolf.findPlayer(parseInt(maxUserId));
-      if (target) {
-        target.role.endOfLife('vote', null, this);
-      } else {
-        console.log('vote', 'Something went wrong.');
+    if (maxUserId) {
+      // got
+      maxUserId = parseInt(maxUserId);
+      let saveI = -1;
+      for (let i = 0; i < this.queue.length; i++) {
+        let q = this.queue[i];
+        if (q.event === ac) {
+          if (q.user_id === maxUserId && saveI === -1) {
+            saveI = i;
+          } else {
+            // remove the others
+            this.queue.splice(i, 1);
+            i--;
+          }
+        }
       }
     }
+  }
+};
+
+EventQueue.prototype.finish = function () {
+  if (this.ended) return;
+  
+  this.ended = true;
+  
+  if (this.isVote) {
+    // process vote
+    this.processVote();
+    // only vote
+    return;
+  } else {
+    // process bite/kill/etc...
+    // action need transfer to only one of them
+    this.combineQueue();
   }
 
   // sort by priority

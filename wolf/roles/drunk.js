@@ -27,13 +27,19 @@ class Drunk extends Role {
     
     if (ev === 'bite' && killer) {
       if (killer.role.id === 'wolf') {
-        killer.role.addBuff('drunk', 3);
-        this.ba.sendMessage({
-          chat_id: killer.role.user_id,
-          text: this.i18n.__('wolf.eat_drunk')
-        }, (err, r) => {
-          if (err) console.log(err);
-        });
+        // tell all wolves
+        let players = this.wolf.players;
+        for (let u of players) {
+          if (!u.role.dead && u.role.id === 'wolf') {
+            u.role.addBuff('drunk', 3);
+            this.ba.sendMessage({
+              chat_id: u.role.user_id,
+              text: this.i18n.__('wolf.eat_drunk')
+            }, (err, r) => {
+              if (err) console.log(err);
+            });
+          }
+        }
       }
     }
   }
