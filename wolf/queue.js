@@ -31,6 +31,11 @@ EventQueue.prototype.addDeath = function (ev, dead) {
   this.deadPlayers.push(dead);
 };
 
+EventQueue.prototype.removeDeath = function (ev, dead) {
+  let deadPlayers = this.deadPlayers;
+  deadPlayers.splice(deadPlayers.indexOf(dead), 1);
+};
+
 EventQueue.prototype.finish = function () {
   if (this.ended) return this.msg;
   
@@ -66,8 +71,7 @@ EventQueue.prototype.finish = function () {
       // vote to dead
       var target = this.wolf.findPlayer(parseInt(maxUserId));
       if (target) {
-        target.role.dead = true;
-        this.addDeath('vote', target);
+        target.role.endOfLife('vote', null, this);
         msg = this.wolf.format_name(target) + ' was voted to die.';
       } else {
         msg = 'Something went wrong.';

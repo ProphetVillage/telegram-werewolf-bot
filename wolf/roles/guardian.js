@@ -51,7 +51,7 @@ class Guardian extends Role {
     this.protect_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'This night, do you want to protect someone?',
+      text: this.i18n.__("guardian.choose"),
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       }),

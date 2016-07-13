@@ -22,10 +22,13 @@ class Fool extends Prophet {
         }
         names.push(u.role.name);
       }
-      var name = names[Math.floor(Math.random() * names.length)];
+      var jobname = names[Math.floor(Math.random() * names.length)];
       this.ba.sendMessage({
         chat_id: this.user_id,
-        text: 'You see ' + this.wolf.format_name(target) + ' is ' + name + '.'
+        text: this.i18n.__('fool.see', {
+          name: this.wolf.format_name(target),
+          job: jobname
+        })
       }, (err, r) => {
         if (err) console.log(err);
       });

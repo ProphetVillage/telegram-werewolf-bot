@@ -14,7 +14,7 @@ function timeout(ms) {
 function *game_process() {
   console.log('game_start', this.chat_id);
   
-  yield this.ymessage('Now allocate roles for players.');
+  yield this.ymessage(this.i18n.__('game.allocate_roles'));
   Roles.setRandomRoles(this, this.players);
   
   // announcement
@@ -80,7 +80,9 @@ function *game_process() {
       for (var u of players) {
         playerlist += this.format_name(u)
           + ' ' + u.role.name
-          + ' - ' + (u.role.dead ? 'Dead' : 'Alive') + '\n';
+          + ' - ' + (u.role.dead
+            ? this.i18n.__('status.dead')
+            : this.i18n.__('status.alive')) + '\n';
       }
       
       yield this.ymessage(msg + playerlist);

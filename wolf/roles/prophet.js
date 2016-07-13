@@ -17,7 +17,10 @@ class Prophet extends Role {
     if (ev === 'know') {
       this.ba.sendMessage({
         chat_id: this.user_id,
-        text: 'You see ' + this.wolf.format_name(target) + ' is ' + target.role.name + '.'
+        text: this.i18n.__('prophet.see', {
+          name: this.wolf.format_name(target),
+          job: target.role.name
+        })
       }, (err, r) => {
         if (err) console.log(err);
       });
@@ -53,7 +56,7 @@ class Prophet extends Role {
     this.know_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'Pick someone to ask about.',
+      text: this.i18n.__('prophet.choose'),
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       }),

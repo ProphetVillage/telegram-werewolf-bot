@@ -137,10 +137,9 @@ Wolf.prototype.updateStartTimer = function (i) {
 };
 
 Wolf.prototype.start = function () {
-  // TODO: call co
   this.timer = null;
   this.status = 'playing';
-  this.message('game started');
+  this.message(this.i18n.__('game.start'));
 
   var fn = co.wrap(game_process);
   fn.call(this).then(() => {
@@ -177,11 +176,11 @@ Wolf.prototype.flee = function (user) {
 };
 
 Wolf.prototype.join = function (user) {
-  if (this.players.length >= 35) {
-    return false;
+  if (this.players.length >= 12) {
+    return this.i18n.__('game.too_many_players');
   }
   if (this.status !== 'open') {
-    return false;
+    return this.i18n.__('game.already_started');
   }
   var found = false;
   for (let u of this.players) {
@@ -191,12 +190,11 @@ Wolf.prototype.join = function (user) {
     }
   }
   if (found) {
-    this.message('You are already in the game.');
-    return true;
+    return this.i18n.__('game.already_in');
   }
   this.players.push(user);
   this.updateStartTimer();
-  return true;
+  return 1;
 };
 
 module.exports = Wolf;

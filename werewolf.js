@@ -90,10 +90,16 @@ ba.commands.on('join', (upd, followString) => {
   var wolf = game_sessions[chat_id];
   if (!wolf) {
     msg = 'No game, /start';
-  } else if (wolf.join(user)) {
-    msg = wolf.format_name(user) + ' joined the game, /join';
   } else {
-    msg = wolf.format_name(user) + ' failed to join the game';
+    let r = wolf.join(user);
+    if (r === 1) {
+      msg = wolf.format_name(user) + ' joined the game, /join';
+    } else {
+      msg = wolf.format_name(user) + ' failed to join the game.';
+      if (r) {
+        msg += ' ' + r;
+      }
+    }
   }
   ba.sendMessage({
     chat_id: chat_id,

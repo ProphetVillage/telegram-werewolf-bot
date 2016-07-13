@@ -21,6 +21,22 @@ class Drunk extends Role {
       if (err) console.log(err);
     });
   }
+  
+  endOfLife(ev, killer, queue) {
+    super.endOfLife(ev, killer, queue);
+    
+    if (ev === 'bite' && killer) {
+      if (killer.role.id === 'wolf') {
+        killer.role.addBuff('drunk', 3);
+        this.ba.sendMessage({
+          chat_id: killer.role.user_id,
+          text: 'You ate a drunk, you won\'t able to eat others in next night.'
+        }, (err, r) => {
+          if (err) console.log(err);
+        });
+      }
+    }
+  }
 };
 
 module.exports = Drunk;

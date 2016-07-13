@@ -59,6 +59,11 @@ Role.prototype.action = function (ev, target, queue) {
   return '';
 };
 
+Role.prototype.endOfLife = function (ev, killer, queue) {
+  this.dead = true;
+  queue.addDeath(ev, this.player);
+};
+
 Role.prototype.timeUp = function (time) {
   if (this.done) {
     return;
@@ -96,7 +101,7 @@ Role.prototype.duskTimeUp = function () {
   if (this.novotetimes > 2) {
     this.dead = true;
     var mname = this.wolf.format_name(this.player);
-    return mname + ' hasn\'t voted for 2 times, the god punished him/her.';
+    return this.i18n.__('common.voted_punished');
   }
 };
 
@@ -141,7 +146,7 @@ Role.prototype.eventDusk = function (queue) {
   this.vote_message_id = null;
   this.ba.sendMessage({
     chat_id: this.user_id,
-    text: 'Now, you can vote to kill someone as suspect.',
+    text: this.i18n.__('common.vote_choose'),
     reply_markup: JSON.stringify({
       inline_keyboard: keyboard
     }),

@@ -25,24 +25,7 @@ class Wolf extends Role {
         });
         return;
       } else {
-        var msg;
-
-        if (target.role.id === 'drunk') {
-          this.addBuff('drunk', 3);
-          this.ba.sendMessage({
-            chat_id: this.user_id,
-            text: 'balabala.'
-          }, (err, r) => {
-            if (err) console.log(err);
-          });
-          // i18n
-          // 'wolf.drunk'?
-          msg = 'balabala';
-        } else {
-          msg = 'balaba';
-        }
-        target.role.dead = true;
-        queue.addDeath(ev, target);
+        target.role.endOfLife(ev, this.player, queue);
         // disable message
         /*this.ba.sendMessage({
           chat_id: target.id,
@@ -50,7 +33,7 @@ class Wolf extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });*/
-        return msg;
+        return;
       }
     }
   };
@@ -88,6 +71,14 @@ class Wolf extends Role {
   }
 
   eventNight(queue) {
+    if (this.hasBuff('drunk')) {
+      this.ba.sendMessage({
+        chat_id: this.user_id,
+        text: 'You drunk tonight, nothing to do.'
+      });
+      return;
+    }
+    
     let players = this.wolf.players;
     let keyboard = [];
 
@@ -113,7 +104,7 @@ class Wolf extends Role {
     this.bite_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: 'This night, you want to eat someone, which one you want?',
+      text: this.i18n.__('wolf.choose'),
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       }),

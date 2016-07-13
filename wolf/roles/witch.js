@@ -29,9 +29,7 @@ class Witch extends Role {
     if (ev === 'cure' && this.pill_cure) {
       this.pill_cure = 0;
       target.role.dead = false;
-      
-      let deadPlayers = queue.deadPlayers;
-      deadPlayers.splice(deadPlayers.indexOf(target), 1);
+      queue.removeDeath('cure', target);
       
       this.ba.sendMessage({
         chat_id: target.id,
@@ -42,8 +40,7 @@ class Witch extends Role {
       return this.wolf.format_name(target) + ' has been cured.';
     } else if (ev === 'poison' && this.pill_poison) {
       this.pill_poison = 0;
-      target.role.dead = true;
-      queue.addDeath(ev, target);
+      target.role.endOfLife(ev, this.player, queue);
       return this.wolf.format_name(target) + ' has been poisoned.';
     }
   }
