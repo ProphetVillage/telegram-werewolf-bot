@@ -96,7 +96,7 @@ Role.prototype.duskTimeUp = function (queue) {
     });
   }
   this.novotetimes++;
-  if (this.novotetimes > 2) {
+  if (this.novotetimes >= 2) {
     this.endOfLife('vote_punishment', null, queue);
   }
 };
