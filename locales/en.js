@@ -3,6 +3,7 @@
 		"timeup": "Timeup!",
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
+    "voted_to": "{{name}} voted {{target_name}}",
 		"voted_choose": "Now, you can vote to kill someone as suspect.",
 		"players": "Players:"
 	},

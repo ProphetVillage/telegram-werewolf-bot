@@ -3,6 +3,7 @@
 		"timeup": "时间到！",
 		"selected": "已选择 - {{name}}",
 		"voted": "已投票 - {{name}}",
+    "voted_to": "{{name}} 投了 {{target_name}}",
 		"voted_choose": "现在将进行投票处决一个人。",
 		"players": "玩家："
 	},

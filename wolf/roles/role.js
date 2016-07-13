@@ -220,6 +220,14 @@ Role.prototype.eventDuskCallback = function (queue, upd, data) {
     message_id: cq.message.message_id,
     text: this.i18n.__('common.voted', { name: data.name })
   });
+  
+  this.ba.sendMessage({
+    chat_id: this.chat_id,
+    text: this.i18n.__('common.voted_to', {
+      name: this.i18n.player_name(this.player),
+      target_name: data.name
+    })
+  });
 };
 
 Role.prototype.eventNightCallback = function (queue, upd, data) {
