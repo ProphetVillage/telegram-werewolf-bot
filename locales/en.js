@@ -4,7 +4,6 @@
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
     "voted_choose": "Now, you can vote to kill someone as suspect.",
-    "voted_punished": "{{name}} hasn\'t voted for 2 times, the god punished him/her."
 	},
 	"game": {
 		"start": "Game start!",
@@ -17,6 +16,12 @@
 		"dead": "Dead",
 		"alive": "Alive"
 	},
+  "death": {
+    "vote": "{{name}} was voted to die.",
+    "vote_punishment": "{{name}} hasn\'t voted for 2 times, the god punished him/her.",
+    "bite": "{{name}} has been bitten.",
+    "poison": "{{name}} has been poisoned."
+  },
 	"villager": {
 		"name": "Villager",
 		"announcement": "You are a villager."
@@ -24,7 +29,9 @@
 	"wolf": {
 		"name": "Wolf",
 		"announcement": "You are a wolf, every night you can eat someone.",
-    "choose": "This night, you want to eat someone, which one you want?"
+    "choose": "This night, you want to eat someone, which one you want?",
+    "drunk_night": "You drunk tonight, nothing to do.",
+    "selected": "{{wolf_name}} selected {{target_name}}"
 	},
 	"prophet": {
 		"name": "Prophet",

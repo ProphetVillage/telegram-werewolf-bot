@@ -55,41 +55,39 @@ Role.prototype.action = function (ev, target, queue) {
   if (!this.dead) {
     // do something
   }
-  // msg
-  return '';
 };
 
 Role.prototype.endOfLife = function (ev, killer, queue) {
   this.dead = true;
-  queue.addDeath(ev, this.player);
+  queue.addDeath(ev, this.player, killer);
 };
 
-Role.prototype.timeUp = function (time) {
+Role.prototype.timeUp = function (time, queue) {
   if (this.done) {
     return;
   }
   
   switch (time) {
     case 'day':
-      this.dayTimeUp();
+      this.dayTimeUp(queue);
       break;
     case 'dusk':
-      this.duskTimeUp();
+      this.duskTimeUp(queue);
       break;
     case 'night':
-      this.nightTimeUp();
+      this.nightTimeUp(queue);
       break;
     case 'dawn':
-      this.dawnTimeUp();
+      this.dawnTimeUp(queue);
       break;
   }
 };
 
-Role.prototype.dayTimeUp = function () {
+Role.prototype.dayTimeUp = function (queue) {
 };
 
-Role.prototype.duskTimeUp = function () {
-  // TODO: update vote status
+Role.prototype.duskTimeUp = function (queue) {
+  // update vote status
   if (this.vote_message_id) {
     this.ba.editMessageText({
       chat_id: this.user_id,
@@ -99,16 +97,14 @@ Role.prototype.duskTimeUp = function () {
   }
   this.novotetimes++;
   if (this.novotetimes > 2) {
-    this.dead = true;
-    var mname = this.wolf.format_name(this.player);
-    return this.i18n.__('common.voted_punished');
+    this.endOfLife('vote_punishment', null, queue);
   }
 };
 
-Role.prototype.nightTimeUp = function () {
+Role.prototype.nightTimeUp = function (queue) {
 };
 
-Role.prototype.dawnTimeUp = function () {
+Role.prototype.dawnTimeUp = function (queue) {
 };
 
 Role.prototype.eventAnnouncement = function () {

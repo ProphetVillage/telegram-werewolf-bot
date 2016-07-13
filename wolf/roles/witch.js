@@ -37,11 +37,9 @@ class Witch extends Role {
       }, (err, r) => {
         if (err) console.log(err);
       });
-      return this.wolf.format_name(target) + ' has been cured.';
     } else if (ev === 'poison' && this.pill_poison) {
       this.pill_poison = 0;
       target.role.endOfLife(ev, this.player, queue);
-      return this.wolf.format_name(target) + ' has been poisoned.';
     }
   }
   

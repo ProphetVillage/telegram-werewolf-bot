@@ -6,6 +6,7 @@ function EventQueue(wolf, isVote) {
   this.wolf = wolf;
   this.queue = [];
   this.deadPlayers = [];
+  this.death = [];
   this.ended = false;
   this.isVote = isVote;
 }
@@ -27,17 +28,24 @@ EventQueue.prototype.add = function (from, ev, user_id, priority) {
   }
 };
 
-EventQueue.prototype.addDeath = function (ev, dead) {
+EventQueue.prototype.addDeath = function (ev, dead, killer) {
   this.deadPlayers.push(dead);
+  this.death.push({
+    event: ev,
+    dead: dead,
+    killer: killer
+  });
 };
 
 EventQueue.prototype.removeDeath = function (ev, dead) {
   let deadPlayers = this.deadPlayers;
-  deadPlayers.splice(deadPlayers.indexOf(dead), 1);
+  let i = deadPlayers.indexOf(dead);
+  deadPlayers.splice(i, 1);
+  this.death.splice(i, 1);
 };
 
 EventQueue.prototype.finish = function () {
-  if (this.ended) return this.msg;
+  if (this.ended) return;
   
   this.ended = true;
   var msg = '';
@@ -72,18 +80,10 @@ EventQueue.prototype.finish = function () {
       var target = this.wolf.findPlayer(parseInt(maxUserId));
       if (target) {
         target.role.endOfLife('vote', null, this);
-        msg = this.wolf.format_name(target) + ' was voted to die.';
       } else {
-        msg = 'Something went wrong.';
+        console.log('vote', 'Something went wrong.');
       }
-    } else {
-      msg = 'No one has to die.';
     }
-    
-    msg += '\n';
-    this.msg = msg;
-    
-    return msg;
   }
 
   // sort by priority
@@ -94,16 +94,9 @@ EventQueue.prototype.finish = function () {
       var target = this.wolf.findPlayer(q.user_id);
       if (!target) continue;
       
-      var t_msg = q.from.role.action(q.event, target, this);
-      if (t_msg) {
-        msg += t_msg + '\n';
-      }
+      q.from.role.action(q.event, target, this);
     }
   }
-  
-  this.msg = msg;
-  
-  return msg;
 };
 
 EventQueue.prototype.clearQueue = function () {
@@ -113,6 +106,17 @@ EventQueue.prototype.clearQueue = function () {
 
 EventQueue.prototype.isEnded = function () {
   return this.ended;
+};
+
+EventQueue.prototype.getDyingMessages = function () {
+  let msgs = [];
+  for (let d of this.death) {
+    let __t = this.wolf.i18n.__('death.' + d.event, {
+      name: this.wolf.format_name(d.dead)
+    });
+    if (__t) msgs.push(__t);
+  }
+  return msgs.join('\n');
 };
 
 module.exports = EventQueue;

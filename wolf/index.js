@@ -75,17 +75,17 @@ Wolf.prototype.enter = function (day, time) {
 
 Wolf.prototype.runQueue = function () {
   var msg = '';
-  var __t = '';
   // run time up first
   for (var u of this.players) {
     if (!u.role.dead) {
-      __t = u.role.timeUp(this.when);
-      if (__t) {
-        msg += __t + '\n';
-      }
+      u.role.timeUp(this.when, queue);
     }
   }
-  msg += this.queue.finish();
+  this.queue.finish();
+  
+  // get dying message
+  msg = this.queue.getDyingMessages();
+  
   this.queue.clearQueue();
   return msg ? msg + '\n' : '';
 };

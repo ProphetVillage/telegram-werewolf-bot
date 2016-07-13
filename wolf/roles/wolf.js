@@ -23,7 +23,6 @@ class Wolf extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });
-        return;
       } else {
         target.role.endOfLife(ev, this.player, queue);
         // disable message
@@ -33,7 +32,6 @@ class Wolf extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });*/
-        return;
       }
     }
   };
@@ -74,7 +72,7 @@ class Wolf extends Role {
     if (this.hasBuff('drunk')) {
       this.ba.sendMessage({
         chat_id: this.user_id,
-        text: 'You drunk tonight, nothing to do.'
+        text: this.i18n.__('wolf.drunk_night'),
       });
       return;
     }
@@ -142,7 +140,10 @@ class Wolf extends Role {
     // tell other wolves
     let players = this.wolf.players;
     var mname = this.wolf.format_name(this.player);
-    var msg = mname + ' selected ' + data.name;
+    var msg = this.i18n.__('wolf.selected', {
+      wolf_name: mname,
+      target_name: data.name
+    });
     for (var u of players) {
       if (u.id !== this.user_id && u.role.id === 'wolf') {
         this.ba.sendMessage({
