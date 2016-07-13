@@ -54,7 +54,7 @@
 	"wolf": {
 		"name": "狼人",
 		"announcement": "你是狼人，每晚都想要大开杀戒。",
-		"choose": "又到了吃饭的时间，你想吃谁？",
+		"choose": "又到了吃肉的时间，你想吃谁？",
 		"drunk_night": "还是醉醺醺的，不想吃人。",
 		"eat_drunk": "你吃了个酒鬼，醉了。",
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
