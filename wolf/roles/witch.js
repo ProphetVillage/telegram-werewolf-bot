@@ -33,7 +33,7 @@ class Witch extends Role {
       
       this.ba.sendMessage({
         chat_id: target.id,
-        text: 'You have been cured.'
+        text: this.i18n.__('witch.cured')
       }, (err, r) => {
         if (err) console.log(err);
       });
@@ -61,7 +61,7 @@ class Witch extends Role {
       msg += ', ' + pname;
       
       keyboard.push([{
-        text: 'Cure ' + pname,
+        text: this.i18n.__('witch.selection_cure', { name: pname }),
         callback_data: this.makeCommand('cure', u.id, this.chat_id)
       }]);
     }
@@ -73,7 +73,7 @@ class Witch extends Role {
         var pname = this.wolf.format_name(u);
         // \/[evname] [user_id] [chat_id]
         keyboard.push([{
-          text: 'Poison ' + pname,
+          text: this.i18n.__('witch.selection_poison', { name: pname }),
           callback_data: this.makeCommand('poison', u.id, this.chat_id)
         }]);
       }

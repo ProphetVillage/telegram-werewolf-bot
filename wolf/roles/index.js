@@ -77,6 +77,9 @@ exports.setRandomRolesT = function (wolf, players) {
       case 'guardian':
         player.role = new Roles.Guardian(wolf, player);
         break;
+      case 'drunk':
+        player.role = new Roles.Drunk(wolf, player);
+        break;
       default:
         player.role = new Roles.Villager(wolf, player);
     }

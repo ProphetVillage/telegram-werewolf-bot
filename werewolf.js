@@ -70,7 +70,9 @@ ba.commands.on('start', (upd, followString) => {
     game_sessions[chat_id] = wolf;
     wolf.join(user);
 
-    let msg = wolf.format_name(user) + ' started a new game, /join';
+    let msg = wolf.i18n.__('game.start_a_game', {
+      name: wolf.format_name(user)
+    });
     ba.sendMessage({
       chat_id: chat_id,
       reply_to_message_id: upd.message.message_id,
@@ -89,7 +91,7 @@ ba.commands.on('join', (upd, followString) => {
   let msg;
   var wolf = game_sessions[chat_id];
   if (!wolf) {
-    msg = 'No game, /start';
+    msg = wolf.i18n.__('game.no_game');
   } else {
     let r = wolf.join(user);
     if (r === 1) {
@@ -123,11 +125,13 @@ ba.commands.on('forcestart', (upd, followString) => {
   var wolf = game_sessions[chat_id];
   let msg;
   if (wolf) {
-    if (!wolf.forcestart()) {
+    if (wolf.forcestart()) {
+      return;
+    } else {
       msg = 'You can\'t force start the game.';
     }
   } else {
-    msg = 'No game in process.';
+    msg = wolf.i18n.__('game.no_game');
   }
 
   ba.sendMessage({

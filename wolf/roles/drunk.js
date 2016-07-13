@@ -30,7 +30,7 @@ class Drunk extends Role {
         killer.role.addBuff('drunk', 3);
         this.ba.sendMessage({
           chat_id: killer.role.user_id,
-          text: 'You ate a drunk, you won\'t able to eat others in next night.'
+          text: this.i18n.__('wolf.eat_drunk')
         }, (err, r) => {
           if (err) console.log(err);
         });
