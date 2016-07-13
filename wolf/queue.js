@@ -167,7 +167,11 @@ EventQueue.prototype.isEnded = function () {
 
 EventQueue.prototype.getDyingMessages = function () {
   if (this.death.length <= 0) {
-    return '';
+    if (this.isVote) {
+      return this.wolf.i18n.__('common.voted_flat');
+    } else {
+      return '';
+    }
   }
   let msgs = [];
   for (let d of this.death) {

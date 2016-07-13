@@ -5,6 +5,7 @@
 		"voted": "已投票 - {{name}}",
     "voted_to": "{{name}} 投了 {{target_name}}",
 		"voted_choose": "现在将进行投票处决一个人。",
+    "voted_flat": "平票",
 		"players": "玩家："
 	},
 	"game": {
@@ -76,8 +77,8 @@
 		"see": "你看 {{name}} 是 {{job}}。"
 	},
 	"witch": {
-		"name": "魔女",
-		"announcement": "你是魔女，你有两颗💊，一个能救人，一个能毒人。",
+		"name": "巫女",
+		"announcement": "你是巫女，你有两颗💊，一颗能救人，一颗能毒人。",
 		"cured": "嘴里好像被塞了什么，感觉整个人活了过来。",
 		"selection_cure": "救 {{name}}",
 		"selection_poison": "毒 {{name}}",
