@@ -58,6 +58,7 @@
 		"choose": "又到了吃肉的时间，你想吃谁？",
 		"drunk_night": "还是醉醺醺的，不想吃人。",
 		"eat_drunk": "你吃了个酒鬼，醉了。",
+    "bite_you": "你被好大————的一张嘴吃了，好像很美味的样子。"
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
 		"partner": {
 			"one": "{{playerlist}} 也是一只狼人。",
@@ -76,7 +77,7 @@
 	},
 	"witch": {
 		"name": "魔女",
-		"announcement": "你是魔女，你有两个💊，一个能救人，一个能毒人。",
+		"announcement": "你是魔女，你有两颗💊，一个能救人，一个能毒人。",
 		"cured": "嘴里好像被塞了什么，感觉整个人活了过来。",
 		"selection_cure": "救 {{name}}",
 		"selection_poison": "毒 {{name}}",

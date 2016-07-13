@@ -58,6 +58,7 @@
 		"choose": "This night, you want to eat someone, which one you want?",
 		"drunk_night": "You drunk tonight, nothing to do.",
 		"eat_drunk": "You ate a drunk, you won't able to eat others in next night.",
+    "bite_you": "You have been bitten.",
 		"selected": "{{wolf_name}} selected {{target_name}}",
 		"partner": {
 			"one": "{{playerlist}} is also a wolf.",
