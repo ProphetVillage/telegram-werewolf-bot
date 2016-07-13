@@ -100,7 +100,7 @@ Wolf.prototype.checkEnded = function () {
       alive_vill_count++;
     }
   }
-  if (alive_vill_count === 0 && alive_wolf_count > 0) {
+  if (alive_vill_count <= 1 && alive_wolf_count > 0) {
     this.winner_message = 'winner.wolf';
   } else if (alive_vill_count > 0 && alive_wolf_count === 0) {
     this.winner_message = 'winner.villager';
