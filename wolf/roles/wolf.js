@@ -74,7 +74,10 @@ class Wolf extends Role {
     let players = this.wolf.players;
     let keyboard = [];
 
-    for (var u of players) {
+    for (let u of players) {
+      if (u.role.dead) {
+        continue;
+      }
       if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
       }
