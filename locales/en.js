@@ -20,7 +20,7 @@
 	},
 	"death": {
 		"vote": "{{name}} was voted to die.",
-		"vote_punishment": "{{name}} hasn\'t voted for 2 times, the god punished him/her.",
+		"vote_punishment": "{{name}} hasn\\'t voted for 2 times, the god punished him/her.",
 		"bite": "{{name}} has been bitten.",
 		"poison": "{{name}} has been poisoned."
 	},
