@@ -3,7 +3,7 @@
 		"timeup": "Timeup!",
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
-    "voted_choose": "Now, you can vote to kill someone as suspect.",
+		"voted_choose": "Now, you can vote to kill someone as suspect."
 	},
 	"game": {
 		"start": "Game start!",
@@ -16,12 +16,12 @@
 		"dead": "Dead",
 		"alive": "Alive"
 	},
-  "death": {
-    "vote": "{{name}} was voted to die.",
-    "vote_punishment": "{{name}} hasn\'t voted for 2 times, the god punished him/her.",
-    "bite": "{{name}} has been bitten.",
-    "poison": "{{name}} has been poisoned."
-  },
+	"death": {
+		"vote": "{{name}} was voted to die.",
+		"vote_punishment": "{{name}} hasn\'t voted for 2 times, the god punished him/her.",
+		"bite": "{{name}} has been bitten.",
+		"poison": "{{name}} has been poisoned."
+	},
 	"villager": {
 		"name": "Villager",
 		"announcement": "You are a villager."
@@ -29,14 +29,14 @@
 	"wolf": {
 		"name": "Wolf",
 		"announcement": "You are a wolf, every night you can eat someone.",
-    "choose": "This night, you want to eat someone, which one you want?",
-    "drunk_night": "You drunk tonight, nothing to do.",
-    "selected": "{{wolf_name}} selected {{target_name}}"
+		"choose": "This night, you want to eat someone, which one you want?",
+		"drunk_night": "You drunk tonight, nothing to do.",
+		"selected": "{{wolf_name}} selected {{target_name}}"
 	},
 	"prophet": {
 		"name": "Prophet",
 		"announcement": "You are a prophet. You can see somebody's job.",
-    "choose": "Pick someone to ask about.",
+		"choose": "Pick someone to ask about.",
 		"see": "You see {name} is {job}."
 	},
 	"fool": {
@@ -51,10 +51,10 @@
 		"name": "Guardian",
 		"announcement": "You are a guardian, you can protect someone from the wolf in night.",
 		"protected": "You have been protected.",
-    "choose": "This night, do you want to protect someone?"
+		"choose": "This night, do you want to protect someone?"
 	},
-  "drunk": {
-    "name": "Drunk",
-    "announcement": "You are a drunk, if the wolf eat you, it won't able to eat others in the next night."
-  }
+	"drunk": {
+		"name": "Drunk",
+		"announcement": "You are a drunk, if the wolf eat you, it won't able to eat others in the next night."
+	}
 }
