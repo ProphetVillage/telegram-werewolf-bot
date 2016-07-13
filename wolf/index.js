@@ -104,6 +104,8 @@ Wolf.prototype.checkEnded = function () {
     this.winner_message = 'winner.wolf';
   } else if (alive_vill_count > 0 && alive_wolf_count === 0) {
     this.winner_message = 'winner.villager';
+  } else if (alive_vill_count === 0 && alive_wolf_count === 0) {
+    this.winner_message = 'winner.none';
   } else {
     return false;
   }
@@ -154,6 +156,13 @@ Wolf.prototype.updateStartTimer = function (i) {
 
 Wolf.prototype.start = function () {
   this.timer = null;
+  
+  if (this.players.length < 2) {
+    this.message(this.i18n.__('game.no_enough_person'));
+    this.end();
+    return;
+  }
+  
   this.status = 'playing';
 
   var fn = co.wrap(game_process);
@@ -184,9 +193,25 @@ Wolf.prototype.forcestart = function () {
 };
 
 Wolf.prototype.flee = function (user) {
-  // TODO: check
-
-  return false;
+  var found = false;
+  var i;
+  for (i = 0; i < this.players.length; i++) {
+    let u = this.players[i];
+    if (u.id === user.id) {
+      found = true;
+      break;
+    }
+  }
+  if (found) {
+    if (this.status !== 'open') {
+      return this.i18n.__('game.fail_to_flee');
+    } else {
+      this.players.splice(i, 1);
+      return this.i18n.__('game.fleed');
+    }
+  } else {
+    return this.i18n.__('game.not_in_game');
+  }
 };
 
 Wolf.prototype.join = function (user) {
@@ -209,6 +234,33 @@ Wolf.prototype.join = function (user) {
   this.players.push(user);
   this.updateStartTimer();
   return 1;
+};
+
+Wolf.prototype.getPlayerList = function (showrole) {
+  // show player list
+  var players = this.getSortedPlayers();
+  var playerlist = this.i18n.__('common.players') + '\n';
+  for (var u of players) {
+    playerlist += this.i18n.player_name(u);
+    
+    if (u.role) {
+      if (showrole === 1) {
+        // show dead one
+        if (u.role.dead) {
+          playerlist += ' ' + u.role.name;
+        }
+      } else if (showrole === 2) {
+        // show all
+        playerlist += ' ' + u.role.name;
+      }
+    }
+
+    playerlist += ' - ' + ((u.role && u.role.dead)
+        ? this.i18n.__('status.dead')
+        : this.i18n.__('status.alive')) + '\n';
+  }
+  
+  return playerlist;
 };
 
 module.exports = Wolf;

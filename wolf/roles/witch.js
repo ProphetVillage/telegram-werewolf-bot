@@ -58,7 +58,7 @@ class Witch extends Role {
     
     var msg;
     if (deadPlayers.length > 0) {
-      msg = this.i18n.__n('witch.choose_silent_night', deadPlayers.length, {
+      msg = this.i18n.__n('witch.choose_bloody_night', deadPlayers.length, {
         playerlist: this.i18n.player_list(deadPlayers)
       });
     } else {

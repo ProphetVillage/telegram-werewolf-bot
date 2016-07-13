@@ -12,14 +12,19 @@
 		"joined": "{{name}} joined the game, /join",
 		"fail_to_join": "{{name}} failed to join the game.",
 		"fail_to_forcestart": "You can't force start the game.",
+		"fleed": "You quit the game.",
+		"fail_to_flee": "You can't quit the current game.",
+		"not_in_game": "You are not in the game",
 		"too_many_players": "Too many players.",
 		"already_started": "A game already started.",
 		"already_in": "You are already in the game.",
+		"no_enough_person": "No enough person to start the game.",
 		"allocate_roles": "Now allocating roles for players.",
 		"start_a_game": "{{name}} started a new game, /join",
 		"last_1_min": "last 1 min, /join",
 		"last_30_sec": "last 30 sec, /join",
-		"last_10_sec": "last 10 sec, /join"
+		"last_10_sec": "last 10 sec, /join",
+		"help": "This is help"
 	},
 	"status": {
 		"dead": "Dead",
@@ -27,18 +32,20 @@
 	},
 	"scene": {
 		"night": "Tonight, a beautiful night. {{time}}s to wait.",
-		"day": "'Day {{day}}, we have {{time}}s to talk.",
+		"day": "Day {{day}}, we have {{time}}s to talk.",
 		"dusk": "Sun falling, we have {{time}}s to vote."
 	},
 	"winner": {
 		"wolf": "Wolf win!",
-		"villager": "Villager win!"
+		"villager": "Villager win!",
+		"none": "No one win!"
 	},
 	"death": {
 		"vote": "{{name}} was voted to die.",
 		"vote_punishment": "{{name}} hasn\\'t voted for 2 times, the god punished him/her.",
 		"bite": "{{name}} has been bitten.",
-		"poison": "{{name}} has been poisoned."
+		"poison": "{{name}} has been poisoned.",
+		"silent_night": "A silent night."
 	},
 	"villager": {
 		"name": "Villager",

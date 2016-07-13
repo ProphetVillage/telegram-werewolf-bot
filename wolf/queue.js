@@ -19,9 +19,9 @@ EventQueue.prototype.add = function (from, ev, user_id, priority) {
     priority: priority
   });
   
-  console.log('queue add', ev, user_id);
+  //console.log('queue add', ev, user_id);
   
-  // TODO: discount witch in night
+  // TODO: discount no selection role like witch in night
   if (this.queue.length >= this.wolf.players.length) {
     // all selected, run first
     this.finish();
@@ -109,6 +109,9 @@ EventQueue.prototype.isEnded = function () {
 };
 
 EventQueue.prototype.getDyingMessages = function () {
+  if (this.death.length <= 0) {
+    return '';
+  }
   let msgs = [];
   for (let d of this.death) {
     let __t = this.wolf.i18n.__('death.' + d.event, {
@@ -117,6 +120,10 @@ EventQueue.prototype.getDyingMessages = function () {
     if (__t) msgs.push(__t);
   }
   return msgs.join('\n');
+};
+
+EventQueue.prototype.getDeathCount = function () {
+  return this.death.length;
 };
 
 module.exports = EventQueue;

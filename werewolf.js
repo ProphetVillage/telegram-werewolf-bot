@@ -20,6 +20,27 @@ function game_ended() {
   delete game_sessions[this.chat_id];
 }
 
+ba.setCheck((cmd, upd) => {
+  if (upd.message) {
+    let chat = upd.message.chat;
+    if (!chat) {
+      return true;
+    }
+    if (chat.type === 'group' || chat.type === 'supergroup') {
+      return false;
+    } else {
+      if (cmd !== 'start') {
+        ba.sendMessage({
+          chat_id: chat.id,
+          text: 'Please let me join your group.'
+        });  
+      }
+      return true;
+    }
+  }
+  return false;
+});
+
 // callback commands
 for (var ev of Wolf.Roles.event_list) {
   ba.commands.on(ev, (upd, followString) => {
@@ -48,7 +69,7 @@ for (var ev of Wolf.Roles.event_list) {
 }
 
 // define command
-ba.commands.on('start', (upd, followString) => {
+ba.commands.on('startgame', (upd, followString) => {
   let chat_id = upd.message.chat.id;
   var wolf = game_sessions[chat_id];
   if (wolf) {
@@ -122,6 +143,23 @@ ba.commands.on('flee', (upd, followString) => {
   let chat_id = upd.message.chat.id;
   let user = upd.message.from;
   // TODO
+  var wolf = game_sessions[chat_id];
+  let msg;
+  if (wolf) {
+    msg = wolf.flee(user);
+  } else {
+    msg = wolf.i18n.__('game.no_game');
+  }
+  
+  ba.sendMessage({
+    chat_id: chat_id,
+    reply_to_message_id: upd.message.message_id,
+    text: msg,
+  }, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 });
 
 ba.commands.on('forcestart', (upd, followString) => {
@@ -146,6 +184,44 @@ ba.commands.on('forcestart', (upd, followString) => {
     if (err) {
       console.log(err);
     }
+  });
+});
+
+ba.commands.on('players', (upd, followString) => {
+  let chat_id = upd.message.chat.id;
+  var wolf = game_sessions[chat_id];
+  
+  let msg;
+  if (wolf) {
+    msg = wolf.getPlayerList(1);
+  } else {
+    msg = wolf.i18n.__('game.no_game');
+  }
+  
+  ba.sendMessage({
+    chat_id: chat_id,
+    text: msg,
+  }, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
+ba.commands.on('help', (upd, followString) => {
+  let chat_id = upd.message.chat.id;
+  var wolf = game_sessions[chat_id];
+  
+  let msg;
+  if (wolf) {
+    msg = wolf.i18n.__('game.help');
+  } else {
+    return;
+  }
+  
+  ba.sendMessage({
+    chat_id: chat_id,
+    text: msg,
   });
 });
 

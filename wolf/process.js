@@ -54,6 +54,10 @@ function *game_process() {
       break;
     }
     
+    if (this.queue.getDeathCount() <= 0) {
+      msg += this.wolf.i18n.__('death.silent_night') + '\n\n';
+    }
+    
     // the next day
     day++;
     this.enter(day, 'day');
@@ -91,18 +95,8 @@ function *game_process() {
   }
   
   if (msg) yield this.ymessage(msg);
-  
-  // show player list
-  var players = this.getSortedPlayers();
-  var playerlist = this.i18n.__('common.players') + '\n';
-  for (var u of players) {
-    playerlist += this.i18n.player_name(u)
-      + ' ' + u.role.name
-      + ' - ' + (u.role.dead
-        ? this.i18n.__('status.dead')
-        : this.i18n.__('status.alive')) + '\n';
-  }
-  
+
+  let playerlist = this.getPlayerList(2);
   msg = this.i18n.__(this.winner_message);
   yield this.ymessage(msg + '\n\n' + playerlist);
   
