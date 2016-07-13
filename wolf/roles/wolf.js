@@ -75,9 +75,9 @@ class Wolf extends Role {
     let keyboard = [];
 
     for (var u of players) {
-      /*if (u.id === this.user_id || u.role.id === 'wolf') {
+      if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
-      }*/
+      }
       var pname = this.wolf.i18n.player_name(u);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
