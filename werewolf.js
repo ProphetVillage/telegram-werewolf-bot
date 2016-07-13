@@ -7,9 +7,11 @@ const _ = require('underscore');
 const config = require('./config');
 const BotApi = require('./lib/botapi');
 const Wolf = require('./wolf');
+const i18nJ = require('./i18n');
 
 // chat_id => Wolf class
 var game_sessions = {};
+var def_i18n = new i18nJ('en');
 
 var ba = new BotApi(config.token, {
   proxyUrl: config.proxy,
@@ -86,7 +88,7 @@ ba.commands.on('startgame', (upd, followString) => {
     let user = upd.message.from;
     wolf = new Wolf(ba, chat_id, {
       end: game_ended,
-      locale: 'en'
+      locale: 'zh-CN'
     });
     game_sessions[chat_id] = wolf;
     wolf.join(user);
@@ -112,7 +114,7 @@ ba.commands.on('join', (upd, followString) => {
   let msg;
   var wolf = game_sessions[chat_id];
   if (!wolf) {
-    msg = wolf.i18n.__('game.no_game');
+    msg = def_i18n.__('game.no_game');
   } else {
     let r = wolf.join(user);
     if (r === 1) {
@@ -148,7 +150,7 @@ ba.commands.on('flee', (upd, followString) => {
   if (wolf) {
     msg = wolf.flee(user);
   } else {
-    msg = wolf.i18n.__('game.no_game');
+    msg = def_i18n.__('game.no_game');
   }
   
   ba.sendMessage({
@@ -173,7 +175,7 @@ ba.commands.on('forcestart', (upd, followString) => {
       msg = wolf.i18n.__('game.fail_to_forcestart');
     }
   } else {
-    msg = wolf.i18n.__('game.no_game');
+    msg = def_i18n.__('game.no_game');
   }
 
   ba.sendMessage({
@@ -195,7 +197,7 @@ ba.commands.on('players', (upd, followString) => {
   if (wolf) {
     msg = wolf.getPlayerList(1);
   } else {
-    msg = wolf.i18n.__('game.no_game');
+    msg = def_i18n.__('game.no_game');
   }
   
   ba.sendMessage({
@@ -216,7 +218,7 @@ ba.commands.on('help', (upd, followString) => {
   if (wolf) {
     msg = wolf.i18n.__('game.help');
   } else {
-    return;
+    msg = def_i18n.__('game.help');
   }
   
   ba.sendMessage({

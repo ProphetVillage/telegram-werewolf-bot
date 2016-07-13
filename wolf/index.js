@@ -7,7 +7,7 @@ const EventQueue = require('./queue');
 const game_process = require('./process');
 const i18nJ = require('./../i18n');
 
-const timer_durations = [ 12000, 6000, 4000, 2000 ]; //[ 60000, 30000, 20000, 10000 ];
+const timer_durations = [ 120000, 60000, 30000, 10000 ]; //[ 60000, 30000, 20000, 10000 ];
 const timer_tips = [ '', 'game.last_1_min', 'game.last_30_sec', 'game.last_10_sec' ];
 
 function Wolf(botapi, chat_id, opts) {
