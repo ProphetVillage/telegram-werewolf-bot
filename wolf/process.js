@@ -78,7 +78,7 @@ function *game_process() {
       var players = this.getSortedPlayers();
       var playerlist = 'Players:\n';
       for (var u of players) {
-        playerlist += this.format_name(u)
+        playerlist += this.i18n.player_name(u)
           + ' ' + u.role.name
           + ' - ' + (u.role.dead
             ? this.i18n.__('status.dead')

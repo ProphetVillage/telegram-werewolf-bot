@@ -112,7 +112,7 @@ EventQueue.prototype.getDyingMessages = function () {
   let msgs = [];
   for (let d of this.death) {
     let __t = this.wolf.i18n.__('death.' + d.event, {
-      name: this.wolf.format_name(d.dead)
+      name: this.wolf.i18n.player_name(d.dead)
     });
     if (__t) msgs.push(__t);
   }

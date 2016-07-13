@@ -30,4 +30,17 @@ i18nJ.prototype.job_name = function (job) {
   return symbol[job] + this._i18n.__(job + '.name');
 };
 
+i18nJ.prototype.player_name = function (player) {
+  return player.first_name + (player.last_name ? ' ' + player.last_name : '');
+};
+
+i18nJ.prototype.player_list = function (players) {
+  var s = '';
+  for (let p of players) {
+    if (s) s += ', ';
+    s += this.player_name(p);
+  }
+  return s;
+};
+
 module.exports = i18nJ;

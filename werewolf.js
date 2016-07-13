@@ -71,7 +71,7 @@ ba.commands.on('start', (upd, followString) => {
     wolf.join(user);
 
     let msg = wolf.i18n.__('game.start_a_game', {
-      name: wolf.format_name(user)
+      name: wolf.i18n.player_name(user)
     });
     ba.sendMessage({
       chat_id: chat_id,
@@ -95,9 +95,9 @@ ba.commands.on('join', (upd, followString) => {
   } else {
     let r = wolf.join(user);
     if (r === 1) {
-      msg = wolf.format_name(user) + ' joined the game, /join';
+      msg = wolf.i18n.player_name(user) + ' joined the game, /join';
     } else {
-      msg = wolf.format_name(user) + ' failed to join the game.';
+      msg = wolf.i18n.player_name(user) + ' failed to join the game.';
       if (r) {
         msg += ' ' + r;
       }

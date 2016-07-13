@@ -28,10 +28,6 @@ function Wolf(botapi, chat_id, opts) {
 
 Wolf.Roles = require('./roles');
 
-Wolf.prototype.format_name = function (user) {
-  return user.first_name + (user.last_name ? ' ' + user.last_name : '');
-};
-
 Wolf.prototype.message = function (text) {
   this.ba.sendMessage({
     chat_id: this.chat_id,

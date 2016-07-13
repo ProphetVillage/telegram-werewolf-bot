@@ -108,7 +108,7 @@ exports.processCallback = function (wolf, upd, followString) {
       if (data.user_id) {
         data.target = wolf.findPlayer(data.user_id);
         if (data.target) {
-          data.name = wolf.format_name(data.target);
+          data.name = wolf.i18n.player_name(data.target);
         }
       } else {
         data.name = 'Skip';

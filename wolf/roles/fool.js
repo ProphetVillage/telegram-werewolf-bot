@@ -26,7 +26,7 @@ class Fool extends Prophet {
       this.ba.sendMessage({
         chat_id: this.user_id,
         text: this.i18n.__('fool.see', {
-          name: this.wolf.format_name(target),
+          name: this.wolf.i18n.player_name(target),
           job: jobname
         })
       }, (err, r) => {

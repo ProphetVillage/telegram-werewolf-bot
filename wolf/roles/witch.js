@@ -55,22 +55,19 @@ class Witch extends Role {
       msg += 'No person dead tonight, '
     }
 
-    for (var u of deadPlayers) {
-      var pname = this.wolf.format_name(u);
-      // \/[evname] [user_id] [chat_id]
-      msg += ', ' + pname;
-      
+    for (var u of deadPlayers) {    
       keyboard.push([{
         text: this.i18n.__('witch.selection_cure', { name: pname }),
         callback_data: this.makeCommand('cure', u.id, this.chat_id)
       }]);
     }
     
+    msg += this.i18n.player_list(deadPlayers);
     msg += ' were dead, do you want to cure one of them? or';
     
     for (var u of players) {
       if (!u.role.dead) {
-        var pname = this.wolf.format_name(u);
+        var pname = this.wolf.i18n.player_name(u);
         // \/[evname] [user_id] [chat_id]
         keyboard.push([{
           text: this.i18n.__('witch.selection_poison', { name: pname }),

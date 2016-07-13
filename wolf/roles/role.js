@@ -121,7 +121,7 @@ Role.prototype.eventDusk = function (queue) {
   let keyboard = [];
 
   for (var u of players) {
-    var pname = this.wolf.format_name(u);
+    var pname = this.wolf.i18n.player_name(u);
     if (u.id === this.user_id || u.role.dead) {
       continue;
     }

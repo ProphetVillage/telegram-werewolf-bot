@@ -18,7 +18,7 @@ class Prophet extends Role {
       this.ba.sendMessage({
         chat_id: this.user_id,
         text: this.i18n.__('prophet.see', {
-          name: this.wolf.format_name(target),
+          name: this.wolf.i18n.player_name(target),
           job: target.role.name
         })
       }, (err, r) => {
@@ -41,7 +41,7 @@ class Prophet extends Role {
     let keyboard = [];
 
     for (var u of players) {
-      var pname = this.wolf.format_name(u);
+      var pname = this.wolf.i18n.player_name(u);
       if (u.id === this.user_id || u.role.dead) {
         continue;
       }

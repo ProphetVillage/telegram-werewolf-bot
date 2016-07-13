@@ -41,23 +41,17 @@ class Wolf extends Role {
 
     let players = this.wolf.players;
     var hasotherwolf = 0;
-    for (var u of players) {
+    var wolfs = [];
+    for (let u of players) {
       if (u.id !== this.user_id && u.role.id === 'wolf') {
-        var pname = this.wolf.format_name(u);
-        if (hasotherwolf > 0) {
-          msg += ', ';
-        } else {
-          msg += ' ';
-        }
-        msg += pname;
-        hasotherwolf++;
+        wolfs.push(u);
       }
     }
 
-    if (hasotherwolf === 1) {
-      msg += ' is also wolf.';
-    } else if (hasotherwolf > 1) {
-      msg += ' are also wolves.';
+    if (wolfs.length === 1) {
+      msg += this.i18n.player_list(wolfs) + ' is also wolf.';
+    } else if (wolfs.length > 1) {
+      msg += this.i18n.player_list(wolfs) + ' are also wolves.';
     }
 
     this.ba.sendMessage({
@@ -84,7 +78,7 @@ class Wolf extends Role {
       /*if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
       }*/
-      var pname = this.wolf.format_name(u);
+      var pname = this.wolf.i18n.player_name(u);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,
@@ -139,7 +133,7 @@ class Wolf extends Role {
 
     // tell other wolves
     let players = this.wolf.players;
-    var mname = this.wolf.format_name(this.player);
+    var mname = this.wolf.i18n.player_name(this.player);
     var msg = this.i18n.__('wolf.selected', {
       wolf_name: mname,
       target_name: data.name

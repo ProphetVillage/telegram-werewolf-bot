@@ -33,7 +33,7 @@ class Guardian extends Role {
     let keyboard = [];
 
     for (var u of players) {
-      var pname = this.wolf.format_name(u);
+      var pname = this.wolf.i18n.player_name(u);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,
