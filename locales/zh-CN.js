@@ -77,8 +77,8 @@
 		"see": "你看 {{name}} 是 {{job}}。"
 	},
 	"witch": {
-		"name": "巫女",
-		"announcement": "你是巫女，你有两颗💊，一颗能救人，一颗能毒人。",
+		"name": "女巫",
+		"announcement": "你是女巫，你有两颗💊，一颗能救人，一颗能毒人。",
 		"cured": "嘴里好像被塞了什么，感觉整个人活了过来。",
 		"selection_cure": "救 {{name}}",
 		"selection_poison": "毒 {{name}}",
