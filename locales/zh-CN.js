@@ -11,10 +11,16 @@
 	"game": {
 		"start": "游戏开始！",
 		"no_game": "没有正在进行的游戏，开始一个新游戏 /start",
-		"joined": "{{name}} 加入了这场游戏 /join",
+		"joined": {
+			"one": "{{name}} 加入了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join",
+			"other": "{{name}} 加入了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join"
+		},
 		"fail_to_join": "{{name}} 加入游戏失败。",
 		"fail_to_forcestart": "您现在不能强制开始这场游戏。",
-		"fleed": "您退出了这场游戏。",
+		"fleed": {
+			"one": "您退出了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join",
+			"other": "您退出了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join"
+		},
 		"fail_to_flee": "您不能退出当前已经开始了的游戏。",
 		"not_in_game": "您不在这场游戏之中。",
 		"too_many_players": "玩家总数超过限制。",

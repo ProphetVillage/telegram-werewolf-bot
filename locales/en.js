@@ -11,10 +11,16 @@
 	"game": {
 		"start": "Game start!",
 		"no_game": "No game, /startgame",
-		"joined": "{{name}} joined the game, /join",
+		"joined": {
+      "one": "{{name}} joined the game, current {{current}} player. Maximum {{max}} players, minimum {{min}} players. Now /join",
+      "other": "{{name}} joined the game, current {{current}} players. Maximum {{max}} players, minimum {{min}} players. Now /join"
+    },
 		"fail_to_join": "{{name}} failed to join the game.",
 		"fail_to_forcestart": "You can't force start the game.",
-		"fleed": "You quit the game.",
+		"fleed": {
+      "one": "You quit the game, current {{current}} player. Maximum {{max}} players, minimum {{min}} players. Now /join",
+      "other": "You quit the game, current {{current}} players. Maximum {{max}} players, minimum {{min}} players. Now /join"
+    },
 		"fail_to_flee": "You can't quit the current game.",
 		"not_in_game": "You are not in the game",
 		"too_many_players": "Too many players.",

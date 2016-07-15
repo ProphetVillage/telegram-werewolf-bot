@@ -118,8 +118,11 @@ ba.commands.on('join', (upd, followString) => {
   } else {
     let r = wolf.join(user);
     if (r === 1) {
-      msg = wolf.i18n.__('game.joined', {
-        name: wolf.i18n.player_name(user)
+      msg = wolf.i18n.__n('game.joined', wolf.players.length, {
+        name: wolf.i18n.player_name(user),
+        current: wolf.players.length,
+        max: Wolf.MAX_PLAYERS,
+        min: Wolf.MIN_PLAYERS
       });
     } else {
       msg = wolf.i18n.__('game.fail_to_join', {

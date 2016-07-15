@@ -7,7 +7,7 @@ const EventQueue = require('./queue');
 const game_process = require('./process');
 const i18nJ = require('./../i18n');
 
-const timer_durations = [ 12000, 6000, 4000, 1000 ]; //[ 60000, 30000, 20000, 10000 ];
+const timer_durations = [ 60000, 30000, 20000, 10000 ];   // [ 12000, 6000, 4000, 1000 ];
 const timer_tips = [ '', 'game.last_1_min', 'game.last_30_sec', 'game.last_10_sec' ];
 
 function Wolf(botapi, chat_id, opts) {
@@ -26,6 +26,9 @@ function Wolf(botapi, chat_id, opts) {
   this.winner_message = '';
   this.setStartTimer();
 }
+
+Wolf.MAX_PLAYERS = 12;
+Wolf.MIN_PLAYERS = 2;
 
 Wolf.Roles = require('./roles');
 
@@ -159,7 +162,7 @@ Wolf.prototype.updateStartTimer = function (i) {
 Wolf.prototype.start = function () {
   this.timer = null;
   
-  if (this.players.length < 2) {
+  if (this.players.length < Wolf.MIN_PLAYERS) {
     this.message(this.i18n.__('game.no_enough_person'));
     this.end();
     return;
@@ -185,7 +188,7 @@ Wolf.prototype.forcestart = function () {
   if (this.status !== 'open') {
     return false;
   }
-  if (this.players.length >= 5) {
+  if (this.players.length >= Wolf.MIN_PLAYERS) {
     clearTimeout(this.timer);
     this.start();
     return true;
@@ -209,7 +212,11 @@ Wolf.prototype.flee = function (user) {
       return this.i18n.__('game.fail_to_flee');
     } else {
       this.players.splice(i, 1);
-      return this.i18n.__('game.fleed');
+      return this.i18n.__n('game.fleed', this.players.length, {
+        current: this.players.length,
+        max: Wolf.MAX_PLAYERS,
+        min: Wolf.MIN_PLAYERS
+      });
     }
   } else {
     return this.i18n.__('game.not_in_game');
@@ -217,7 +224,7 @@ Wolf.prototype.flee = function (user) {
 };
 
 Wolf.prototype.join = function (user) {
-  if (this.players.length >= 12) {
+  if (this.players.length >= Wolf.MAX_PLAYERS) {
     return this.i18n.__('game.too_many_players');
   }
   if (this.status !== 'open') {
