@@ -35,7 +35,7 @@ ba.setCheck((cmd, upd) => {
         ba.sendMessage({
           chat_id: chat.id,
           text: 'Please let me join your group.'
-        });  
+        });
       }
       return true;
     }
@@ -73,19 +73,23 @@ for (var ev of Wolf.Roles.event_list) {
 // define command
 ba.commands.on('startgame', (upd, followString) => {
   let chat_id = upd.message.chat.id;
+  let user = upd.message.from;
   var wolf = game_sessions[chat_id];
   if (wolf) {
-    ba.sendMessage({
-      chat_id: chat_id,
-      reply_to_message_id: upd.message.message_id,
-      text: wolf.i18n.__('game.already_started'),
-    }, (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+    if (wolf.status === 'open') {
+      ba.commands.emit('join', upd, followString);
+    } else {
+      ba.sendMessage({
+        chat_id: chat_id,
+        reply_to_message_id: upd.message.message_id,
+        text: wolf.i18n.__('game.already_started'),
+      }, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
   } else {
-    let user = upd.message.from;
     wolf = new Wolf(ba, chat_id, {
       end: game_ended,
       locale: 'zh-CN'
@@ -155,7 +159,7 @@ ba.commands.on('flee', (upd, followString) => {
   } else {
     msg = def_i18n.__('game.no_game');
   }
-  
+
   ba.sendMessage({
     chat_id: chat_id,
     reply_to_message_id: upd.message.message_id,
@@ -195,14 +199,14 @@ ba.commands.on('forcestart', (upd, followString) => {
 ba.commands.on('players', (upd, followString) => {
   let chat_id = upd.message.chat.id;
   var wolf = game_sessions[chat_id];
-  
+
   let msg;
   if (wolf) {
     msg = wolf.getPlayerList(1);
   } else {
     msg = def_i18n.__('game.no_game');
   }
-  
+
   ba.sendMessage({
     chat_id: chat_id,
     text: msg,
@@ -216,14 +220,14 @@ ba.commands.on('players', (upd, followString) => {
 ba.commands.on('help', (upd, followString) => {
   let chat_id = upd.message.chat.id;
   var wolf = game_sessions[chat_id];
-  
+
   let msg;
   if (wolf) {
     msg = wolf.i18n.__('game.help');
   } else {
     msg = def_i18n.__('game.help');
   }
-  
+
   ba.sendMessage({
     chat_id: chat_id,
     text: msg,
