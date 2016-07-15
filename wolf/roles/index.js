@@ -11,12 +11,13 @@ var Roles = {
   Guardian: require('./guardian'),
   Witch: require('./witch'),
   Drunk: require('./drunk'),
+  Elder: require('./elder'),
 };
 
 exports.Roles = Roles;
 
 // list of Roles' id
-exports.role_list = [ 'villager', 'wolf', 'prophet', 'fool', 'guardian', 'witch', 'drunk' ];
+exports.role_list = [ 'villager', 'wolf', 'prophet', 'fool', 'guardian', 'witch', 'drunk', 'elder' ];
 exports.event_list = [ 'vote', 'bite', 'know', 'protect', 'cure', 'poison' ];
 
 var getRandom = function (max = 1, base = 0) {
@@ -24,16 +25,16 @@ var getRandom = function (max = 1, base = 0) {
 };
 
 exports.setRandomRolesT = function (wolf, players) {
-  players[0].role = new Roles.Wolf(wolf, players[0]);
+  players[0].role = new Roles.Elder(wolf, players[0]);
   if (players.length > 1) {
-    players[1].role = new Roles.Witch(wolf, players[1]);
+    players[1].role = new Roles.Wolf(wolf, players[1]);
   }
 };
 
 exports.setRandomRoles = function (wolf, players) {
   // TODO: set player role here
   // for test
-  var list = [ 'prophet', 'fool', 'witch', 'guardian', 'drunk' ];
+  var list = [ 'prophet', 'fool', 'witch', 'guardian', 'drunk', 'elder' ];
   var player_count = players.length;
   var roles = [];
   var wolfs;
@@ -79,6 +80,9 @@ exports.setRandomRoles = function (wolf, players) {
         break;
       case 'drunk':
         player.role = new Roles.Drunk(wolf, player);
+        break;
+      case 'elder':
+        player.role = new Roles.Elder(wolf, player);
         break;
       default:
         player.role = new Roles.Villager(wolf, player);

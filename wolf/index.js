@@ -7,7 +7,7 @@ const EventQueue = require('./queue');
 const game_process = require('./process');
 const i18nJ = require('./../i18n');
 
-const timer_durations = [ 60000, 30000, 20000, 10000 ];
+const timer_durations = [ 12000, 6000, 4000, 1000 ]; //[ 60000, 30000, 20000, 10000 ];
 const timer_tips = [ '', 'game.last_1_min', 'game.last_30_sec', 'game.last_10_sec' ];
 
 function Wolf(botapi, chat_id, opts) {
@@ -90,6 +90,7 @@ Wolf.prototype.runQueue = function () {
 Wolf.prototype.checkEnded = function () {
   let alive_vill_count = 0;
   let alive_wolf_count = 0;
+  let alive_count = 0;
   for (let u of this.players) {
     if (u.role.dead) {
       continue;
@@ -99,8 +100,9 @@ Wolf.prototype.checkEnded = function () {
     } else {
       alive_vill_count++;
     }
+    alive_count++;
   }
-  if (alive_vill_count <= 1 && alive_wolf_count > 0) {
+  if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
     this.winner_message = 'winner.wolf';
   } else if (alive_vill_count > 0 && alive_wolf_count === 0) {
     this.winner_message = 'winner.villager';

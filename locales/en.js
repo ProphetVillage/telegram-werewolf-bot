@@ -3,14 +3,14 @@
 		"timeup": "Timeup!",
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
-    "voted_to": "{{name}} voted {{target_name}}",
+		"voted_to": "{{name}} voted {{target_name}}",
 		"voted_choose": "Now, you can vote to kill someone as suspect.",
-    "voted_flat": "Flat votes",
+		"voted_flat": "Flat votes",
 		"players": "Players:"
 	},
 	"game": {
 		"start": "Game start!",
-		"no_game": "No game, /start",
+		"no_game": "No game, /startgame",
 		"joined": "{{name}} joined the game, /join",
 		"fail_to_join": "{{name}} failed to join the game.",
 		"fail_to_forcestart": "You can't force start the game.",
@@ -59,7 +59,7 @@
 		"choose": "This night, you want to eat someone, which one you want?",
 		"drunk_night": "You drunk tonight, nothing to do.",
 		"eat_drunk": "You ate a drunk, you won't able to eat others in next night.",
-    "bite_you": "You have been bitten.",
+		"bite_you": "You have been bitten.",
 		"selected": "{{wolf_name}} selected {{target_name}}",
 		"partner": {
 			"one": "{{playerlist}} is also a wolf.",
@@ -97,5 +97,11 @@
 	"drunk": {
 		"name": "Drunk",
 		"announcement": "You are a drunk, if the wolf eat you, it won't able to eat others in the next night."
+	},
+	"elder": {
+		"name": "Elder",
+		"announcement": "You are a elder, you can alive in the first time of biting by wolf.",
+		"wisdom_of_elder": "Your wisdom keep you safe in the fight with the wolf.",
+		"shame_of_vote": "You vote the elder, you are a villager now."
 	}
 }

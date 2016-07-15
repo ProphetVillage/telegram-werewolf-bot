@@ -3,9 +3,9 @@
 		"timeup": "时间到！",
 		"selected": "已选择 - {{name}}",
 		"voted": "已投票 - {{name}}",
-    "voted_to": "{{name}} 投了 {{target_name}}",
+		"voted_to": "{{name}} 投了 {{target_name}}",
 		"voted_choose": "现在将进行投票处决一个人。",
-    "voted_flat": "平票",
+		"voted_flat": "平票",
 		"players": "玩家："
 	},
 	"game": {
@@ -59,7 +59,7 @@
 		"choose": "又到了吃肉的时间，你想吃谁？",
 		"drunk_night": "还是醉醺醺的，不想吃人。",
 		"eat_drunk": "你吃了个酒鬼，醉了。",
-    "bite_you": "你被好大————的一张嘴吃了，好像很美味的样子。",
+		"bite_you": "你被好大——的一张嘴吃了，好像很美味的样子。",
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
 		"partner": {
 			"one": "{{playerlist}} 也是一只狼人。",
@@ -97,5 +97,11 @@
 	"drunk": {
 		"name": "酒鬼",
 		"announcement": "你是酒鬼，如果狼吃了你，他明晚将醉得无法吃别人。"
+	},
+	"elder": {
+		"name": "长者",
+		"announcement": "你是长者，自带 +1 命，当狼人第一次咬你的时候，你不会死亡。",
+		"wisdom_of_elder": "长年的智慧让你在于狼人的战斗中幸存了下来。",
+		"shame_of_vote": "你将长者投死了，你现在是村民了！"
 	}
 }

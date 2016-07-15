@@ -25,13 +25,16 @@ class Wolf extends Role {
         });
       } else {
         target.role.endOfLife(ev, this.player, queue);
-        // message target
-        this.ba.sendMessage({
-          chat_id: target.id,
-          text: this.i18n.__('wolf.bite_you')
-        }, (err, r) => {
-          if (err) console.log(err);
-        });
+        
+        if (target.role.dead) {
+          // message target
+          this.ba.sendMessage({
+            chat_id: target.id,
+            text: this.i18n.__('wolf.bite_you')
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+        }
       }
     }
   };
