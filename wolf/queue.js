@@ -5,10 +5,12 @@ const _ = require('underscore');
 function EventQueue(wolf, isVote) {
   this.wolf = wolf;
   this.queue = [];
+  this.voters = [];
   this.deadPlayers = [];
   this.death = [];
   this.ended = false;
   this.isVote = isVote;
+  this.finish_cb = null;
 }
 
 EventQueue.prototype.add = function (from, ev, user_id, priority) {
@@ -22,7 +24,7 @@ EventQueue.prototype.add = function (from, ev, user_id, priority) {
   //console.log('queue add', ev, user_id);
   
   // TODO: discount no selection role like witch in night
-  if (this.queue.length >= this.wolf.players.length) {
+  if (this.queue.length >= this.voters.length) {
     // all selected, run first
     this.finish();
   }
@@ -42,6 +44,14 @@ EventQueue.prototype.removeDeath = function (ev, dead) {
   let i = deadPlayers.indexOf(dead);
   deadPlayers.splice(i, 1);
   this.death.splice(i, 1);
+};
+
+EventQueue.prototype.addVoter = function (voter) {
+  this.voters.push(voter);
+};
+
+EventQueue.prototype.afterFinish = function (fn) {
+  this.finish_cb = fn;
 };
 
 EventQueue.prototype.processVote = function () {
@@ -133,32 +143,36 @@ EventQueue.prototype.finish = function () {
   this.ended = true;
   
   if (this.isVote) {
-    // process vote
+    // process vote, only vote
     this.processVote();
-    // only vote
-    return;
+    
   } else {
     // process bite/kill/etc...
     // action need transfer to only one of them
     this.combineQueue();
-  }
-
-  // sort by priority
-  this.queue = _.sortBy(this.queue, (q) => { return -q.priority });
   
-  for (var q of this.queue) {
-    if (q.user_id && q.from && !q.from.role.dead) {
-      var target = this.wolf.findPlayer(q.user_id);
-      if (!target) continue;
-      
-      q.from.role.action(q.event, target, this);
+    // sort by priority
+    this.queue = _.sortBy(this.queue, (q) => { return -q.priority });
+    
+    for (var q of this.queue) {
+      if (q.user_id && q.from && !q.from.role.dead) {
+        var target = this.wolf.findPlayer(q.user_id);
+        if (!target) continue;
+        
+        q.from.role.action(q.event, target, this);
+      }
     }
+  }
+  
+  if (this.finish_cb) {
+    this.finish_cb.call(this);
   }
 };
 
 EventQueue.prototype.clearQueue = function () {
   this.ended = false;
   this.queue = [];
+  this.voters = [];
 };
 
 EventQueue.prototype.isEnded = function () {

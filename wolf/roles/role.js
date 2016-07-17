@@ -150,6 +150,7 @@ Role.prototype.eventDusk = function (queue) {
   }]);*/
 
   var self = this;
+  queue.addVoter(this.player);
   this.vote_message_id = null;
   this.ba.sendMessage({
     chat_id: this.user_id,

@@ -3,24 +3,24 @@
 		"timeup": "Timeup!",
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
-    "death_lock": "Death Lock",
 		"voted_to": "{{name}} voted {{target_name}}",
 		"voted_choose": "Now, you can vote to kill someone as suspect.",
 		"voted_flat": "Flat votes",
+    "death_lock": "Death Lock",
 		"players": "Players:"
 	},
 	"game": {
 		"start": "Game start!",
 		"no_game": "No game, /startgame",
 		"joined": {
-			"one": "{{name}} joined the game, current {{current}} player. {{max}} maximum, {{min}} minimum. Now /join",
-			"other": "{{name}} joined the game, current {{current}} players. {{max}} maximum, {{min}} minimum. Now /join"
+			"one": "{{name}} joined the game, current <b>{{current}}</b> player. <b>{{max}}</b> maximum, <b>{{min}}</b> minimum. Now /join",
+			"other": "{{name}} joined the game, current <b>{{current}}</b> players. <b>{{max}}</b> maximum, <b>{{min}}</b> minimum. Now /join"
 		},
 		"fail_to_join": "{{name}} failed to join the game.",
 		"fail_to_forcestart": "You can't force start the game.",
 		"fleed": {
-			"one": "You quit the game, current {{current}} player. {{max}} maximum, {{min}} minimum. Now /join",
-			"other": "You quit the game, current {{current}} players. {{max}} maximum, {{min}} minimum. Now /join"
+			"one": "You quit the game, current <b>{{current}}</b> player. <b>{{max}}</b> maximum, <b>{{min}}</b> minimum. Now /join",
+			"other": "You quit the game, current <b>{{current}}</b> players. <b>{{max}}</b> maximum, <b>{{min}}</b> minimum. Now /join"
 		},
 		"fail_to_flee": "You can't quit the current game.",
 		"not_in_game": "You are not in the game",
@@ -30,9 +30,9 @@
 		"no_enough_person": "No enough person to start the game.",
 		"allocate_roles": "Now allocating roles for players.",
 		"start_a_game": "{{name}} started a new game, /join",
-		"last_1_min": "last 1 min, /join",
-		"last_30_sec": "last 30 sec, /join",
-		"last_10_sec": "last 10 sec, /join",
+		"last_1_min": "last <b>1</b> min, /join",
+		"last_30_sec": "last <b>30</b> sec, /join",
+		"last_10_sec": "last <b>10</b> sec, /join",
 		"help": "This is help"
 	},
 	"status": {
@@ -40,9 +40,9 @@
 		"alive": "Alive"
 	},
 	"scene": {
-		"night": "Tonight, a beautiful night. {{time}}s to wait.",
-		"day": "Day {{day}}, we have {{time}}s to talk.",
-		"dusk": "Sun falling, we have {{time}}s to vote."
+		"night": "Tonight, a beautiful night. <b>{{time}}s</b> to wait.",
+		"day": "Day <b>{{day}}</b>, we have <b>{{time}}s</b> to talk.",
+		"dusk": "Sun falling, we have <b>{{time}}s</b> to vote."
 	},
 	"winner": {
 		"wolf": "Wolf win!",
@@ -51,7 +51,7 @@
 	},
 	"death": {
 		"vote": "{{name}} was voted to die.",
-		"vote_punishment": "{{name}} hasn\\'t voted for 2 times, the god punished him/her.",
+		"vote_punishment": "{{name}} hasn\\'t voted for <b>2</b> times, the god punished him/her.",
 		"bite": "{{name}} has been bitten.",
 		"poison": "{{name}} has been poisoned.",
 		"silent_night": "A silent night."

@@ -99,6 +99,7 @@ class Wolf extends Role {
     }]);
 
     var self = this;
+    queue.addVoter(this.player);
     this.event_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,

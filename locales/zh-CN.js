@@ -13,14 +13,14 @@
 		"start": "游戏开始！",
 		"no_game": "没有正在进行的游戏，开始一个新游戏 /startgame",
 		"joined": {
-			"one": "{{name}} 加入了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join",
-			"other": "{{name}} 加入了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join"
+			"one": "{{name}} 加入了这场游戏，当前 <b>{{current}}</b> 名玩家。最多 <b>{{max}}</b> 名玩家，最少 <b>{{min}}</b> 名玩家。现在加入 /join",
+			"other": "{{name}} 加入了这场游戏，当前 <b>{{current}}</b> 名玩家。最多 <b>{{max}}</b> 名玩家，最少 <b>{{min}}</b> 名玩家。现在加入 /join"
 		},
 		"fail_to_join": "{{name}} 加入游戏失败。",
 		"fail_to_forcestart": "您现在不能强制开始这场游戏。",
 		"fleed": {
-			"one": "您退出了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join",
-			"other": "您退出了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join"
+			"one": "您退出了这场游戏，当前 <b>{{current}}</b> 名玩家。最多 <b>{{max}}</b> 名玩家，最少 <b>{{min}}</b> 名玩家。现在加入 /join",
+			"other": "您退出了这场游戏，当前 <b>{{current}}</b> 名玩家。最多 <b>{{max}}</b> 名玩家，最少 <b>{{min}}</b> 名玩家。现在加入 /join"
 		},
 		"fail_to_flee": "您不能退出当前已经开始了的游戏。",
 		"not_in_game": "您不在这场游戏之中。",
@@ -30,9 +30,9 @@
 		"no_enough_person": "没有足够的人数来开始游戏。",
 		"allocate_roles": "现在正在为玩家分配角色。",
 		"start_a_game": "{{name}} 开始了一场新游戏，加入 /join",
-		"last_1_min": "剩余 1 分钟 /join",
-		"last_30_sec": "剩余 30 秒 /join",
-		"last_10_sec": "剩余 10 秒 /join",
+		"last_1_min": "剩余 <b>1</b> 分钟 /join",
+		"last_30_sec": "剩余 <b>30</b> 秒 /join",
+		"last_10_sec": "剩余 <b>10</b> 秒 /join",
 		"help": "帮助是啥，好吃吗"
 	},
 	"status": {
@@ -40,9 +40,9 @@
 		"alive": "存活"
 	},
 	"scene": {
-		"night": "微风的夜晚，似乎有什么事情将要发生。请等待 {{time}} 秒。",
-		"day": "第 {{day}} 天。\n我们有 {{time}} 秒的时间来进行讨论。",
-		"dusk": "太阳下山了，我们需要进行投票。请等待 {{time}} 秒。"
+		"night": "微风的夜晚，似乎有什么事情将要发生。请等待 <b>{{time}}</b> 秒。",
+		"day": "第 <b>{{day}}</b> 天。\n我们有 <b>{{time}}</b> 秒的时间来进行讨论。",
+		"dusk": "太阳下山了，我们需要进行投票。请等待 <b>{{time}}</b> 秒。"
 	},
 	"winner": {
 		"wolf": "狼人胜！",
@@ -51,7 +51,7 @@
 	},
 	"death": {
 		"vote": "{{name}} 被投票处决",
-		"vote_punishment": "{{name}} 有 2 次没有进行投票，上帝决定要惩罚他",
+		"vote_punishment": "{{name}} 有 <b>2</b> 次没有进行投票，上帝决定要惩罚他",
 		"bite": "{{name}} 被咬死了",
 		"poison": "{{name}} 被毒死了",
 		"silent_night": "平安夜"

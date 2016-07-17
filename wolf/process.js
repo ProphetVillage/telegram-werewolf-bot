@@ -3,11 +3,20 @@
 const _ = require('underscore');
 const Roles = require('./roles');
 
-function timeout(ms) {
+function timeout(ms, queue) {
   return new Promise(function (resolve, reject) {
-    setTimeout(() => {
+    var d = false;
+    var __t = setTimeout(() => {
+      d = true;
       resolve();
     }, ms);
+    queue.afterFinish(() => {
+      if (d) {
+        return;
+      }
+      clearTimeout(__t);
+      resolve();
+    });
   });
 }
 
@@ -38,7 +47,7 @@ function *game_process() {
       }
     }
     // wait night end
-    yield timeout(60000);
+    yield timeout(60000, this.queue);
     this.runQueue();  // no msg this time
     
     this.enter(day, 'dawn');
@@ -47,7 +56,7 @@ function *game_process() {
         u.role.eventDawn(this.queue);
       }
     }
-    yield timeout(30000);
+    yield timeout(30000, this.queue);
     msg = this.runQueue();
     
     if (this.checkEnded()) {
@@ -69,7 +78,7 @@ function *game_process() {
       }
     }
     // wait day end
-    yield timeout(90000);
+    yield timeout(90000, this.queue);
     msg = this.runQueue();
     
     if (this.checkEnded()) {
@@ -86,7 +95,7 @@ function *game_process() {
       }
     }
     // wait day end
-    yield timeout(90000);
+    yield timeout(90000, this.queue);
     msg = this.runQueue();
     
     if (this.checkEnded()) {
