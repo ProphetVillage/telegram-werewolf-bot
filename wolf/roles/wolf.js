@@ -99,7 +99,7 @@ class Wolf extends Role {
     }]);
 
     var self = this;
-    this.bite_message_id = null;
+    this.event_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
       text: this.i18n.__('wolf.choose'),
@@ -110,17 +110,17 @@ class Wolf extends Role {
       if (err) {
         console.log(err);
       } else {
-        self.bite_message_id = r.message_id;
+        self.event_message_id = r.message_id;
       }
     });
   }
 
   nightTimeUp() {
     // TODO: update selections
-    if (this.bite_message_id) {
+    if (this.event_message_id) {
       this.ba.editMessageText({
         chat_id: this.user_id,
-        message_id: this.bite_message_id,
+        message_id: this.event_message_id,
         text: this.i18n.__('common.timeup')
       });
     }

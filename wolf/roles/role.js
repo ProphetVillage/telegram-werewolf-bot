@@ -14,6 +14,9 @@ function Role(wolf, player) {
   this.dead = false;
   this.novotetimes = 0;
   this.buff = {};
+  
+  // event message
+  this.event_message_id = null;
 
   // event done flag, refresh every event time
   this.done = false;
@@ -60,6 +63,14 @@ Role.prototype.action = function (ev, target, queue) {
 Role.prototype.endOfLife = function (ev, killer, queue) {
   this.dead = true;
   queue.addDeath(ev, this.player, killer);
+  
+  if (this.event_message_id) {
+    this.ba.editMessageText({
+      chat_id: this.user_id,
+      message_id: this.event_message_id,
+      text: this.i18n.__('common.death_lock')
+    });
+  }
 };
 
 Role.prototype.timeUp = function (time, queue) {

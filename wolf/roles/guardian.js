@@ -48,7 +48,7 @@ class Guardian extends Role {
     }]);
 
     var self = this;
-    this.protect_message_id = null;
+    this.event_message_id = null;
     this.ba.sendMessage({
       chat_id: this.user_id,
       text: this.i18n.__("guardian.choose"),
@@ -59,16 +59,16 @@ class Guardian extends Role {
       if (err) {
         console.log(err);
       } else {
-        self.protect_message_id = r.message_id;
+        self.event_message_id = r.message_id;
       }
     });
   }
   
   nightTimeUp() {
-    if (this.protect_message_id) {
+    if (this.event_message_id) {
       this.ba.editMessageText({
         chat_id: this.user_id,
-        message_id: this.protect_message_id,
+        message_id: this.event_message_id,
         text: this.i18n.__('common.timeup')
       });
     }

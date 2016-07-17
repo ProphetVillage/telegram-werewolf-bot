@@ -3,6 +3,7 @@
 		"timeup": "Timeup!",
 		"selected": "Selected - {{name}}",
 		"voted": "Voted - {{name}}",
+    "death_lock": "Death Lock",
 		"voted_to": "{{name}} voted {{target_name}}",
 		"voted_choose": "Now, you can vote to kill someone as suspect.",
 		"voted_flat": "Flat votes",
@@ -12,14 +13,14 @@
 		"start": "Game start!",
 		"no_game": "No game, /startgame",
 		"joined": {
-			"one": "{{name}} joined the game, current {{current}} player. Maximum {{max}} players, minimum {{min}} players. Now /join",
-			"other": "{{name}} joined the game, current {{current}} players. Maximum {{max}} players, minimum {{min}} players. Now /join"
+			"one": "{{name}} joined the game, current {{current}} player. {{max}} maximum, {{min}} minimum. Now /join",
+			"other": "{{name}} joined the game, current {{current}} players. {{max}} maximum, {{min}} minimum. Now /join"
 		},
 		"fail_to_join": "{{name}} failed to join the game.",
 		"fail_to_forcestart": "You can't force start the game.",
 		"fleed": {
-			"one": "You quit the game, current {{current}} player. Maximum {{max}} players, minimum {{min}} players. Now /join",
-			"other": "You quit the game, current {{current}} players. Maximum {{max}} players, minimum {{min}} players. Now /join"
+			"one": "You quit the game, current {{current}} player. {{max}} maximum, {{min}} minimum. Now /join",
+			"other": "You quit the game, current {{current}} players. {{max}} maximum, {{min}} minimum. Now /join"
 		},
 		"fail_to_flee": "You can't quit the current game.",
 		"not_in_game": "You are not in the game",
