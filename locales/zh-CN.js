@@ -11,7 +11,7 @@
 	},
 	"game": {
 		"start": "游戏开始！",
-		"no_game": "没有正在进行的游戏，开始一个新游戏 /start",
+		"no_game": "没有正在进行的游戏，开始一个新游戏 /startgame",
 		"joined": {
 			"one": "{{name}} 加入了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join",
 			"other": "{{name}} 加入了这场游戏，当前 {{current}} 名玩家。最多 {{max}} 名玩家，最少 {{min}} 名玩家。现在加入 /join"

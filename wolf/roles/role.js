@@ -64,7 +64,7 @@ Role.prototype.endOfLife = function (ev, killer, queue) {
   this.dead = true;
   queue.addDeath(ev, this.player, killer);
   
-  if (this.event_message_id) {
+  if (this.done && this.event_message_id) {
     this.ba.editMessageText({
       chat_id: this.user_id,
       message_id: this.event_message_id,
