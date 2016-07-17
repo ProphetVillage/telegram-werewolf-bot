@@ -35,7 +35,15 @@ i18nJ.prototype.job_name = function (job) {
 };
 
 i18nJ.prototype.player_name = function (player) {
-  return player.first_name + (player.last_name ? ' ' + player.last_name : '');
+  var name = S(player.first_name + (player.last_name ? ' ' + player.last_name : '')).escapeHTML().s;
+  var pn;
+  if (player.username) {
+    var url = 'http://telegram.me/' + player.username;
+    pn = `<a href="${url}">${name}</a>`;
+  } else {
+    pn = `<b>${name}</b>`;
+  }
+  return pn;
 };
 
 i18nJ.prototype.player_list = function (players) {
