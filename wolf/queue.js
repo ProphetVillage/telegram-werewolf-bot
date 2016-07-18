@@ -20,9 +20,9 @@ EventQueue.prototype.add = function (from, ev, user_id, priority) {
     user_id: user_id,
     priority: priority
   });
-  
+
   //console.log('queue add', ev, user_id);
-  
+
   // TODO: discount no selection role like witch in night
   if (this.queue.length >= this.voters.length) {
     // all selected, run first
@@ -65,7 +65,7 @@ EventQueue.prototype.processVote = function () {
       }
     }
   }
-  
+
   var max = 0, maxdup = false;
   var maxUserId;
   for (var user_id in userlist) {
@@ -77,7 +77,7 @@ EventQueue.prototype.processVote = function () {
       maxdup = true;
     }
   }
-  
+
   if (max && !maxdup) {
     // vote to dead
     var target = this.wolf.findPlayer(parseInt(maxUserId));
@@ -104,7 +104,7 @@ EventQueue.prototype.combineQueue = function () {
         }
       }
     }
-    
+
     var max = 0, maxdup = false;
     var maxUserId;
     for (let user_id in userlist) {
@@ -116,7 +116,7 @@ EventQueue.prototype.combineQueue = function () {
         maxdup = true;
       }
     }
-    
+
     if (maxUserId) {
       // got
       maxUserId = parseInt(maxUserId);
@@ -139,31 +139,31 @@ EventQueue.prototype.combineQueue = function () {
 
 EventQueue.prototype.finish = function () {
   if (this.ended) return;
-  
+
   this.ended = true;
-  
+
   if (this.isVote) {
     // process vote, only vote
     this.processVote();
-    
+
   } else {
     // process bite/kill/etc...
     // action need transfer to only one of them
     this.combineQueue();
-  
+
     // sort by priority
     this.queue = _.sortBy(this.queue, (q) => { return -q.priority });
-    
+
     for (var q of this.queue) {
       if (q.user_id && q.from && !q.from.role.dead) {
         var target = this.wolf.findPlayer(q.user_id);
         if (!target) continue;
-        
+
         q.from.role.action(q.event, target, this);
       }
     }
   }
-  
+
   if (this.finish_cb) {
     this.finish_cb.call(this);
   }

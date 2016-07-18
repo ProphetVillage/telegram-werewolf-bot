@@ -25,7 +25,7 @@ class Wolf extends Role {
         });
       } else {
         target.role.endOfLife(ev, this.player, queue);
-        
+
         if (target.role.dead) {
           // message target
           this.ba.sendMessage({
@@ -73,7 +73,7 @@ class Wolf extends Role {
       });
       return;
     }
-    
+
     let players = this.wolf.players;
     let keyboard = [];
 
@@ -84,7 +84,7 @@ class Wolf extends Role {
       if (u.id === this.user_id || u.role.id === 'wolf') {
         continue;
       }
-      var pname = this.wolf.i18n.player_name(u);
+      var pname = this.wolf.i18n.player_name(u, true);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,

@@ -41,7 +41,7 @@ class Prophet extends Role {
     let keyboard = [];
 
     for (var u of players) {
-      var pname = this.wolf.i18n.player_name(u);
+      var pname = this.wolf.i18n.player_name(u, true);
       if (u.id === this.user_id || u.role.dead) {
         continue;
       }

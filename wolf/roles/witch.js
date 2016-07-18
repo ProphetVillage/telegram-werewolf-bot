@@ -9,13 +9,13 @@ class Witch extends Role {
     this.id = 'witch';
     this.name = this.i18n.job_name('witch');
     this.priority = 1;
-    
+
     this.pill_cure = 1;
     this.pill_poison = 1;
 
     this.allowEvents = [ 'vote', 'cure', 'poison' ];
   }
-  
+
   eventAnnouncement() {
     this.ba.sendMessage({
       chat_id: this.user_id,
@@ -24,13 +24,13 @@ class Witch extends Role {
       if (err) console.log(err);
     });
   }
-  
+
   action(ev, target, queue) {
     if (ev === 'cure' && this.pill_cure) {
       this.pill_cure = 0;
       target.role.dead = false;
       queue.removeDeath('cure', target);
-      
+
       this.ba.sendMessage({
         chat_id: target.id,
         text: this.i18n.__('witch.cured')
@@ -42,20 +42,20 @@ class Witch extends Role {
       target.role.endOfLife(ev, this.player, queue);
     }
   }
-  
+
   eventDawn(queue) {
     let players = this.wolf.players;
     let deadPlayers = queue.deadPlayers;
     let keyboard = [];
-    
-    for (let u of deadPlayers) {    
-      let pname = this.i18n.player_name(u);
+
+    for (let u of deadPlayers) {
+      let pname = this.i18n.player_name(u, true);
       keyboard.push([{
         text: this.i18n.__('witch.selection_cure', { name: pname }),
         callback_data: this.makeCommand('cure', u.id, this.chat_id)
       }]);
     }
-    
+
     var msg;
     if (deadPlayers.length > 0) {
       msg = this.i18n.__n('witch.choose_bloody_night', deadPlayers.length, {
@@ -64,10 +64,10 @@ class Witch extends Role {
     } else {
       msg = this.i18n.__('witch.choose_silent_night');
     }
-    
+
     for (let u of players) {
       if (!u.role.dead) {
-        let pname = this.wolf.i18n.player_name(u);
+        let pname = this.wolf.i18n.player_name(u, true);
         // \/[evname] [user_id] [chat_id]
         keyboard.push([{
           text: this.i18n.__('witch.selection_poison', { name: pname }),
@@ -75,7 +75,7 @@ class Witch extends Role {
         }]);
       }
     }
-    
+
     // skip
     keyboard.push([{
       text: 'Skip',
@@ -99,7 +99,7 @@ class Witch extends Role {
       }
     });
   }
-  
+
   dawnTimeUp() {
     if (this.event_message_id) {
       this.ba.editMessageText({
@@ -109,7 +109,7 @@ class Witch extends Role {
       });
     }
   }
-  
+
   eventDawnCallback(queue, upd, data) {
     super.eventDawnCallback(queue, upd, data);
 

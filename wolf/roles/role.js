@@ -14,7 +14,7 @@ function Role(wolf, player) {
   this.dead = false;
   this.novotetimes = 0;
   this.buff = {};
-  
+
   // event message
   this.event_message_id = null;
 
@@ -63,7 +63,7 @@ Role.prototype.action = function (ev, target, queue) {
 Role.prototype.endOfLife = function (ev, killer, queue) {
   this.dead = true;
   queue.addDeath(ev, this.player, killer);
-  
+
   if (this.done && this.event_message_id) {
     this.ba.editMessageText({
       chat_id: this.user_id,
@@ -77,7 +77,7 @@ Role.prototype.timeUp = function (time, queue) {
   if (this.done) {
     return;
   }
-  
+
   switch (time) {
     case 'day':
       this.dayTimeUp(queue);
@@ -132,7 +132,7 @@ Role.prototype.eventDusk = function (queue) {
   let keyboard = [];
 
   for (var u of players) {
-    var pname = this.wolf.i18n.player_name(u);
+    var pname = this.wolf.i18n.player_name(u, true);
     if (u.id === this.user_id || u.role.dead) {
       continue;
     }
@@ -142,7 +142,7 @@ Role.prototype.eventDusk = function (queue) {
       callback_data: this.makeCommand('vote', u.id, this.chat_id)
     }]);
   }
-  
+
   // not allow skip
   /*keyboard.push([{
     text: 'Skip',
@@ -232,7 +232,7 @@ Role.prototype.eventDuskCallback = function (queue, upd, data) {
     message_id: cq.message.message_id,
     text: this.i18n.__('common.voted', { name: data.name })
   });
-  
+
   this.ba.sendMessage({
     chat_id: this.chat_id,
     text: this.i18n.__('common.voted_to', {

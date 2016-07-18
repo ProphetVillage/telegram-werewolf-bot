@@ -12,13 +12,13 @@ class Guardian extends Role {
 
     this.allowEvents = [ 'vote', 'protect' ];
   }
-  
+
   action(ev, target, queue) {
     if (ev === 'protect') {
       target.role.addBuff('guard', 1);
     }
   }
-  
+
   eventAnnouncement() {
     this.ba.sendMessage({
       chat_id: this.user_id,
@@ -27,13 +27,13 @@ class Guardian extends Role {
       if (err) console.log(err);
     });
   }
-  
+
   eventNight(queue) {
     let players = this.wolf.players;
     let keyboard = [];
 
     for (var u of players) {
-      var pname = this.wolf.i18n.player_name(u);
+      var pname = this.wolf.i18n.player_name(u, true);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
         text: pname,
@@ -64,7 +64,7 @@ class Guardian extends Role {
       }
     });
   }
-  
+
   nightTimeUp() {
     if (this.event_message_id) {
       this.ba.editMessageText({
@@ -74,7 +74,7 @@ class Guardian extends Role {
       });
     }
   }
-  
+
   eventNightCallback(queue, upd, data) {
     super.eventNightCallback(queue, upd, data);
 

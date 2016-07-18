@@ -63,7 +63,7 @@ Wolf.prototype.enter = function (day, time) {
     // no update after night
     return;
   }
-  
+
   // reset status
   for (var u of this.players) {
     u.role.done = false;
@@ -82,10 +82,10 @@ Wolf.prototype.runQueue = function () {
     }
   }
   this.queue.finish();
-  
+
   // get dying message
   msg = this.queue.getDyingMessages();
-  
+
   this.queue.clearQueue();
   return msg ? msg + '\n\n' : '';
 };
@@ -161,13 +161,13 @@ Wolf.prototype.updateStartTimer = function (i) {
 
 Wolf.prototype.start = function () {
   this.timer = null;
-  
+
   if (this.players.length < Wolf.MIN_PLAYERS) {
     this.message(this.i18n.__('game.no_enough_person'));
     this.end();
     return;
   }
-  
+
   this.status = 'playing';
 
   var fn = co.wrap(game_process);
@@ -251,7 +251,7 @@ Wolf.prototype.getPlayerList = function (showrole) {
   var playerlist = this.i18n.__('common.players') + '\n';
   for (var u of players) {
     playerlist += this.i18n.player_name(u);
-    
+
     if (u.role) {
       if (showrole === 1) {
         // show dead one
@@ -268,7 +268,7 @@ Wolf.prototype.getPlayerList = function (showrole) {
         ? this.i18n.__('status.dead')
         : this.i18n.__('status.alive')) + '\n';
   }
-  
+
   return playerlist;
 };
 
