@@ -1,6 +1,6 @@
 'use strict';
 
-const Villager = require('./villager');
+const Role = require('./role');
 
 class Mason extends Role {
   constructor(wolf, player) {

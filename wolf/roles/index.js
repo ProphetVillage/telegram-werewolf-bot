@@ -38,28 +38,31 @@ exports.setRandomRoles = function (wolf, players) {
   var list = [ 'prophet', 'fool', 'witch', 'guardian', 'drunk', 'elder', 'mason' ];
   var player_count = players.length;
   var roles = [];
-  var wolfs;
-  var villagers;
+  var other_list = {
+    wolf: 0,
+    villager: 0,
+    mason: 0
+  };
 
   if (player_count < 7) {
-    wolfs = 1;
-    villagers = 1;
+    other_list.wolf = 1;
+    other_list.villager = 1;
+    other_list.mason = getRandom(2, 0);
   } else if (player_count < 10) {
-    wolfs = getRandom(2, 1);
-    villagers = 2;
+    other_list.wolf = getRandom(2, 1);
+    other_list.villager = 2;
+    other_list.mason = getRandom(3, 1);
   } else {
-    wolfs = getRandom(3, 2);
-    villagers = getRandom(3, 2);
+    other_list.wolf = getRandom(3, 2);
+    other_list.villager = getRandom(3, 2);
+    other_list.mason = getRandom(4, 2);
   }
 
-  for (let count of _.range(wolfs)) {
-    roles.push('wolf');
-    player_count -= 1;
-  }
-
-  for (let count of _.range(villagers)) {
-    roles.push('villager');
-    player_count -= 1;
+  for (let r in other_list) {
+    for (let count of _.range(other_list[r])) {
+      roles.push(r);
+      player_count -= 1;
+    }
   }
 
   for (let count of _.range(player_count)) {
