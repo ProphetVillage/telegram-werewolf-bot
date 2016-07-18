@@ -38,13 +38,17 @@ exports.setRandomRoles = function (wolf, players) {
   var player_count = players.length;
   var roles = [];
   var wolfs;
+  var villagers;
 
   if (player_count < 7) {
     wolfs = 1;
+    villagers = 1;
   } else if (player_count < 10) {
     wolfs = getRandom(2, 1);
+    villagers = 2;
   } else {
     wolfs = getRandom(3, 2);
+    villagers = getRandom(3, 2);
   }
 
   for (let count of _.range(wolfs)) {
@@ -52,8 +56,13 @@ exports.setRandomRoles = function (wolf, players) {
     player_count -= 1;
   }
 
+  for (let count of _.range(villagers)) {
+    roles.push('villager');
+    player_count -= 1;
+  }
+
   for (let count of _.range(player_count)) {
-    if (getRandom() && list.length > 0) {
+    if (list.length > 0) {
       roles.push(list.splice(getRandom(list.length - 1), 1)[0]);
     } else {
       roles.push('villager');
