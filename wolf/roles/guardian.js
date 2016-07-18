@@ -33,6 +33,9 @@ class Guardian extends Role {
     let keyboard = [];
 
     for (var u of players) {
+      if (u.role.dead) {
+        continue;
+      }
       var pname = this.wolf.i18n.player_name(u, true);
       // \/[evname] [user_id] [chat_id]
       keyboard.push([{
