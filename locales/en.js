@@ -54,7 +54,8 @@
 		"vote_punishment": "{{name}} hasn\\'t voted for <b>2</b> times, the god punished him/her.",
 		"bite": "{{name}} has been bitten.",
 		"poison": "{{name}} has been poisoned.",
-		"silent_night": "A silent night."
+		"silent_night": "A silent night.",
+		"showjob": "{{name}} is {{job}}."
 	},
 	"villager": {
 		"name": "Villager",

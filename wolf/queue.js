@@ -193,10 +193,16 @@ EventQueue.prototype.getDyingMessages = function () {
   }
   let msgs = [];
   for (let d of this.death) {
+    let pname = this.wolf.i18n.player_name(d.dead);
     let __t = this.wolf.i18n.__('death.' + d.event, {
-      name: this.wolf.i18n.player_name(d.dead)
+      name: pname
     });
-    if (__t) msgs.push(__t);
+    if (__t) {
+      msgs.push(__t + this.wolf.i18n.__('death.showjob', {
+        name: pname,
+        job: d.dead.role.name
+      }));
+    }
   }
   return msgs.join('\n');
 };

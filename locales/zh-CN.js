@@ -54,7 +54,8 @@
 		"vote_punishment": "{{name}} 有 <b>2</b> 次没有进行投票，上帝决定要惩罚他",
 		"bite": "{{name}} 被咬死了",
 		"poison": "{{name}} 被毒死了",
-		"silent_night": "平安夜"
+		"silent_night": "平安夜",
+		"showjob": "{{name}} 是 {{job}}."
 	},
 	"villager": {
 		"name": "村民",
