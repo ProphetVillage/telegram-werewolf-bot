@@ -50,6 +50,10 @@ EventQueue.prototype.addVoter = function (voter) {
   this.voters.push(voter);
 };
 
+EventQueue.prototype.hasVoter = function (voter) {
+  return this.voters.length > 0;
+};
+
 EventQueue.prototype.afterFinish = function (fn) {
   this.finish_cb = fn;
 };
