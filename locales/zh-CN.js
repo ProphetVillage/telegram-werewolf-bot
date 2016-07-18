@@ -6,7 +6,7 @@
 		"voted_to": "{{name}} 投了 {{target_name}}",
 		"voted_choose": "现在将进行投票处决一个人。",
 		"voted_flat": "平票",
-    "death_lock": "死亡选择中断",
+		"death_lock": "死亡选择中断",
 		"players": "玩家："
 	},
 	"game": {

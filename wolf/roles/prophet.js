@@ -25,7 +25,7 @@ class Prophet extends Role {
         if (err) console.log(err);
       });
     }
-  };
+  }
 
   eventAnnouncement() {
     this.ba.sendMessage({
@@ -36,7 +36,7 @@ class Prophet extends Role {
     });
   }
 
-  eventNight() {
+  eventNight(queue) {
     let players = this.wolf.players;
     let keyboard = [];
 
