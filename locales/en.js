@@ -111,5 +111,14 @@
 		"announcement": "You are a elder, you can alive in the first time of biting by wolf.",
 		"wisdom_of_elder": "Your wisdom keep you safe in the fight with the wolf.",
 		"shame_of_vote": "You vote the elder, you are a villager now."
-	}
+	},
+  "mason": {
+    "name": "Mason",
+    "announcement": "You are a mason, ",
+    "no_partner": "no partner.",
+    "partner": {
+			"one": "{{playerlist}} is also a mason.",
+			"other": "{{playerlist}} are also masons."
+		}
+  }
 }

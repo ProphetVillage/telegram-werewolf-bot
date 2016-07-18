@@ -111,5 +111,14 @@
 		"announcement": "你是长者，自带 +1 命，当狼人第一次咬你的时候，你不会死亡。",
 		"wisdom_of_elder": "长年的智慧让你在于狼人的战斗中幸存了下来。",
 		"shame_of_vote": "你将长者投死了，你现在是村民了！"
-	}
+	},
+  "mason": {
+    "name": "搬砖工",
+    "announcement": "你是搬砖工，",
+    "no_partner": "孤独的搬砖工。",
+    "partner": {
+			"one": "{{playerlist}} 也是搬砖工。",
+			"other": "{{playerlist}} 也是搬砖工。"
+		}
+  }
 }
