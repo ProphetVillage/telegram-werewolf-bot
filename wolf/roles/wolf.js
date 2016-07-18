@@ -41,19 +41,11 @@ class Wolf extends Role {
 
   eventAnnouncement() {
     var msg = this.i18n.__('wolf.announcement');
-
-    let players = this.wolf.players;
-    var hasotherwolf = 0;
-    var wolfs = [];
-    for (let u of players) {
-      if (u.id !== this.user_id && u.role.id === 'wolf') {
-        wolfs.push(u);
-      }
-    }
+    var wolfs = this.getPartners();
 
     if (wolfs.length > 0) {
       msg += ' ' + this.i18n.__n('wolf.partner', wolfs.length, {
-        playerlist: player_list(wolfs)
+        playerlist: this.i18n.player_list(wolfs)
       });
     }
 
