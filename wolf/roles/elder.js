@@ -10,7 +10,7 @@ class Elder extends Role {
     this.id = 'elder';
     this.name = this.i18n.job_name('elder');
     this.priority = 0;
-    
+
     this.is_bitten = false;
 
     this.allowEvents = [ 'vote' ];
@@ -24,7 +24,7 @@ class Elder extends Role {
       if (err) console.log(err);
     });
   }
-  
+
   endOfLife(ev, killer, queue) {
     if (ev === 'bite') {
       if (killer && killer.role.id === 'wolf') {
@@ -45,7 +45,7 @@ class Elder extends Role {
       var skillerIds = [ 'drunk', 'guardian', 'prophet', 'witch' ];
       for (let u of players) {
         if (!u.role.dead && skillerIds.indexOf(u.role.id) >= 0) {
-          u.role = new Villager(wolf, u);
+          u.role = new Villager(this.wolf, u);
           this.ba.sendMessage({
             chat_id: u.role.user_id,
             text: this.i18n.__('elder.shame_of_vote')
@@ -55,7 +55,7 @@ class Elder extends Role {
         }
       }
     }
-    
+
     super.endOfLife(ev, killer, queue);
   }
 };
