@@ -15,6 +15,19 @@ class Guardian extends Role {
 
   action(ev, target, queue) {
     if (ev === 'protect') {
+      if (target.role.id === 'wolf') {
+        if (Math.random() < 0.5) {
+          // death
+          this.endOfLife('bite', this.player, queue);
+          this.ba.sendMessage({
+            chat_id: this.user_id,
+            text: this.i18n.__('wolf.bite_you')
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+          return;
+        }
+      }
       target.role.addBuff('guard', 1);
     }
   }
