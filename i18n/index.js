@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const i18nI = require('i18n-2');
 const S = require('string');
