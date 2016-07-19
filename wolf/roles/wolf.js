@@ -37,7 +37,7 @@ class Wolf extends Role {
         }
       }
     }
-  };
+  }
 
   eventAnnouncement() {
     var msg = this.i18n.__('wolf.announcement');
