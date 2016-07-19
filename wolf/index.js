@@ -127,7 +127,9 @@ Wolf.prototype.findPlayer = function (user_id) {
 };
 
 Wolf.prototype.getSortedPlayers = function () {
-  return this.players;
+  return _.sortBy(this.players, (u) => {
+    return u.role.dead;
+  });
 };
 
 Wolf.prototype.setStartTimer = function (i) {
