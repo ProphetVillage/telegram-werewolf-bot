@@ -23,6 +23,15 @@ class Wolf extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });
+        let u = target.role.getBuffFrom('guard');
+        if (u) {
+          this.ba.sendMessage({
+            chat_id: u.id,
+            text: this.i18n.__('guardian.guarded')
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+        }
       } else {
         target.role.endOfLife(ev, this.player, queue);
 
