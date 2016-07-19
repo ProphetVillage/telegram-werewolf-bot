@@ -27,7 +27,7 @@ class Mason extends Role {
 
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: this.i18n.__('mason.announcement'),
+      text: msg,
     }, (err, r) => {
       if (err) console.log(err);
     });
