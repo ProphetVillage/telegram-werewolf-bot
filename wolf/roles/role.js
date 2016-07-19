@@ -267,7 +267,7 @@ Role.prototype.getPartners = function (id) {
   var partners = [];
   var role = id ? id : this.id
   for (let u of players) {
-    if ((!id || u.id !== this.user_id) && u.role.id === role) {
+    if ((id || u.id !== this.user_id) && u.role.id === role) {
       partners.push(u);
     }
   }

@@ -48,9 +48,9 @@ var getRandom = function (max = 1, base = 0) {
 };
 
 exports.setRandomRolesT = function (wolf, players) {
-  players[0].role = new Roles.Elder(wolf, players[0]);
+  players[0].role = new Roles.Wolf(wolf, players[0]);
   if (players.length > 1) {
-    players[1].role = new Roles.Wolf(wolf, players[1]);
+    players[1].role = new Roles.Detective(wolf, players[1]);
   }
 };
 

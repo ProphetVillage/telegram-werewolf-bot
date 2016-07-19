@@ -17,10 +17,14 @@ class Detective extends Role {
     if (ev === 'detect') {
       if (Math.random() < 0.4) {
         var wolfs = this.getPartners('wolf');
+        var pname = this.i18n.player_name(this.player);
         for (let wolf of wolfs) {
           this.ba.sendMessage({
-            chat_id: wolf.user_id,
-            text: this.i18n.__('wolf.notice_detective')
+            chat_id: wolf.id,
+            text: this.i18n.__('wolf.notice_detective', {
+              name: pname,
+              job: this.name
+            })
           }, (err, r) => {
             if (err) console.log(err);
           });
@@ -47,7 +51,7 @@ class Detective extends Role {
     });
   }
 
-  eventDay() {
+  eventDay(queue) {
     let players = this.wolf.players;
     let keyboard = [];
 

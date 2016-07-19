@@ -275,7 +275,7 @@ Wolf.prototype.forcestart = function (u) {
     } else {
       clearTimeout(this.timer);
       this.start();
-      return true;  
+      return true;
     }
   }
   // TODO: other check
