@@ -7,7 +7,7 @@
 		"voted_choose": "Now, you can vote to kill someone as suspect.",
 		"voted_flat": "Flat votes",
 		"death_lock": "Death Lock",
-		"players": "Players:"
+		"players": "Players({{num}}):"
 	},
 	"game": {
 		"start": "Game start!",

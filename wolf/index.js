@@ -335,7 +335,7 @@ Wolf.prototype.join = function (user, cb) {
 Wolf.prototype.getPlayerList = function (showrole) {
   // show player list
   var players = this.getSortedPlayers();
-  var playerlist = this.i18n.__('common.players') + '\n';
+  var playerlist = this.i18n.__('common.players', { num: players.length }) + '\n';
   for (var u of players) {
     playerlist += this.i18n.player_name(u);
 

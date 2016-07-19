@@ -34,6 +34,8 @@ const role_list = {
   'detective': Roles.Detective
  };
 
+ Roles.role_list = role_list;
+
 exports.event_list = [
   'vote',
   'bite',
