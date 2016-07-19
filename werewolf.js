@@ -431,7 +431,7 @@ ba.commands.on('forcestart', (upd, followString) => {
   var wolf = game_sessions[chat_id];
   let msg;
   if (wolf) {
-    if (wolf.forcestart()) {
+    if (wolf.forcestart(upd.message.from)) {
       return;
     } else {
       msg = wolf.i18n.__('game.fail_to_forcestart');

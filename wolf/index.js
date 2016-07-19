@@ -265,14 +265,18 @@ Wolf.prototype.end = function () {
   }
 };
 
-Wolf.prototype.forcestart = function () {
+Wolf.prototype.forcestart = function (u) {
   if (this.status !== 'open') {
     return false;
   }
   if (this.players.length >= Wolf.MIN_PLAYERS) {
-    clearTimeout(this.timer);
-    this.start();
-    return true;
+    if (u.id !== this.players[0].id) {
+      return false;
+    } else {
+      clearTimeout(this.timer);
+      this.start();
+      return true;  
+    }
   }
   // TODO: other check
   return false;
