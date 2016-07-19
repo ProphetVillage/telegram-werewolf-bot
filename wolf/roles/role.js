@@ -44,7 +44,7 @@ Role.prototype.hasBuff = function (buff) {
 Role.prototype.updateBuff = function () {
   var passedBuff = [];
   for (var b in this.buff) {
-    if (this.buff[b] > 0) {
+    if (this.buff[b].time > 0) {
       this.buff[b].time--;
     }
     if (this.buff[b].time === 0) {
