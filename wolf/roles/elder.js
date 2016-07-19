@@ -1,7 +1,6 @@
 'use strict';
 
 const Role = require('./role');
-const Villager = require('./villager');
 
 class Elder extends Role {
   constructor(wolf, player) {
@@ -45,7 +44,7 @@ class Elder extends Role {
       var skillerIds = [ 'drunk', 'guardian', 'prophet', 'witch' ];
       for (let u of players) {
         if (!u.role.dead && skillerIds.indexOf(u.role.id) >= 0) {
-          u.role = new Villager(this.wolf, u);
+          u.role.transformRole('villager'); // = new Villager(this.wolf, u);
           this.ba.sendMessage({
             chat_id: u.role.user_id,
             text: this.i18n.__('elder.shame_of_vote')

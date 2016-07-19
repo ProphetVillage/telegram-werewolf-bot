@@ -1,5 +1,7 @@
 'use strict';
 
+const role_list = require('./index').role_list;
+
 function Role(wolf, player) {
   this.wolf = wolf;
   this.chat_id = wolf.chat_id;
@@ -14,6 +16,7 @@ function Role(wolf, player) {
   this.dead = false;
   this.novotetimes = 0;
   this.buff = {};
+  this.role_chains = [];
 
   // event message
   this.event_message_id = null;
@@ -274,5 +277,11 @@ Role.prototype.getPartners = function (id) {
   return partners;
 };
 
+Role.prototype.transformRole = function (roleId) {
+  if (roleId in role_list) {
+    this.role_chains.push(this.id);
+    this.player.role = new role_list[roleId];
+  }
+};
 
 module.exports = Role;

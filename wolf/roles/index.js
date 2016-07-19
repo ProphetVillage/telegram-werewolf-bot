@@ -20,19 +20,20 @@ var Roles = {
 exports.Roles = Roles;
 
 // list of Roles' id
-exports.role_list = [
-  'villager',
-  'wolf',
-  'prophet',
-  'fool',
-  'guardian',
-  'witch',
-  'drunk',
-  'elder',
-  'mason',
-  'bystander',
-  'detective'
- ];
+const role_list = {
+  'villager': Roles.Villager,
+  'wolf': Roles.Wolf,
+  'prophet': Roles.Prophet,
+  'fool': Roles.Fool,
+  'guardian': Roles.Guardian,
+  'witch': Roles.Witch,
+  'drunk': Roles.Drunk,
+  'elder': Roles.Elder,
+  'mason': Roles.Mason,
+  'bystander': Roles.Bystander,
+  'detective': Roles.Detective
+ };
+
 exports.event_list = [
   'vote',
   'bite',
@@ -42,6 +43,7 @@ exports.event_list = [
   'poison',
   'detect'
  ];
+exports.role_list = role_list;
 
 var getRandom = function (max = 1, base = 0) {
   return Math.floor(Math.random() * (max + 1 - base) + base);
@@ -106,40 +108,7 @@ exports.setRandomRoles = function (wolf, players) {
 
   for (let player of players) {
     let role = roles[getRandom(roles.length - 1)];
-    switch (role) {
-      case 'wolf':
-        player.role = new Roles.Wolf(wolf, player);
-        break;
-      case 'prophet':
-        player.role = new Roles.Prophet(wolf, player);
-        break;
-      case 'fool':
-        player.role = new Roles.Fool(wolf, player);
-        break;
-      case 'witch':
-        player.role = new Roles.Witch(wolf, player);
-        break;
-      case 'guardian':
-        player.role = new Roles.Guardian(wolf, player);
-        break;
-      case 'drunk':
-        player.role = new Roles.Drunk(wolf, player);
-        break;
-      case 'elder':
-        player.role = new Roles.Elder(wolf, player);
-        break;
-      case 'mason':
-        player.role = new Roles.Mason(wolf, player);
-        break;
-      case 'bystander':
-        player.role = new Roles.Bystander(wolf, player);
-        break;
-      case 'detective':
-        player.role = new Roles.Detective(wolf, player);
-        break;
-      default:
-        player.role = new Roles.Villager(wolf, player);
-    }
+    player.role = new role_list[role];
     roles.splice(roles.indexOf(role), 1);
   }
 
