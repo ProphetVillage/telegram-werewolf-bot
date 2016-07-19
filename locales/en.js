@@ -25,7 +25,7 @@
 		"fail_to_flee": "You can't quit the current game.",
 		"not_in_game": "You are not in the game",
 		"too_many_players": "Too many players.",
-		"already_started": "A game already started.",
+		"already_started": "A game already started. Try /nextgame",
 		"already_in": "You are already in the game.",
 		"no_enough_person": "No enough person to start the game.",
 		"allocate_roles": "Now allocating roles for players.",

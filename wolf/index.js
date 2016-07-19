@@ -207,7 +207,7 @@ Wolf.prototype.findPlayer = function (user_id) {
 
 Wolf.prototype.getSortedPlayers = function () {
   return _.sortBy(this.players, (u) => {
-    return u.role.dead;
+    return u.role ? u.role.dead : 0;
   });
 };
 
