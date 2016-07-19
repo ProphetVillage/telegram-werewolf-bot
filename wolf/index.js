@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('underscore');
+const S = require('string');
 const co = require('co');
 
 const EventQueue = require('./queue');
@@ -28,13 +29,13 @@ function Wolf(botapi, db, chat_id, opts) {
 }
 
 Wolf.MAX_PLAYERS = 12;
-Wolf.MIN_PLAYERS = 2;
+Wolf.MIN_PLAYERS = 5;
 Wolf.DEL_LOCALE = 'zh-CN';
 Wolf.LOCALES = [ 'en', 'zh-CN' ];
 
 Wolf.Roles = require('./roles');
 
-Wolf.prototype.init = function (cb) {
+Wolf.prototype.init = function (chat, cb) {
   var self = this;
   this.db.groups.findOne({ chat_id: this.chat_id }, (err, r) => {
     if (err) {
@@ -49,7 +50,62 @@ Wolf.prototype.init = function (cb) {
     let locale = self.opts.locale ? self.opts.locale : Wolf.DEL_LOCALE;
     self.i18n = new i18nJ(locale);
 
+    if (self.opts['queue_pm'] !== false && r.next_game_queue) {
+      for (let q of r.next_game_queue) {
+        self.ba.sendMessage({
+          chat_id: q.user_id,
+          text: self.i18n.__('game.open_in_group', {
+            groupname: S(chat.title).escapeHTML().s
+          })
+        });
+      }
+
+      // clear queue
+      self.db.groups.update({
+        chat_id: self.chat_id
+      }, { $set: { next_game_queue: [] } }, (err, r) => {});
+    }
+
     cb(null, r);
+  });
+};
+
+Wolf.prototype.nextGame = function (user, cb) {
+  var self = this;
+  this.db.groups.findOne({ chat_id: this.chat_id }, (err, r) => {
+    if (err) {
+      self.i18n = new i18nJ(Wolf.DEL_LOCALE);
+      return cb(err);
+    }
+
+    // user queue
+    let u = {
+      user_id: user.id,
+      username: user.username,
+      name: user.first_name + (user.last_name ? ' ' + user.last_name : '')
+    };
+
+    if (!r) {
+      self.db.groups.save({
+        chat_id: self.chat_id,
+        next_game_queue: [ u ]
+      }, cb);
+    } else {
+      let found = false;
+      if (r.next_game_queue) {
+        for (let q of r.next_game_queue) {
+          if (q.user_id === u.user_id) {
+            found = true;
+            break;
+          }
+        }
+      }
+      if (!found) {
+        self.db.groups.update({
+          chat_id: self.chat_id,
+        }, { $push: { next_game_queue: u } }, cb);
+      }
+    }
   });
 };
 
@@ -280,7 +336,7 @@ Wolf.prototype.getPlayerList = function (showrole) {
     if (u.role) {
       if (showrole === 1) {
         // show dead one
-        if (u.role.dead) {
+        if (u.role.dead && this.opts.showjob !== false) {
           playerlist += ' ' + u.role.name;
         }
       } else if (showrole === 2) {

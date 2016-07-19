@@ -34,6 +34,8 @@
 		"last_30_sec": "剩余 <b>30</b> 秒 /join",
 		"last_10_sec": "剩余 <b>10</b> 秒 /join",
 		"help": "帮助是啥，好吃吗",
+		"next_game": "我们将会在下场游戏开始前私聊您。",
+		"open_in_group": "游戏马上将在 {{groupname}} 开始，抓紧时间！",
 		"please_follow_me": "请先和我私聊，在私聊窗口中点击 /start"
 	},
 	"status": {
@@ -110,7 +112,7 @@
 	"elder": {
 		"name": "长者",
 		"announcement": "你是长者，自带 +1 命，当狼人第一次咬你的时候，你不会死亡。",
-		"wisdom_of_elder": "长年的智慧让你在于狼人的战斗中幸存了下来。",
+		"wisdom_of_elder": "长年的智慧让你在与狼人的战斗中幸存了下来。",
 		"shame_of_vote": "你将长者投死了，你现在是村民了！"
 	},
 	"mason": {

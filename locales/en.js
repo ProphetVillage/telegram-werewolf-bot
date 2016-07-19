@@ -34,6 +34,8 @@
 		"last_30_sec": "last <b>30</b> sec, /join",
 		"last_10_sec": "last <b>10</b> sec, /join",
 		"help": "This is help",
+		"next_game": "We will PM you when next game open.",
+		"open_in_group": "Game opened in {{groupname}}, come on!",
 		"please_follow_me": "Please chat with me at first, and click /start at PM."
 	},
 	"status": {

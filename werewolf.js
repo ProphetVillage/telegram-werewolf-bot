@@ -171,21 +171,129 @@ ba.commands.on('setlang', (upd, followString) => {
   }
 });
 
+ba.commands.on('setshowjob', (upd, followString) => {
+  let cq = upd.callback_query;
+  if (cq && cq.message) {
+    var s = followString.split(' ');
+    if (s.length > 1) {
+      let done_fn = () => {
+        ba.editMessageText({
+          chat_id: cq.message.chat.id,
+          message_id: cq.message.message_id,
+          text: 'Done.',
+        });
+      };
+      // the last one is [chat_id]
+      let chat_id = parseInt(s.pop());
+      let showjob = (s[0] !== 'false');
+      if (chat_id) {
+        db.groups.findOne({
+          chat_id: chat_id
+        }, (err, r) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if (!r) {
+            db.groups.save({
+              chat_id: chat_id,
+              opts: {
+                showjob: showjob
+              }
+            }, (err, r) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              done_fn();
+            });
+          } else {
+            if (r.opts) {
+              r.opts.showjob = showjob;
+            } else {
+              r.opts = { showjob: showjob };
+            }
+            db.groups.update({
+              chat_id: chat_id,
+            }, { $set: { opts: r.opts } }, (err, r) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              done_fn();
+            });
+          }
+        });
+      }
+    }
+  }
+});
+
+ba.commands.on('setconfig', (upd, followString) => {
+  let cq = upd.callback_query;
+  if (cq && cq.message) {
+    var s = followString.split(' ');
+    if (s.length > 1) {
+      let chat_id = parseInt(s.pop());
+      let conf_sel = s[0];
+      if (chat_id) {
+        let keyboard = [];
+        let text;
+        switch (conf_sel) {
+          case 'lang':
+            for (let l of Wolf.LOCALES) {
+              // \/[evname] [user_id] [chat_id]
+              keyboard.push([{
+                text: l,
+                callback_data: '/setlang ' + l + ' ' + chat_id
+              }]);
+            }
+            text = 'Please select a language.';
+            break;
+          case 'showjob':
+            keyboard.push([{
+              text: 'Enable',
+              callback_data: '/setshowjob true ' + chat_id
+            }]);
+            keyboard.push([{
+              text: 'Disable',
+              callback_data: '/setshowjob false ' + chat_id
+            }]);
+            text = 'Show player\'s job on dead?';
+            break;
+        }
+        if (text) {
+          ba.editMessageText({
+            chat_id: cq.message.chat.id,
+            message_id: cq.message.message_id,
+            text: text,
+            reply_markup: JSON.stringify({
+              inline_keyboard: keyboard
+            })
+          });
+        }
+      }
+    }
+  }
+});
+
 ba.commands.on('config', (upd, followString) => {
   let chat = upd.message.chat;
   if (chat.type !== 'private') {
+    let chat_id = chat.id;
     let user = upd.message.from;
     let keyboard = [];
-    for (let l of Wolf.LOCALES) {
-      // \/[evname] [user_id] [chat_id]
-      keyboard.push([{
-        text: l,
-        callback_data: '/setlang ' + l + ' ' + chat.id
-      }]);
-    }
+    keyboard.push([{
+      text: 'Language',
+      callback_data: '/setconfig lang ' + chat_id
+    }]);
+    keyboard.push([{
+      text: 'Show Job',
+      callback_data: '/setconfig showjob ' + chat_id
+    }]);
     ba.sendMessage({
       chat_id: user.id,
-      text: 'Please select a language.',
+      text: 'Settings',
       reply_markup: JSON.stringify({
         inline_keyboard: keyboard
       })
@@ -219,7 +327,7 @@ ba.commands.on('startgame', (upd, followString) => {
     });
     game_sessions[chat_id] = wolf;
 
-    wolf.init((err) => {
+    wolf.init(upd.message.chat, (err) => {
       wolf.join(user, (err, followed) => {
         if (!followed) {
           ba.sendMessage({
@@ -362,6 +470,42 @@ ba.commands.on('players', (upd, followString) => {
       console.log(err);
     }
   });
+});
+
+ba.commands.on('nextgame', (upd, followString) => {
+  let chat_id = upd.message.chat.id;
+  let user = upd.message.from;
+  var wolf = game_sessions[chat_id];
+
+  let msg;
+  let nextgame_fn = () => {
+    wolf.nextGame(user, (err, r) => {});
+    msg = wolf.i18n.__('game.next_game');
+
+    ba.sendMessage({
+      chat_id: chat_id,
+      reply_to_message_id: upd.message.message_id,
+      text: msg,
+    }, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  };
+  if (!wolf) {
+    wolf = new Wolf(ba, db, chat_id, {
+      queue_pm: false
+    });
+    wolf.init(upd.message.chat, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      nextgame_fn();
+    });
+  } else {
+    nextgame_fn();
+  }
 });
 
 ba.commands.on('help', (upd, followString) => {
