@@ -126,7 +126,7 @@ exports.setRandomRoles = function (wolf, players) {
         player.role = new Roles.Elder(wolf, player);
         break;
       case 'mason':
-        player.role = new Roles.Elder(wolf, player);
+        player.role = new Roles.Mason(wolf, player);
         break;
       case 'bystander':
         player.role = new Roles.Bystander(wolf, player);
