@@ -21,17 +21,17 @@ class Drunk extends Role {
       if (err) console.log(err);
     });
   }
-  
+
   endOfLife(ev, killer, queue) {
     super.endOfLife(ev, killer, queue);
-    
+
     if (ev === 'bite' && killer) {
       if (killer.role.id === 'wolf') {
         // tell all wolves
         let players = this.wolf.players;
         for (let u of players) {
           if (!u.role.dead && u.role.id === 'wolf') {
-            u.role.addBuff('drunk', 3);
+            u.role.addBuff('drunk', 3, this.player);
             this.ba.sendMessage({
               chat_id: u.role.user_id,
               text: this.i18n.__('wolf.eat_drunk')

@@ -10,13 +10,15 @@ function timeout(ms, queue) {
       d = true;
       resolve();
     }, ms);
-    queue.afterFinish(() => {
-      if (d) {
-        return;
-      }
-      clearTimeout(__t);
-      resolve();
-    });
+    if (queue) {
+      queue.afterFinish(() => {
+        if (d) {
+          return;
+        }
+        clearTimeout(__t);
+        resolve();
+      });
+    }
   });
 }
 
@@ -81,7 +83,7 @@ function *game_process() {
       }
     }
     // wait day end
-    yield timeout(90000, this.queue);
+    yield timeout(90000); // no queue timeout
     msg = this.runQueue();
 
     if (this.checkEnded()) {

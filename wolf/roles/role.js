@@ -27,26 +27,38 @@ Role.prototype.makeCommand = function (action, user_id, chat_id) {
   return '/' + action + ' ' + user_id + ' ' + chat_id;
 };
 
-Role.prototype.addBuff = function (buff, time) {
-  return this.buff[buff] = time;
+Role.prototype.addBuff = function (buff, time, _from) {
+  return this.buff[buff] = {
+    time: time,
+    from: _from
+  };
 };
 
 Role.prototype.hasBuff = function (buff) {
-  return (buff in this.buff);
+  return (buff in this.buff) ? this.buff[buff] : false;
 };
 
 Role.prototype.updateBuff = function () {
   var passedBuff = [];
   for (var b in this.buff) {
     if (this.buff[b] > 0) {
-      this.buff[b]--;
+      this.buff[b].time--;
     }
-    if (this.buff[b] === 0) {
+    if (this.buff[b].time === 0) {
       passedBuff.push(b);
     }
   }
   for (let b of passedBuff) {
     delete this.buff[b];
+  }
+};
+
+Role.prototype.getBuffFrom = function (buff) {
+  var b = this.buff[buff];
+  if (b) {
+    return b.from;
+  } else {
+    return null;
   }
 };
 

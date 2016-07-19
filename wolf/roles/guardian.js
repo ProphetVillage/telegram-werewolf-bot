@@ -28,7 +28,7 @@ class Guardian extends Role {
           return;
         }
       }
-      target.role.addBuff('guard', 1);
+      target.role.addBuff('guard', 1, this.player);
     }
   }
 

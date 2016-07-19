@@ -104,7 +104,8 @@
 		"name": "Guardian",
 		"announcement": "You are a guardian, you can protect someone from the wolf in night.",
 		"protected": "You have been protected.",
-		"choose": "This night, do you want to protect someone?"
+		"choose": "This night, do you want to protect someone?",
+    "guarded": "You successfully guarded him."
 	},
 	"drunk": {
 		"name": "Drunk",
