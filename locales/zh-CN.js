@@ -120,5 +120,11 @@
 			"one": "{{playerlist}} 也是搬砖工。",
 			"other": "{{playerlist}} 也是搬砖工。"
 		}
+  },
+  "bystander": {
+    "name": "旁观者",
+    "announcement": "你是旁观者，你可以看到先知是谁。",
+    "no_prophet": "没有先知。",
+    "see_prophet": "{{name}} 是先知。"
   }
 }

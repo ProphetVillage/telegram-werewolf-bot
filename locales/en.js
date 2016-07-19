@@ -120,5 +120,11 @@
 			"one": "{{playerlist}} is also a mason.",
 			"other": "{{playerlist}} are also masons."
 		}
+  },
+  "bystander": {
+    "name": "Bystander",
+    "announcement": "You are bystander, you can see who is prophet. ",
+    "no_prophet": "No prophet.",
+    "see_prophet": "{{name}} is prophet."
   }
 }
