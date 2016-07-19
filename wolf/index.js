@@ -347,13 +347,21 @@ Wolf.prototype.getPlayerList = function (showrole) {
         }
       } else if (showrole === 2) {
         // show all
+        if (u.role.role_chains.length > 0) {
+          // show chains
+          for (let roleId of u.role.role_chains) {
+            playerlist += ' ' + this.i18n.job_name(roleId)
+                              + S(' ->').escapeHTML().s;
+          }
+        }
         playerlist += ' ' + u.role.name;
       }
     }
 
     playerlist += ' - ' + ((u.role && u.role.dead)
         ? this.i18n.__('status.dead')
-        : this.i18n.__('status.alive')) + '\n';
+        : this.i18n.__('status.alive'));
+    playerlist += '\n';
   }
 
   return playerlist;
