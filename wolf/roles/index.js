@@ -13,7 +13,8 @@ var Roles = {
   Drunk: require('./drunk'),
   Elder: require('./elder'),
   Mason: require('./mason'),
-  Bystander: require('./bystander')
+  Bystander: require('./bystander'),
+  Detective: require('./detective')
 };
 
 exports.Roles = Roles;
@@ -29,7 +30,8 @@ exports.role_list = [
   'drunk',
   'elder',
   'mason',
-  'bystander'
+  'bystander',
+  'detective'
  ];
 exports.event_list = [
   'vote',
@@ -37,7 +39,8 @@ exports.event_list = [
   'know',
   'protect',
   'cure',
-  'poison'
+  'poison',
+  'detect'
  ];
 
 var getRandom = function (max = 1, base = 0) {
@@ -61,8 +64,8 @@ exports.setRandomRoles = function (wolf, players) {
     'guardian',
     'drunk',
     'elder',
-    'mason',
-    'bystander'
+    'bystander',
+    'detective'
    ];
   var player_count = players.length;
   var roles = [];
@@ -130,6 +133,9 @@ exports.setRandomRoles = function (wolf, players) {
         break;
       case 'bystander':
         player.role = new Roles.Bystander(wolf, player);
+        break;
+      case 'detective':
+        player.role = new Roles.Detective(wolf, player);
         break;
       default:
         player.role = new Roles.Villager(wolf, player);
