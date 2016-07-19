@@ -371,7 +371,7 @@ Wolf.prototype.getPlayerList = function (showrole) {
 Wolf.prototype.transformRole = function (player, roleId) {
   if (roleId in role_list) {
     var rc = player.role.role_chains;
-    rc.push(role.id);
+    rc.push(player.role.id);
 
     player.role = new role_list[roleId](this, player);
 
