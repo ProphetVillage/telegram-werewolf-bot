@@ -334,7 +334,8 @@ ba.commands.on('startgame', (upd, followString) => {
             chat_id: chat_id,
             reply_to_message_id: message_id,
             text: wolf.i18n.__('game.please_follow_me', {
-              name: wolf.i18n.player_name(user)
+              name: wolf.i18n.player_name(user),
+              bot: wolf.i18n.player_name()
             })
           });
         }
@@ -371,7 +372,8 @@ ba.commands.on('join', (upd, followString) => {
           chat_id: chat_id,
           reply_to_message_id: message_id,
           text: wolf.i18n.__('game.please_follow_me', {
-            name: wolf.i18n.player_name(user)
+            name: wolf.i18n.player_name(user),
+            bot: wolf.i18n.player_name()
           })
         });
       }

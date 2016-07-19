@@ -36,7 +36,7 @@
 		"help": "This is help",
 		"next_game": "We will PM you when next game open.",
 		"open_in_group": "Game opened in {{groupname}}, come on!",
-		"please_follow_me": "Please chat with me at first, and click /start at PM."
+		"please_follow_me": "Please chat with me at first, and click start at {{bot}}."
 	},
 	"status": {
 		"dead": "Dead",

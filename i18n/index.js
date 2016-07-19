@@ -35,15 +35,19 @@ i18nJ.prototype.job_name = function (job) {
 };
 
 i18nJ.prototype.player_name = function (player, isSelection=false) {
-  var name = S(player.first_name + (player.last_name ? ' ' + player.last_name : '')).escapeHTML().s;
-  var pn;
-  if (player.username) {
-    var url = 'http://telegram.me/' + player.username;
-    pn = `<a href="${url}">${name}</a>`;
+  if (!player) {
+    return `<a href="http://telegram.me/prophet_village_bot">@prophet_village_bot</a>`;
   } else {
-    pn = `<b>${name}</b>`;
+    var name = S(player.first_name + (player.last_name ? ' ' + player.last_name : '')).escapeHTML().s;
+    var pn;
+    if (player.username) {
+      var url = 'http://telegram.me/' + player.username;
+      pn = `<a href="${url}">${name}</a>`;
+    } else {
+      pn = `<b>${name}</b>`;
+    }
+    return isSelection ? name : pn;  
   }
-  return isSelection ? name : pn;
 };
 
 i18nJ.prototype.player_list = function (players) {
