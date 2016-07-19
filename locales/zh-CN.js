@@ -72,6 +72,7 @@
 		"eat_drunk": "你吃了个酒鬼，醉了。",
 		"bite_you": "你被好大——的一张嘴吃了，好像很美味的样子。",
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
+    "notice_detective": "你发现有人鬼鬼祟祟的，{{name}} 是 {{job}}。",
 		"partner": {
 			"one": "{{playerlist}} 也是一只狼人。",
 			"other": "{{playerlist}} 也是狼人。"
@@ -129,5 +130,11 @@
 		"announcement": "你是旁观者，你可以看到先知是谁。",
 		"no_prophet": "没有先知。",
 		"see_prophet": "{{name}} 是先知。"
-	}
+	},
+  "detective": {
+    "name": "侦探",
+    "announcement": "你是侦探，你能调查别人的职业。但是在尾随的时候，有一定几率会被狼人发现。",
+    "choose": "今天你想尾随谁？",
+    "see": "调查的结果，{{name}} 是 {{job}}。"
+  }
 }

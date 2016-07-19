@@ -250,11 +250,12 @@ Role.prototype.eventDawnCallback = function (queue, upd, data) {
   Role.defaultCallback.call(this, queue, upd, data);
 };
 
-Role.prototype.getPartners = function () {
+Role.prototype.getPartners = function (id) {
   let players = this.wolf.players;
   var partners = [];
+  var role = id ? id : this.id
   for (let u of players) {
-    if (u.id !== this.user_id && u.role.id === this.id) {
+    if ((!id || u.id !== this.user_id) && u.role.id === role) {
       partners.push(u);
     }
   }

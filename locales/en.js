@@ -72,6 +72,7 @@
 		"eat_drunk": "You ate a drunk, you won't able to eat others in next night.",
 		"bite_you": "You have been bitten.",
 		"selected": "{{wolf_name}} selected {{target_name}}",
+    "notice_detective": "You found someone suspect, {{name}} is {{job}}.",
 		"partner": {
 			"one": "{{playerlist}} is also a wolf.",
 			"other": "{{playerlist}} are also wolves."
@@ -129,5 +130,11 @@
 		"announcement": "You are bystander, you can see who is prophet. ",
 		"no_prophet": "No prophet.",
 		"see_prophet": "{{name}} is prophet."
-	}
+	},
+  "detective": {
+    "name": "Detective",
+    "announcement": "You are a detective, you can someone's job. But you may be discovered by wolf once you try to follow someone.",
+    "choose": "Today, who is your target?",
+    "see": "You found {{name}} is {{job}}."
+  }
 }

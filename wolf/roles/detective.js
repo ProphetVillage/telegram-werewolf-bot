@@ -15,6 +15,17 @@ class Detective extends Role {
 
   action(ev, target, queue) {
     if (ev === 'detect') {
+      if (Math.random() < 0.4) {
+        var wolfs = this.getPartners('wolf');
+        for (let wolf of wolfs) {
+          this.ba.sendMessage({
+            chat_id: wolf.user_id,
+            text: this.i18n.__('wolf.notice_detective')
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+        }
+      }
       this.ba.sendMessage({
         chat_id: this.user_id,
         text: this.i18n.__('detective.see', {
@@ -67,6 +78,28 @@ class Detective extends Role {
       } else {
         self.event_message_id = r.message_id;
       }
+    });
+  }
+
+  dayTimeUp() {
+    if (this.event_message_id) {
+      this.ba.editMessageText({
+        chat_id: this.user_id,
+        message_id: this.event_message_id,
+        text: this.i18n.__('common.timeup')
+      });
+    }
+  }
+
+  eventDayCallback(queue, upd, data) {
+    super.eventDayCallback(queue, upd, data);
+
+    // update message
+    let cq = upd.callback_query;
+    this.ba.editMessageText({
+      chat_id: cq.message.chat.id,
+      message_id: cq.message.message_id,
+      text: this.i18n.__('common.selected', { name: data.name })
     });
   }
 
