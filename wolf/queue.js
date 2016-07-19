@@ -197,11 +197,14 @@ EventQueue.prototype.getDyingMessages = function () {
     let __t = this.wolf.i18n.__('death.' + d.event, {
       name: pname
     });
-    if (__t) {
-      msgs.push(__t + this.wolf.i18n.__('death.showjob', {
+    if (__t && this.wolf.opts['showjob'] !== false) {
+      __t += this.wolf.i18n.__('death.showjob', {
         name: pname,
         job: d.dead.role.name
-      }));
+      });
+    }
+    if (__t) {
+      msgs.push(__t);
     }
   }
   return msgs.join('\n');

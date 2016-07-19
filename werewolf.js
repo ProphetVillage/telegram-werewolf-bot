@@ -494,7 +494,7 @@ ba.commands.on('nextgame', (upd, followString) => {
   };
   if (!wolf) {
     wolf = new Wolf(ba, db, chat_id, {
-      queue_pm: false
+      game: false
     });
     wolf.init(upd.message.chat, (err) => {
       if (err) {

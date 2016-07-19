@@ -15,7 +15,7 @@ function Wolf(botapi, db, chat_id, opts) {
   this.ba = botapi;
   this.db = db;
   this.chat_id = chat_id;
-  this.opts = opts;
+  this.opts = opts ? opts : {};
 
   // params
   this.players = [];
@@ -25,7 +25,9 @@ function Wolf(botapi, db, chat_id, opts) {
 
   this.itimer = -1;
   this.winner_message = '';
-  this.setStartTimer();
+  if (this.opts['game'] !== false) {
+    this.setStartTimer();
+  }
 }
 
 Wolf.MAX_PLAYERS = 12;
@@ -50,7 +52,7 @@ Wolf.prototype.init = function (chat, cb) {
     let locale = self.opts.locale ? self.opts.locale : Wolf.DEL_LOCALE;
     self.i18n = new i18nJ(locale);
 
-    if (self.opts['queue_pm'] !== false && r.next_game_queue) {
+    if (self.opts['game'] !== false && r.next_game_queue) {
       for (let q of r.next_game_queue) {
         self.ba.sendMessage({
           chat_id: q.user_id,
