@@ -6,11 +6,24 @@ const _ = require('underscore');
 
 const config = require('./config');
 const BotApi = require('./lib/botapi');
+const DB = require('./lib/db');
 const Wolf = require('./wolf');
 const i18nJ = require('./i18n');
 
 // chat_id => Wolf class
 var game_sessions = {};
+var db = {};
+var __db = new DB(config.db, (err, db) => {
+  if (err) {
+    console.log('Failed to connect database.');
+    return;
+  }
+  db.groups = db.collection('groups');
+  db.users = db.collection('users');
+
+  db.groups.ensureIndex({ chat_id: 1 }, { unique: true, background: true });
+  db.users.ensureIndex({ user_id: 1 }, { unique: true, background: true });
+});
 var def_i18n = new i18nJ('en');
 
 var ba = new BotApi(config.token, {
@@ -90,24 +103,37 @@ ba.commands.on('startgame', (upd, followString) => {
       });
     }
   } else {
-    wolf = new Wolf(ba, chat_id, {
-      end: game_ended,
-      locale: 'zh-CN'
+    let message_id = upd.message.message_id;
+    wolf = new Wolf(ba, db, chat_id, {
+      end: game_ended
     });
     game_sessions[chat_id] = wolf;
-    wolf.join(user);
 
-    let msg = wolf.i18n.__('game.start_a_game', {
-      name: wolf.i18n.player_name(user)
-    });
-    ba.sendMessage({
-      chat_id: chat_id,
-      reply_to_message_id: upd.message.message_id,
-      text: msg,
-    }, (err, result) => {
-      if (err) {
-        console.log(err);
-      }
+    wolf.init((err) => {
+      wolf.join(user, (err, followed) => {
+        if (!followed) {
+          ba.sendMessage({
+            chat_id: chat_id,
+            reply_to_message_id: message_id,
+            text: wolf.i18n.__('game.please_follow_me', {
+              name: wolf.i18n.player_name(user)
+            })
+          });
+        }
+      });
+
+      let msg = wolf.i18n.__('game.start_a_game', {
+        name: wolf.i18n.player_name(user)
+      });
+      ba.sendMessage({
+        chat_id: chat_id,
+        reply_to_message_id: message_id,
+        text: msg,
+      }, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+      });
     });
   }
 });
@@ -120,7 +146,18 @@ ba.commands.on('join', (upd, followString) => {
   if (!wolf) {
     msg = def_i18n.__('game.no_game');
   } else {
-    let r = wolf.join(user);
+    let message_id = upd.message.message_id;
+    let r = wolf.join(user, (err, followed) => {
+      if (!followed) {
+        ba.sendMessage({
+          chat_id: chat_id,
+          reply_to_message_id: message_id,
+          text: wolf.i18n.__('game.please_follow_me', {
+            name: wolf.i18n.player_name(user)
+          })
+        });
+      }
+    });
     if (r === 1) {
       msg = wolf.i18n.__n('game.joined', wolf.players.length, {
         name: wolf.i18n.player_name(user),

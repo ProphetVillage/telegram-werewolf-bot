@@ -18,6 +18,7 @@
   "dependencies": {
     "co": "*",
     "i18n-2": "^0.6.3",
+    "mongodb": "^2.2.4",
     "request": "*",
     "string": "^3.3.1",
     "underscore": "*"

@@ -10,8 +10,9 @@ const i18nJ = require('./../i18n');
 const timer_durations = [ 60000, 30000, 20000, 10000 ];   // [ 12000, 6000, 4000, 1000 ];
 const timer_tips = [ '', 'game.last_1_min', 'game.last_30_sec', 'game.last_10_sec' ];
 
-function Wolf(botapi, chat_id, opts) {
+function Wolf(botapi, db, chat_id, opts) {
   this.ba = botapi;
+  this.db = db;
   this.chat_id = chat_id;
   this.opts = opts;
 
@@ -20,7 +21,6 @@ function Wolf(botapi, chat_id, opts) {
   this.status = 'open'; // 'playing'
   this.day = 0;
   this.when = 'night'; // 'day', 'dusk'
-  this.i18n = new i18nJ(opts.locale ? opts.locale : 'en');
 
   this.itimer = -1;
   this.winner_message = '';
@@ -31,6 +31,25 @@ Wolf.MAX_PLAYERS = 12;
 Wolf.MIN_PLAYERS = 2;
 
 Wolf.Roles = require('./roles');
+
+Wolf.prototype.init = function (cb) {
+  var self = this;
+  this.db.groups.findOne({ chat_id: this.chat_id }, (err, r) => {
+    if (err) {
+      self.i18n = new i18nJ('en');
+      return cb(err);
+    }
+    if (r.opts) {
+      self.opts = _.extend(self.opts, r.opts);
+    }
+
+    // i18n
+    let locale = self.opts.locale ? self.opts.locale : 'en';
+    self.i18n = new i18nJ(locale);
+
+    cb(null, r);
+  });
+};
 
 Wolf.prototype.message = function (text) {
   this.ba.sendMessage({
@@ -225,7 +244,7 @@ Wolf.prototype.flee = function (user) {
   }
 };
 
-Wolf.prototype.join = function (user) {
+Wolf.prototype.join = function (user, cb) {
   if (this.players.length >= Wolf.MAX_PLAYERS) {
     return this.i18n.__('game.too_many_players');
   }
@@ -244,6 +263,8 @@ Wolf.prototype.join = function (user) {
   }
   this.players.push(user);
   this.updateStartTimer();
+
+  this.db.users.findOne({ user_id: user.id }, cb);
   return 1;
 };
 
