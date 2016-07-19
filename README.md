@@ -2,7 +2,8 @@
 
 ## Rules
 
-English working in process.
+English version working in process.
+
 [Chinese](/README.zh-CN.md)
 
 ## Dependencies
