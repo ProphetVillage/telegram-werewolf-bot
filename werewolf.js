@@ -280,23 +280,34 @@ ba.commands.on('setconfig', (upd, followString) => {
 ba.commands.on('config', (upd, followString) => {
   let chat = upd.message.chat;
   if (chat.type !== 'private') {
-    let chat_id = chat.id;
-    let user = upd.message.from;
-    let keyboard = [];
-    keyboard.push([{
-      text: 'Language',
-      callback_data: '/setconfig lang ' + chat_id
-    }]);
-    keyboard.push([{
-      text: 'Show Job',
-      callback_data: '/setconfig showjob ' + chat_id
-    }]);
-    ba.sendMessage({
-      chat_id: user.id,
-      text: 'Settings',
-      reply_markup: JSON.stringify({
-        inline_keyboard: keyboard
-      })
+    ba.getChatAdministrators(chat.id, (err, adms) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      for (let u of adms) {
+        if (upd.message.from.id === u.user.id) {
+          let chat_id = chat.id;
+          let user = upd.message.from;
+          let keyboard = [];
+          keyboard.push([{
+            text: 'Language',
+            callback_data: '/setconfig lang ' + chat_id
+          }]);
+          keyboard.push([{
+            text: 'Show Job',
+            callback_data: '/setconfig showjob ' + chat_id
+          }]);
+          ba.sendMessage({
+            chat_id: user.id,
+            text: 'Settings',
+            reply_markup: JSON.stringify({
+              inline_keyboard: keyboard
+            })
+          });
+          break;
+        }
+      }
     });
   }
 });
