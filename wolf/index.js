@@ -7,6 +7,7 @@ const co = require('co');
 const EventQueue = require('./queue');
 const game_process = require('./process');
 const i18nJ = require('./../i18n');
+const role_list = require('./roles').role_list;
 
 const timer_durations = [ 60000, 30000, 20000, 10000 ];   // [ 12000, 6000, 4000, 1000 ];
 const timer_tips = [ '', 'game.last_1_min', 'game.last_30_sec', 'game.last_10_sec' ];
@@ -365,6 +366,18 @@ Wolf.prototype.getPlayerList = function (showrole) {
   }
 
   return playerlist;
+};
+
+Wolf.prototype.transformRole = function (player, roleId) {
+  if (roleId in role_list) {
+    var rc = player.role.role_chains;
+    rc.push(role.id);
+
+    player.role = new role_list[roleId](this, player);
+
+    // add chains
+    player.role.role_chains = rc;
+  }
 };
 
 module.exports = Wolf;
