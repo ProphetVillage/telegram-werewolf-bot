@@ -36,7 +36,8 @@
 		"help": "帮助是啥，好吃吗",
 		"next_game": "我们将会在下场游戏开始前私聊您。",
 		"open_in_group": "游戏马上将在 {{groupname}} 开始，抓紧时间！",
-		"please_follow_me": "请先和我私聊，在 {{bot}} 窗口中点击 start"
+		"please_follow_me": "请先和我私聊，在 {{bot}} 窗口中点击 start",
+		"not_admin": "您不是该群组的管理员。"
 	},
 	"status": {
 		"dead": "死亡",
