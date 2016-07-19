@@ -108,7 +108,7 @@ exports.setRandomRoles = function (wolf, players) {
 
   for (let player of players) {
     let role = roles[getRandom(roles.length - 1)];
-    player.role = new role_list[role];
+    player.role = new role_list[role](wolf, player);
     roles.splice(roles.indexOf(role), 1);
   }
 

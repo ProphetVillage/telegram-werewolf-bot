@@ -280,7 +280,7 @@ Role.prototype.getPartners = function (id) {
 Role.prototype.transformRole = function (roleId) {
   if (roleId in role_list) {
     this.role_chains.push(this.id);
-    this.player.role = new role_list[roleId];
+    this.player.role = new role_list[roleId](this.wolf, this.player);
   }
 };
 
