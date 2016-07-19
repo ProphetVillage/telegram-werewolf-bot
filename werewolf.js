@@ -113,6 +113,86 @@ ba.commands.on('start', (upd, followString) => {
   }
 });
 
+ba.commands.on('setlang', (upd, followString) => {
+  let cq = upd.callback_query;
+  if (cq && cq.message) {
+    var s = followString.split(' ');
+    if (s.length > 1) {
+      let done_fn = () => {
+        ba.editMessageText({
+          chat_id: cq.message.chat.id,
+          message_id: cq.message.message_id,
+          text: 'Done.',
+        });
+      };
+      // the last one is [chat_id]
+      let chat_id = parseInt(s.pop());
+      let lang = s[0];
+      if (chat_id && Wolf.LOCALES.indexOf(lang) >= 0) {
+        db.groups.findOne({
+          chat_id: chat_id
+        }, (err, r) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if (!r) {
+            db.groups.save({
+              chat_id: chat_id,
+              opts: {
+                locale: lang
+              }
+            }, (err, r) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              done_fn();
+            });
+          } else {
+            if (r.opts) {
+              r.opts.locale = lang;
+            } else {
+              r.opts = { locale: lang };
+            }
+            db.groups.update({
+              chat_id: chat_id,
+            }, { $set: { opts: r.opts } }, (err, r) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              done_fn();
+            });
+          }
+        });
+      }
+    }
+  }
+});
+
+ba.commands.on('config', (upd, followString) => {
+  let chat = upd.message.chat;
+  if (chat.type !== 'private') {
+    let user = upd.message.from;
+    let keyboard = [];
+    for (let l of Wolf.LOCALES) {
+      // \/[evname] [user_id] [chat_id]
+      keyboard.push([{
+        text: l,
+        callback_data: '/setlang ' + l + ' ' + chat.id
+      }]);
+    }
+    ba.sendMessage({
+      chat_id: user.id,
+      text: 'Please select a language.',
+      reply_markup: JSON.stringify({
+        inline_keyboard: keyboard
+      })
+    });
+  }
+});
+
 // define command
 ba.commands.on('startgame', (upd, followString) => {
   let chat_id = upd.message.chat.id;

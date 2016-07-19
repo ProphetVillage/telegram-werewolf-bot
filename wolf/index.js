@@ -30,6 +30,7 @@ function Wolf(botapi, db, chat_id, opts) {
 Wolf.MAX_PLAYERS = 12;
 Wolf.MIN_PLAYERS = 2;
 Wolf.DEL_LOCALE = 'zh-CN';
+Wolf.LOCALES = [ 'en', 'zh-CN' ];
 
 Wolf.Roles = require('./roles');
 
