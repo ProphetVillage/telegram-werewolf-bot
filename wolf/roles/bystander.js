@@ -17,7 +17,7 @@ class Bystander extends Role {
     var msg = this.i18n.__('bystander.announcement');
     var prophet;
 
-    for (let p in this.wolf.players) {
+    for (let p of this.wolf.players) {
       if (p.role.id === 'prophet') {
         prophet = p;
         break;
@@ -34,7 +34,7 @@ class Bystander extends Role {
 
     this.ba.sendMessage({
       chat_id: this.user_id,
-      text: this.i18n.__('bystander.announcement'),
+      text: msg,
     }, (err, r) => {
       if (err) console.log(err);
     });
