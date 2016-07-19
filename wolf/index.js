@@ -29,6 +29,7 @@ function Wolf(botapi, db, chat_id, opts) {
 
 Wolf.MAX_PLAYERS = 12;
 Wolf.MIN_PLAYERS = 2;
+Wolf.DEL_LOCALE = 'zh-CN';
 
 Wolf.Roles = require('./roles');
 
@@ -36,15 +37,15 @@ Wolf.prototype.init = function (cb) {
   var self = this;
   this.db.groups.findOne({ chat_id: this.chat_id }, (err, r) => {
     if (err) {
-      self.i18n = new i18nJ('en');
+      self.i18n = new i18nJ(Wolf.DEL_LOCALE);
       return cb(err);
     }
-    if (r.opts) {
+    if (r && r.opts) {
       self.opts = _.extend(self.opts, r.opts);
     }
 
     // i18n
-    let locale = self.opts.locale ? self.opts.locale : 'en';
+    let locale = self.opts.locale ? self.opts.locale : Wolf.DEL_LOCALE;
     self.i18n = new i18nJ(locale);
 
     cb(null, r);

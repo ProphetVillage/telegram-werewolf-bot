@@ -33,7 +33,8 @@
 		"last_1_min": "剩余 <b>1</b> 分钟 /join",
 		"last_30_sec": "剩余 <b>30</b> 秒 /join",
 		"last_10_sec": "剩余 <b>10</b> 秒 /join",
-		"help": "帮助是啥，好吃吗"
+		"help": "帮助是啥，好吃吗",
+		"please_follow_me": "请先和我私聊，在私聊窗口中点击 /start"
 	},
 	"status": {
 		"dead": "死亡",
@@ -112,19 +113,19 @@
 		"wisdom_of_elder": "长年的智慧让你在于狼人的战斗中幸存了下来。",
 		"shame_of_vote": "你将长者投死了，你现在是村民了！"
 	},
-  "mason": {
-    "name": "搬砖工",
-    "announcement": "你是搬砖工，",
-    "no_partner": "孤独的搬砖工。",
-    "partner": {
+	"mason": {
+		"name": "搬砖工",
+		"announcement": "你是搬砖工，",
+		"no_partner": "孤独的搬砖工。",
+		"partner": {
 			"one": "{{playerlist}} 也是搬砖工。",
 			"other": "{{playerlist}} 也是搬砖工。"
 		}
-  },
-  "bystander": {
-    "name": "旁观者",
-    "announcement": "你是旁观者，你可以看到先知是谁。",
-    "no_prophet": "没有先知。",
-    "see_prophet": "{{name}} 是先知。"
-  }
+	},
+	"bystander": {
+		"name": "旁观者",
+		"announcement": "你是旁观者，你可以看到先知是谁。",
+		"no_prophet": "没有先知。",
+		"see_prophet": "{{name}} 是先知。"
+	}
 }

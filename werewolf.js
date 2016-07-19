@@ -13,13 +13,13 @@ const i18nJ = require('./i18n');
 // chat_id => Wolf class
 var game_sessions = {};
 var db = {};
-var __db = new DB(config.db, (err, db) => {
+var __db = new DB(config.db, (err, _db) => {
   if (err) {
-    console.log('Failed to connect database.');
+    console.log('Failed to connect database.', err);
     return;
   }
-  db.groups = db.collection('groups');
-  db.users = db.collection('users');
+  db.groups = _db.collection('groups');
+  db.users = _db.collection('users');
 
   db.groups.ensureIndex({ chat_id: 1 }, { unique: true, background: true });
   db.users.ensureIndex({ user_id: 1 }, { unique: true, background: true });
@@ -44,7 +44,9 @@ ba.setCheck((cmd, upd) => {
     if (chat.type === 'group' || chat.type === 'supergroup') {
       return false;
     } else {
-      if (cmd !== 'start') {
+      if (cmd === 'start') {
+        return false;
+      } else {
         ba.sendMessage({
           chat_id: chat.id,
           text: 'Please let me join your group.'
@@ -82,6 +84,34 @@ for (var ev of Wolf.Roles.event_list) {
     }
   });
 }
+
+// user signin
+ba.commands.on('start', (upd, followString) => {
+  let chat = upd.message.chat;
+  if (chat.type === 'private') {
+    db.users.findOne({
+      user_id: chat.id
+    }, (err, r) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!r) {
+        // add one
+        db.users.save({
+          user_id: chat.id,
+          username: chat.username,
+          name: chat.first_name + (chat.last_name ? ' ' + chat.last_name : '')
+        }, (err, r) => {
+          ba.sendMessage({
+            chat_id: chat.id,
+            text: 'Great~',
+          });
+        });
+      }
+    });
+  }
+});
 
 // define command
 ba.commands.on('startgame', (upd, followString) => {

@@ -33,7 +33,8 @@
 		"last_1_min": "last <b>1</b> min, /join",
 		"last_30_sec": "last <b>30</b> sec, /join",
 		"last_10_sec": "last <b>10</b> sec, /join",
-		"help": "This is help"
+		"help": "This is help",
+		"please_follow_me": "Please chat with me at first, and click /start at PM."
 	},
 	"status": {
 		"dead": "Dead",
@@ -112,19 +113,19 @@
 		"wisdom_of_elder": "Your wisdom keep you safe in the fight with the wolf.",
 		"shame_of_vote": "You vote the elder, you are a villager now."
 	},
-  "mason": {
-    "name": "Mason",
-    "announcement": "You are a mason, ",
-    "no_partner": "no partner.",
-    "partner": {
+	"mason": {
+		"name": "Mason",
+		"announcement": "You are a mason, ",
+		"no_partner": "no partner.",
+		"partner": {
 			"one": "{{playerlist}} is also a mason.",
 			"other": "{{playerlist}} are also masons."
 		}
-  },
-  "bystander": {
-    "name": "Bystander",
-    "announcement": "You are bystander, you can see who is prophet. ",
-    "no_prophet": "No prophet.",
-    "see_prophet": "{{name}} is prophet."
-  }
+	},
+	"bystander": {
+		"name": "Bystander",
+		"announcement": "You are bystander, you can see who is prophet. ",
+		"no_prophet": "No prophet.",
+		"see_prophet": "{{name}} is prophet."
+	}
 }
