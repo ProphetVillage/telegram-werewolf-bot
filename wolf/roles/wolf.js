@@ -146,13 +146,13 @@ class Wolf extends Role {
       wolf_name: mname,
       target_name: data.name
     });
-    for (var u of players) {
-      if (u.id !== this.user_id && u.role.id === 'wolf') {
-        this.ba.sendMessage({
-          chat_id: u.id,
-          text: msg
-        });
-      }
+
+    let wolves = this.getPartners();
+    for (let u of wolves) {
+      this.ba.sendMessage({
+        chat_id: u.id,
+        text: msg
+      });
     }
   }
 };

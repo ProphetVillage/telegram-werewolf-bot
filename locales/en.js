@@ -51,6 +51,7 @@
 	"winner": {
 		"wolf": "Wolf win!",
 		"villager": "Villager win!",
+		"partymember": "Party win!",
 		"none": "No one win!"
 	},
 	"death": {
@@ -83,7 +84,8 @@
 		"name": "Prophet",
 		"announcement": "You are a prophet. You can see somebody's job.",
 		"choose": "Pick someone to ask about.",
-		"see": "You see {{name}} is {{job}}."
+		"see": "You see {{name}} is {{job}}.",
+		"refuse_party": "Your faith make you don't want to join their party."
 	},
 	"fool": {
 		"name": "Fool",
@@ -122,6 +124,7 @@
 		"name": "Mason",
 		"announcement": "You are a mason, ",
 		"no_partner": "no partner.",
+		"absence": "{{name}} didn't come to our meeting today.",
 		"partner": {
 			"one": "{{playerlist}} is also a mason.",
 			"other": "{{playerlist}} are also masons."
@@ -138,5 +141,14 @@
 		"announcement": "You are a detective, you can someone's job. But you may be discovered by wolf once you try to follow someone.",
 		"choose": "Today, who is your target?",
 		"see": "You found {{name}} is {{job}}."
+	},
+	"partymember": {
+		"name": "ParyMember",
+		"announcement": "You are a party member, every night you persuade someone to join your party.",
+		"choose": "This night, which one you want to persuade?",
+		"selected": "{{member_name}} selected {{target_name}}",
+		"new_member": "{{name}} became a new member of our party. Now {{playerlist}} are our party members.",
+		"refused": "Failed to persuade {{name}}",
+		"bite_by_wolf": "You found {{name}} is a wolf, you lost your young life when you trying to talk with him."
 	}
 }

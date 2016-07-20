@@ -25,7 +25,7 @@
 		"fail_to_flee": "您不能退出当前已经开始了的游戏。",
 		"not_in_game": "您不在这场游戏之中。",
 		"too_many_players": "玩家总数超过限制。",
-		"already_started": "这场游戏已经开始。",
+		"already_started": "这场游戏已经开始。加入下一局游戏 /nextgame",
 		"already_in": "您已经在这场游戏之中。",
 		"no_enough_person": "没有足够的人数来开始游戏。",
 		"allocate_roles": "现在正在为玩家分配角色。",
@@ -51,6 +51,7 @@
 	"winner": {
 		"wolf": "狼人胜！",
 		"villager": "村民胜！",
+		"partymember": "党的胜利！",
 		"none": "无人胜利"
 	},
 	"death": {
@@ -71,9 +72,9 @@
 		"choose": "又到了吃肉的时间，你想吃谁？",
 		"drunk_night": "还是醉醺醺的，不想吃人。",
 		"eat_drunk": [
-      "你吃了个酒鬼，醉了。",
-      "美味的啤酒人让你隔天都不想下床。"
-    ],
+			"你吃了个酒鬼，醉了。",
+			"美味的啤酒人让你隔天都不想下床。"
+		],
 		"bite_you": "你被好大——的一张嘴吃了，好像很美味的样子。",
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
 		"notice_detective": "你发现有人鬼鬼祟祟的，{{name}} 是 {{job}}。",
@@ -86,7 +87,8 @@
 		"name": "先知",
 		"announcement": "你是先知，你能知道别人的身份。",
 		"choose": "请选择一个你想知道他的身份的人。",
-		"see": "你看 {{name}} 是 {{job}}。"
+		"see": "你看 {{name}} 是 {{job}}。",
+		"refuse_party": "坚定的信仰使你不想成为党的一员。"
 	},
 	"fool": {
 		"name": "傻瓜",
@@ -125,6 +127,7 @@
 		"name": "搬砖工",
 		"announcement": "你是搬砖工，",
 		"no_partner": "孤独的搬砖工。",
+		"absence": "不知什么原因，今天 {{name}} 缺席了平日的工会。",
 		"partner": {
 			"one": "{{playerlist}} 也是搬砖工。",
 			"other": "{{playerlist}} 也是搬砖工。"
@@ -141,5 +144,14 @@
 		"announcement": "你是侦探，你能调查别人的职业。但是在尾随的时候，有一定几率会被狼人发现。",
 		"choose": "今天你想尾随谁？",
 		"see": "调查的结果，{{name}} 是 {{job}}。"
+	},
+	"partymember": {
+		"name": "党员",
+		"announcement": "你是一位忠诚的党员，每晚你有机会发展一名新的党员。",
+		"choose": "今天晚上，你看谁像新的党员？",
+		"selected": "{{member_name}} 选择了 {{target_name}}",
+		"new_member": "{{name}} 变成了我党新的一员。现在 {{playerlist}} 是我党的成员。",
+		"refused": "{{name}} 并不想加入党的怀抱。",
+		"bite_by_wolf": "你发现 {{name}} 是狼，为了党，你失去了你年轻的生命。"
 	}
 }

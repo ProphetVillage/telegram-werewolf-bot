@@ -14,7 +14,8 @@ var Roles = {
   Elder: require('./elder'),
   Mason: require('./mason'),
   Bystander: require('./bystander'),
-  Detective: require('./detective')
+  Detective: require('./detective'),
+  PartyMember: require('./partymember')
 };
 
 exports.Roles = Roles;
@@ -31,7 +32,8 @@ const role_list = {
   'elder': Roles.Elder,
   'mason': Roles.Mason,
   'bystander': Roles.Bystander,
-  'detective': Roles.Detective
+  'detective': Roles.Detective,
+  'partymember': Roles.PartyMember
  };
 
  Roles.role_list = role_list;
@@ -43,7 +45,8 @@ exports.event_list = [
   'protect',
   'cure',
   'poison',
-  'detect'
+  'detect',
+  'partify'
  ];
 exports.role_list = role_list;
 
@@ -52,7 +55,7 @@ var getRandom = function (max = 1, base = 0) {
 };
 
 exports.setRandomRolesT = function (wolf, players) {
-  players[0].role = new Roles.Wolf(wolf, players[0]);
+  players[0].role = new Roles.PartyMember(wolf, players[0]);
   if (players.length > 1) {
     players[1].role = new Roles.Detective(wolf, players[1]);
   }
@@ -69,7 +72,8 @@ exports.setRandomRoles = function (wolf, players) {
     'drunk',
     'elder',
     'bystander',
-    'detective'
+    'detective',
+    'partymember'
    ];
   var player_count = players.length;
   var roles = [];

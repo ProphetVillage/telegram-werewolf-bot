@@ -94,7 +94,7 @@ EventQueue.prototype.processVote = function () {
 };
 
 EventQueue.prototype.combineQueue = function () {
-  var combine_action_list = [ 'bite' ];
+  var combine_action_list = [ 'bite', 'partify' ];
   for (let ac of combine_action_list) {
     let userlist = {};
     for (let i = 0; i < this.queue.length; i++) {

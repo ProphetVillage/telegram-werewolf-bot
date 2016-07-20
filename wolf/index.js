@@ -173,27 +173,37 @@ Wolf.prototype.runQueue = function () {
 Wolf.prototype.checkEnded = function () {
   let alive_vill_count = 0;
   let alive_wolf_count = 0;
+  let alive_party_count = 0;
   let alive_count = 0;
   for (let u of this.players) {
     if (u.role.dead) {
       continue;
     }
-    if (u.role.id === 'wolf') {
-      alive_wolf_count++;
-    } else {
-      alive_vill_count++;
+    switch (u.role.id) {
+      case 'wolf':
+        alive_wolf_count++;
+        break;
+      case 'partymember':
+        alive_party_count++;
+        break;
+      default:
+        alive_vill_count++;
     }
     alive_count++;
   }
-  if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
+  if (alive_party_count >= alive_count) {
+    this.winner_message = 'winner.partymember';
+    return true;
+  } else if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
     this.winner_message = 'winner.wolf';
-  } else if (alive_vill_count > 0 && alive_wolf_count === 0) {
+  } else if (alive_vill_count > 0 && alive_wolf_count === 0 && alive_party_count === 0) {
     this.winner_message = 'winner.villager';
-  } else if (alive_vill_count === 0 && alive_wolf_count === 0) {
+  } else if (alive_count === 0) {
     this.winner_message = 'winner.none';
   } else {
     return false;
   }
+  return false;
   return true;
 };
 
