@@ -193,7 +193,6 @@ Wolf.prototype.checkEnded = function () {
   }
   if (alive_party_count >= alive_count) {
     this.winner_message = 'winner.partymember';
-    return true;
   } else if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
     this.winner_message = 'winner.wolf';
   } else if (alive_vill_count > 0 && alive_wolf_count === 0 && alive_party_count === 0) {
@@ -203,7 +202,6 @@ Wolf.prototype.checkEnded = function () {
   } else {
     return false;
   }
-  return false;
   return true;
 };
 
