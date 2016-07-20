@@ -33,7 +33,7 @@
 		"last_1_min": "剩余 <b>1</b> 分钟 /join",
 		"last_30_sec": "剩余 <b>30</b> 秒 /join",
 		"last_10_sec": "剩余 <b>10</b> 秒 /join",
-		"help": "帮助是啥，好吃吗",
+		"help": "请阅读： <a href='https://github.com/ProphetVillage/telegram-werewolf-bot/blob/master/README.zh-CN.md'>游戏规则</a>",
 		"next_game": "我们将会在下场游戏开始前私聊您。",
 		"open_in_group": "游戏马上将在 {{groupname}} 开始，抓紧时间！",
 		"please_follow_me": "请先和我私聊，在 {{bot}} 窗口中点击 start",
