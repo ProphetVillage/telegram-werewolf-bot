@@ -41,7 +41,8 @@ class Elder extends Role {
     } else if (ev === 'vote') {
       // set all skillers to villager
       let players = this.wolf.players;
-      var skillerIds = [ 'drunk', 'guardian', 'prophet', 'witch', 'detective', 'bystander' ];
+      var skillerIds = [ 'drunk', 'guardian', 'prophet', 'witch',
+          'mason', 'detective', 'bystander' ];
       for (let u of players) {
         if (!u.role.dead && skillerIds.indexOf(u.role.id) >= 0) {
           this.wolf.transformRole(u, 'villager');
