@@ -70,7 +70,10 @@
 		"announcement": "你是狼人，每晚都想要大开杀戒。",
 		"choose": "又到了吃肉的时间，你想吃谁？",
 		"drunk_night": "还是醉醺醺的，不想吃人。",
-		"eat_drunk": "你吃了个酒鬼，醉了。",
+		"eat_drunk": [
+      "你吃了个酒鬼，醉了。",
+      "美味的啤酒人让你隔天都不想下床。"
+    ],
 		"bite_you": "你被好大——的一张嘴吃了，好像很美味的样子。",
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
 		"notice_detective": "你发现有人鬼鬼祟祟的，{{name}} 是 {{job}}。",
