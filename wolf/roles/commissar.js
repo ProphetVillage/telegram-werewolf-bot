@@ -37,6 +37,15 @@ class Commissar extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });
+      } else {
+        this.ba.sendMessage({
+          chat_id: target.id,
+          text: this.i18n.__('commissar.notfound', {
+            name: this.i18n.player_name(target)
+          })
+        }, (err, r) => {
+          if (err) console.log(err);
+        });
       }
     }
   }
