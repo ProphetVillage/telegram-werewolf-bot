@@ -27,6 +27,7 @@ class PartyMember extends Role {
   action(ev, target, queue) {
     if (ev === 'partify') {
       let target_name = this.i18n.player_name(target);
+
       if (target.role.id === 'wolf') {
         // dead
         this.ba.sendMessage({
@@ -35,16 +36,13 @@ class PartyMember extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });
-        this.endOfLife(bite, target, queue);
+        this.endOfLife('bite', target, queue);
         return;
+
       } else if (target.role.id === 'mason') {
         // message other mason
         let masons = this.getPartners('mason');
         for (let u of masons) {
-          if (u.id === target.id) {
-            // skip target
-            continue;
-          }
           this.ba.sendMessage({
             chat_id: u.id,
             text: this.i18n.__('mason.absence', {
@@ -54,6 +52,7 @@ class PartyMember extends Role {
             if (err) console.log(err);
           });
         }
+
       } else if (target.role.id === 'prophet') {
         // 70% chance failed
         if (Math.random() < 0.7) {
@@ -76,18 +75,20 @@ class PartyMember extends Role {
       }
 
       this.wolf.transformRole(target, 'partymember');
-      let members = this.getPartners('partymember');  // get all members
+      let members = this.getPartners('partymember', false, true);  // get all members
 
       // notify target
-      this.ba.sendMessage({
-        chat_id: target.id,
-        text: this.i18n.__('partymember.new_member', {
-          name: target_name,
-          playerlist: this.i18n.player_list(members)
-        })
-      }, (err, r) => {
-        if (err) console.log(err);
-      });
+      for (let p of members) {
+        this.ba.sendMessage({
+          chat_id: p.id,
+          text: this.i18n.__('partymember.new_member', {
+            name: target_name,
+            playerlist: this.i18n.player_list(members)
+          })
+        }, (err, r) => {
+          if (err) console.log(err);
+        });
+      }
     }
   }
 
