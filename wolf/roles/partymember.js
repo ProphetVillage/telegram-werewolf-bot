@@ -26,6 +26,10 @@ class PartyMember extends Role {
 
   action(ev, target, queue) {
     if (ev === 'partify') {
+      if (target.role.dead) {
+        return;
+      }
+      
       let target_name = this.i18n.player_name(target);
 
       if (target.role.id === 'wolf') {

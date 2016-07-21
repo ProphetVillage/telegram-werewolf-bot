@@ -16,7 +16,7 @@ function timeout(ms, queue) {
           return;
         }
         clearTimeout(__t);
-        resolve();
+        setImmediate(resolve);
       });
     }
   });
