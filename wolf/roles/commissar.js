@@ -30,7 +30,7 @@ class Commissar extends Role {
 
         // message target
         this.ba.sendMessage({
-          chat_id: target.id,
+          chat_id: this.user_id,
           text: this.i18n.__('commissar.found_partymember', {
             name: this.i18n.player_name(target)
           })
