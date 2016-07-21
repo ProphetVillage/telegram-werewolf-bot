@@ -29,14 +29,16 @@ class PartyMember extends Role {
       if (target.role.dead) {
         return;
       }
-      
+
       let target_name = this.i18n.player_name(target);
 
       if (target.role.id === 'wolf') {
         // dead
         this.ba.sendMessage({
           chat_id: this.user_id,
-          text: this.i18n.__('partymember.bite_by_wolf')
+          text: this.i18n.__('partymember.bite_by_wolf', {
+            name: target_name
+          })
         }, (err, r) => {
           if (err) console.log(err);
         });
@@ -93,6 +95,7 @@ class PartyMember extends Role {
           if (err) console.log(err);
         });
       }
+
     }
   }
 
