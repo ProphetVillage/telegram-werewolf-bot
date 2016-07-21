@@ -59,8 +59,8 @@ EventQueue.prototype.afterFinish = function (fn) {
 };
 
 EventQueue.prototype.processVote = function () {
-  var userlist = {};
-  for (var q of this.queue) {
+  let userlist = {};
+  for (let q of this.queue) {
     if (q.user_id) {
       if (!userlist[q.user_id]) {
         userlist[q.user_id] = 1;
@@ -72,7 +72,7 @@ EventQueue.prototype.processVote = function () {
 
   var max = 0, maxdup = false;
   var maxUserId;
-  for (var user_id in userlist) {
+  for (let user_id in userlist) {
     if (userlist[user_id] > max) {
       max = userlist[user_id];
       maxdup = false;
@@ -84,7 +84,7 @@ EventQueue.prototype.processVote = function () {
 
   if (max && !maxdup) {
     // vote to dead
-    var target = this.wolf.findPlayer(parseInt(maxUserId));
+    let target = this.wolf.findPlayer(parseInt(maxUserId));
     if (target) {
       target.role.endOfLife('vote', null, this);
     } else {
@@ -158,7 +158,7 @@ EventQueue.prototype.finish = function () {
     // sort by priority
     this.queue = _.sortBy(this.queue, (q) => { return -q.priority });
 
-    for (var q of this.queue) {
+    for (let q of this.queue) {
       if (q.user_id && q.from && !q.from.role.dead) {
         var target = this.wolf.findPlayer(q.user_id);
         if (!target) continue;

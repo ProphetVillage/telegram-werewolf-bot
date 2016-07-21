@@ -72,15 +72,16 @@ exports.setRandomRoles = function (wolf, players) {
     'drunk',
     'elder',
     'bystander',
-    'detective',
-    'partymember'
+    'detective'
    ];
   var player_count = players.length;
   var roles = [];
   var other_list = {
     wolf: 0,
     villager: 0,
-    mason: 0
+    mason: 0,
+    partymember: 0,
+    commissar: 0
   };
 
   if (player_count < 7) {
@@ -89,12 +90,18 @@ exports.setRandomRoles = function (wolf, players) {
     other_list.mason = getRandom(2, 0);
   } else if (player_count < 10) {
     other_list.wolf = 2;
+    other_list.partymember = 1;
     other_list.villager = 2;
     other_list.mason = getRandom(2, 1);
   } else {
-    other_list.wolf = 4;
+    other_list.wolf = 3;
+    other_list.partymember = 1;
     other_list.villager = getRandom(3, 2);
     other_list.mason = getRandom(3, 1);
+  }
+
+  if (other_list.partymember) {
+    other_list.commissar = 1;
   }
 
   for (let r in other_list) {

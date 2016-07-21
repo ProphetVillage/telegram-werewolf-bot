@@ -45,6 +45,19 @@ class PartyMember extends Role {
         this.endOfLife('bite', target, queue);
         return;
 
+      } else if (target.role.id === 'commissar') {
+        // dead
+        this.ba.sendMessage({
+          chat_id: this.user_id,
+          text: this.i18n.__('partymember.caught', {
+            name: target_name
+          })
+        }, (err, r) => {
+          if (err) console.log(err);
+        });
+        this.endOfLife('isparty', target, queue);
+        return;
+
       } else if (target.role.id === 'mason') {
         // message other mason
         let masons = this.getPartners('mason');
