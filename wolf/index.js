@@ -146,6 +146,7 @@ Wolf.prototype.enter = function (day, time) {
 
   // reset status
   for (var u of this.players) {
+    u.role.event_message_id = null;
     u.role.done = false;
     u.role.updateBuff();
   }
