@@ -16,7 +16,8 @@ function timeout(ms, queue) {
           return;
         }
         clearTimeout(__t);
-        setImmediate(resolve);
+        // delay 1s
+        setTimeout(resolve, 1000);
       });
     }
   });

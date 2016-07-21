@@ -8,7 +8,7 @@ class PartyMember extends Role {
 
     this.id = 'partymember';
     this.name = this.i18n.job_name('partymember');
-    this.priority = 0;
+    this.priority = 1;
 
     this.allowEvents = [ 'vote', 'partify' ];
   }
@@ -49,6 +49,9 @@ class PartyMember extends Role {
         // message other mason
         let masons = this.getPartners('mason');
         for (let u of masons) {
+          if (u.id === target.id) {
+            continue;
+          }
           this.ba.sendMessage({
             chat_id: u.id,
             text: this.i18n.__('mason.absence', {
