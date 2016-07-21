@@ -59,7 +59,8 @@
 		"vote_punishment": "{{name}} hasn\\'t voted for <b>2</b> times, the god punished him/her.",
 		"bite": "{{name}} has been bitten.",
 		"poison": "{{name}} has been poisoned.",
-    "isparty": "{{name}} was caught by his corruption.",
+		"isparty": "{{name}} was caught by his corruption.",
+    "caught_by_commissar": "Unfortunately {{name}} encountered commissar, he was caught.",
 		"silent_night": "A silent night.",
 		"showjob": "{{name}} is {{job}}."
 	},
@@ -151,13 +152,13 @@
 		"new_member": "{{name}} became a new member of our party. Now {{playerlist}} are our party members.",
 		"refused": "Failed to persuade {{name}}",
 		"bite_by_wolf": "You found {{name}} is a wolf, you lost your young life when you trying to talk with him.",
-    "caught": "Sadly, you found {{name}} is commissar, you are caught by him."
+		"caught": "Sadly, you found {{name}} is commissar, you are caught by him."
 	},
-  "commissar": {
-    "name": "Commissar",
-    "announcement": "You are commissar, corruption is a big problem in party.",
-    "choose": "Tonight, which one you think is corrupting?",
-    "found_partymember": "Found a corrupting party member {{name}}.",
-    "notfound": "{{name}} is not a corrupting party member."
-  }
+	"commissar": {
+		"name": "Commissar",
+		"announcement": "You are commissar, corruption is a big problem in party.",
+		"choose": "Tonight, which one you think is corrupting?",
+		"found_partymember": "Found a corrupting party member {{name}}.",
+		"notfound": "{{name}} is not a corrupting party member."
+	}
 }

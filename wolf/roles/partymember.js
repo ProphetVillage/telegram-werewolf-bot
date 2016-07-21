@@ -55,7 +55,7 @@ class PartyMember extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });
-        this.endOfLife('isparty', target, queue);
+        this.endOfLife('caught_by_commissar', target, queue);
         return;
 
       } else if (target.role.id === 'mason') {

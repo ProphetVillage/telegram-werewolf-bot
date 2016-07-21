@@ -59,7 +59,8 @@
 		"vote_punishment": "{{name}} 有 <b>2</b> 次没有进行投票，上帝决定要惩罚他。",
 		"bite": "{{name}} 被咬死了。",
 		"poison": "{{name}} 被毒死了。",
-    "isparty": "{{name}} 由于腐败的作风被政委抓走了。",
+		"isparty": "{{name}} 由于腐败的作风被政委抓走了。",
+		"caught_by_commissar": "昨晚 {{name}} 不幸地遇到了政委，被带走了。",
 		"silent_night": "平安夜。",
 		"showjob": "{{name}} 是 {{job}}。"
 	},
@@ -154,13 +155,13 @@
 		"new_member": "{{name}} 变成了我党新的一员。现在 {{playerlist}} 是我党的成员。",
 		"refused": "{{name}} 并不想加入党的怀抱。",
 		"bite_by_wolf": "你发现 {{name}} 是狼，为了党，你失去了你年轻的生命。",
-    "caught": "不幸地遇到了政委，被带走了。"
+		"caught": "不幸地遇到了政委，被带走了。"
 	},
-  "commissar": {
-    "name": "政委",
-    "announcement": "你是政委，总感觉有些党员在腐败。",
-    "choose": "今晚，你觉得谁在腐败？",
-    "found_partymember": "发现了一个腐败的党员 {{name}}。",
-    "notfound": "{{name}} 并不是一个腐败的党员。"
-  }
+	"commissar": {
+		"name": "政委",
+		"announcement": "你是政委，总感觉有些党员在腐败。",
+		"choose": "今晚，你觉得谁在腐败？",
+		"found_partymember": "发现了一个腐败的党员 {{name}}。",
+		"notfound": "{{name}} 并不是一个腐败的党员。"
+	}
 }
