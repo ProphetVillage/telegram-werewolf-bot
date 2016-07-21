@@ -270,9 +270,10 @@ Role.prototype.getPartners = function (role = this.id, dead = false, self = fals
   var partners = [];
   for (let u of players) {
     if (u.role.id === role) {
-      if ((u.role.dead && dead) || ((u.id === this.user_id) && self)) {
-        partners.push(u);
+      if ((u.role.dead && !dead) || ((u.id === this.user_id) && !self)) {
+        continue;
       }
+      partners.push(u);
     }
   }
   return partners;
