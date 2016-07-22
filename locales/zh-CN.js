@@ -43,7 +43,8 @@
 		"dead": "死亡",
 		"alive": "存活",
 		"won": "胜利",
-		"lost": "失败"
+		"lost": "失败",
+    "stats": "Player {{name}}:\nGames played total: <b>{{total}}</b>\nGames won: <b>{{won}}</b>\nGames survived: <b>{{survived}}</b>\nMost common role: <b>{{most_role}}</b>\nMost killed: {{most_killed_name}} <b>{{most_killed_times}}</b> times\nMost killed by: {{most_killed_by_name}} <b>{{most_killed_by_times}}</b> times"
 	},
 	"scene": {
 		"night": "微风的夜晚，似乎有什么事情将要发生。请等待 <b>{{time}}</b> 秒。",

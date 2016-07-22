@@ -43,7 +43,8 @@
 		"dead": "Dead",
 		"alive": "Alive",
 		"won": "Won",
-		"lost": "Lost"
+		"lost": "Lost",
+    "stats": "Player {{name}}:\nGames played total: <b>{{total}}</b>\nGames won: <b>{{won}}</b>\nGames survived: <b>{{survived}}</b>\nMost common role: <b>{{most_role}}</b>\nMost killed: {{most_killed_name}} <b>{{most_killed_times}}</b> times\nMost killed by: {{most_killed_by_name}} <b>{{most_killed_by_times}}</b> times"
 	},
 	"scene": {
 		"night": "Tonight, a beautiful night. <b>{{time}}s</b> to wait.",

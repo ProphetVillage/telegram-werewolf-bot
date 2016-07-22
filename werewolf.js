@@ -546,7 +546,30 @@ ba.commands.on('stats', (upd, followString) => {
 
     let msg;
     if (stat) {
-      msg = JSON.stringify(stat);
+      let most_role;
+      let most_killed;
+      let most_killed_by;
+      if (stat.role && stat.role.length > 0) {
+        most_role = _.max(Object.keys(stat.role), function (o) { return stat.role[o]; });
+      }
+      if (stat.killed && Object.keys(stat.killed).length) {
+        most_killed = _.max(Object.keys(stat.killed), function (o) { return stat.killed[o]; });
+      }
+      if (stat.killed_by && Object.keys(stat.killed_by).length) {
+        most_killed_by = _.max(Object.keys(stat.killed_by), function (o) { return stat.killed_by[o]; });
+      }
+
+      msg = def_i18n.__('status.stats', {
+        name: def_i18n.player_name(stat.name),
+        total: stat.game.total,
+        won: stat.game.won,
+        survived: stat.game.survived,
+        most_role: most_role ? def_i18n.__(most_role + '.name') : 'Nope',
+        most_killed_name: most_killed ? most_killed.name : 'Nope',
+        most_killed_times: most_killed ? most_killed.times : '',
+        most_killed_by_name: most_killed_by ? most_killed_by.name : 'Nope',
+        most_killed_by_times: most_killed_by ? most_killed_by.times : ''
+      });
     } else {
       msg = 'No stats';
     }
