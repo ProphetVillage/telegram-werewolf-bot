@@ -13,15 +13,6 @@ class Drunk extends Role {
     this.allowEvents = [ 'vote' ];
   }
 
-  eventAnnouncement() {
-    this.ba.sendMessage({
-      chat_id: this.user_id,
-      text: this.i18n.__('drunk.announcement'),
-    }, (err, r) => {
-      if (err) console.log(err);
-    });
-  }
-
   endOfLife(ev, killer, queue) {
     super.endOfLife(ev, killer, queue);
 

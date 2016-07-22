@@ -13,15 +13,6 @@ class Commissar extends Role {
     this.allowEvents = [ 'vote', 'isparty' ];
   }
 
-  eventAnnouncement() {
-    this.ba.sendMessage({
-      chat_id: this.user_id,
-      text: this.i18n.__('commissar.announcement'),
-    }, (err, r) => {
-      if (err) console.log(err);
-    });
-  }
-
   action(ev, target, queue) {
     if (ev === 'isparty') {
       // killed

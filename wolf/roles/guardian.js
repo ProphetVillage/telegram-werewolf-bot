@@ -32,15 +32,6 @@ class Guardian extends Role {
     }
   }
 
-  eventAnnouncement() {
-    this.ba.sendMessage({
-      chat_id: this.user_id,
-      text: this.i18n.__("guardian.announcement")
-    }, (err, r) => {
-      if (err) console.log(err);
-    });
-  }
-
   eventNight(queue) {
     let players = this.wolf.players;
     let keyboard = [];

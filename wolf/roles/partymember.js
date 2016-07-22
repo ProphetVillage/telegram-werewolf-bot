@@ -9,19 +9,9 @@ class PartyMember extends Role {
     this.id = 'partymember';
     this.name = this.i18n.job_name('partymember');
     this.priority = 1;
+    this.team = Role.teams.PARTY;
 
     this.allowEvents = [ 'vote', 'partify' ];
-  }
-
-  eventAnnouncement() {
-    var msg = this.i18n.__('partymember.announcement');
-
-    this.ba.sendMessage({
-      chat_id: this.user_id,
-      text: msg,
-    }, (err, r) => {
-      if (err) console.log(err);
-    });
   }
 
   action(ev, target, queue) {

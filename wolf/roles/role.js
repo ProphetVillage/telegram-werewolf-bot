@@ -17,6 +17,7 @@ function Role(wolf, player) {
   this.novotetimes = 0;
   this.buff = {};
   this.role_chains = [];
+  this.team = Role.teams.VILLAGER;
 
   // event message
   this.event_message_id = null;
@@ -25,6 +26,13 @@ function Role(wolf, player) {
   this.done = false;
   this.allowEvents = [ 'vote' ]; // allowed events' name, such as 'kill'
 }
+
+Role.teams = {
+  VILLAGER: 'VILLAGER',
+  WOLF: 'WOLF',
+  PARTY: 'PARTY',
+  TANNER: 'TANNER'
+};
 
 Role.prototype.makeCommand = function (action, user_id, chat_id) {
   return '/' + action + ' ' + user_id + ' ' + chat_id;
@@ -134,7 +142,12 @@ Role.prototype.dawnTimeUp = function (queue) {
 };
 
 Role.prototype.eventAnnouncement = function () {
-
+  this.ba.sendMessage({
+    chat_id: this.user_id,
+    text: this.i18n.__(this.id + '.announcement'),
+  }, (err, r) => {
+    if (err) console.log(err);
+  });
 };
 
 Role.prototype.eventDay = function (queue) {

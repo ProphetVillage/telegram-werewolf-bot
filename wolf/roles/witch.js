@@ -16,15 +16,6 @@ class Witch extends Role {
     this.allowEvents = [ 'vote', 'cure', 'poison' ];
   }
 
-  eventAnnouncement() {
-    this.ba.sendMessage({
-      chat_id: this.user_id,
-      text: this.i18n.__('witch.announcement'),
-    }, (err, r) => {
-      if (err) console.log(err);
-    });
-  }
-
   action(ev, target, queue) {
     if (ev === 'cure' && this.pill_cure) {
       this.pill_cure = 0;
