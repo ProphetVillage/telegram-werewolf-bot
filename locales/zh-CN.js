@@ -52,6 +52,7 @@
 		"wolf": "狼人胜！",
 		"villager": "村民胜！",
 		"partymember": "党的胜利！",
+    "tanner": "皮匠胜！",
 		"none": "无人胜利"
 	},
 	"death": {
@@ -163,5 +164,9 @@
 		"choose": "今晚，你觉得谁在腐败？",
 		"found_partymember": "发现了一个腐败的党员 {{name}}。",
 		"notfound": "{{name}} 并不是一个腐败的党员。"
-	}
+	},
+  "tanner": {
+    "name": "皮匠",
+    "announcement": "你是皮匠，你对生活失去了希望，如果你被投死，那就解放了整个村子。"
+  }
 }

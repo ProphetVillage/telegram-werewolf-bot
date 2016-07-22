@@ -52,6 +52,7 @@
 		"wolf": "Wolf win!",
 		"villager": "Villager win!",
 		"partymember": "Party win!",
+    "tanner": "Tanner win!",
 		"none": "No one win!"
 	},
 	"death": {
@@ -160,5 +161,9 @@
 		"choose": "Tonight, which one you think is corrupting?",
 		"found_partymember": "Found a corrupting party member {{name}}.",
 		"notfound": "{{name}} is not a corrupting party member."
-	}
+	},
+  "tanner": {
+    "name": "Tanner",
+    "announcement": "You are a tanner, your goal is to get lynched, and you will win."
+  }
 }

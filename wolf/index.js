@@ -192,6 +192,15 @@ Wolf.prototype.checkEnded = function () {
     }
     alive_count++;
   }
+  if (this.queue.getDeathCount() > 0) {
+    let deads = this.queue.death;
+    for (let d of deads) {
+      if (d.event === 'vote' && d.dead.role.id === 'tanner') {
+        this.winner_message = 'winner.tanner';
+        return true;
+      }
+    }
+  }
   if (alive_party_count >= alive_count) {
     this.winner_message = 'winner.partymember';
   } else if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {

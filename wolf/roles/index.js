@@ -16,7 +16,8 @@ var Roles = {
   Bystander: require('./bystander'),
   Detective: require('./detective'),
   PartyMember: require('./partymember'),
-  Commissar: require('./commissar')
+  Commissar: require('./commissar'),
+  Tanner: require('./tanner')
 };
 
 exports.Roles = Roles;
@@ -35,7 +36,8 @@ const role_list = {
   'bystander': Roles.Bystander,
   'detective': Roles.Detective,
   'partymember': Roles.PartyMember,
-  'commissar': Roles.Commissar
+  'commissar': Roles.Commissar,
+  'tanner': Roles.Tanner
  };
 
  Roles.role_list = role_list;
@@ -75,7 +77,8 @@ exports.setRandomRoles = function (wolf, players) {
     'drunk',
     'elder',
     'bystander',
-    'detective'
+    'detective',
+    'tanner'
    ];
   var player_count = players.length;
   var roles = [];
