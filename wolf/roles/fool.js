@@ -16,13 +16,19 @@ class Fool extends Prophet {
   action(ev, target, queue) {
     if (ev === 'know') {
       let names = [];
+      let jobname;
       for (var u of this.wolf.players) {
-        if (u.role.dead) {
+        if (u.role.dead || u.role.id === target.role.id) {
           continue;
         }
         names.push(u.role.name);
       }
-      var jobname = names[Math.floor(Math.random() * names.length)];
+      if (Math.random() > 0.3) {
+        jobname = names[Math.floor(Math.random() * names.length)];
+      } else {
+        names.push(target.role.name);
+        jobname = names[Math.floor(Math.random() * names.length)];
+      }
       this.ba.sendMessage({
         chat_id: this.user_id,
         text: this.i18n.__('fool.see', {
