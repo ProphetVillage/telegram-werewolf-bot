@@ -566,7 +566,7 @@ ba.commands.on('stats', (upd, followString) => {
       }
 
       msg = def_i18n.__('status.stats', {
-        name: stat.name,
+        name: '<b>' + S(stat.name).escapeHTML().s + '</b>',
         total: stat.game.total,
         won: stat.game.won,
         survived: stat.game.survived,
