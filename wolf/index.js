@@ -7,6 +7,7 @@ const co = require('co');
 const EventQueue = require('./queue');
 const game_process = require('./process');
 const i18nJ = require('./../i18n');
+const Role = require('./roles/role');
 const role_list = require('./roles').role_list;
 
 const timer_durations = [ 60000, 30000, 20000, 10000 ];   // [ 12000, 6000, 4000, 1000 ];
@@ -25,7 +26,7 @@ function Wolf(botapi, db, chat_id, opts) {
   this.when = 'night'; // 'day', 'dusk'
 
   this.itimer = -1;
-  this.winner_message = '';
+  //this.winner_team;
   if (this.opts['game'] !== false) {
     this.setStartTimer();
   }
@@ -199,19 +200,19 @@ Wolf.prototype.checkEnded = function () {
     let deads = this.queue.death;
     for (let d of deads) {
       if (d.event === 'vote' && d.dead.role.id === 'tanner') {
-        this.winner_message = 'winner.tanner';
+        this.winner_team = Role.teams.TANNER;
         return true;
       }
     }
   }
   if (alive_party_count >= alive_count) {
-    this.winner_message = 'winner.partymember';
+    this.winner_team = Role.teams.PARTY;
   } else if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
-    this.winner_message = 'winner.wolf';
+    this.winner_team = Role.teams.WOLF;
   } else if (alive_vill_count > 0 && alive_wolf_count === 0 && alive_party_count === 0) {
-    this.winner_message = 'winner.villager';
+    this.winner_team = Role.teams.VILLAGER;
   } else if (alive_count === 0) {
-    this.winner_message = 'winner.none';
+    this.winner_team = Role.teams.NONE;
   } else {
     return false;
   }
@@ -383,6 +384,13 @@ Wolf.prototype.getPlayerList = function (showrole) {
     playerlist += ' - ' + ((u.role && u.role.dead)
         ? this.i18n.__('status.dead')
         : this.i18n.__('status.alive'));
+
+    if (showrole === 2 && this.winner_team) {
+      playerlist += ' ' + ((u.role.team === this.winner_team)
+          ? this.i18n.__('common.won')
+          : this.i18n.__('common.lost'));
+    }
+
     playerlist += '\n';
   }
 

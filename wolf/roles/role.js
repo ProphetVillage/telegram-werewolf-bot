@@ -28,10 +28,11 @@ function Role(wolf, player) {
 }
 
 Role.teams = {
-  VILLAGER: 'VILLAGER',
-  WOLF: 'WOLF',
-  PARTY: 'PARTY',
-  TANNER: 'TANNER'
+  NONE: 'none'
+  VILLAGER: 'villager',
+  WOLF: 'wolf',
+  PARTY: 'partymember',
+  TANNER: 'tanner'
 };
 
 Role.prototype.makeCommand = function (action, user_id, chat_id) {

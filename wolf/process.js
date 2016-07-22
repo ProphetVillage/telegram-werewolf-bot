@@ -112,7 +112,7 @@ function *game_process() {
   if (msg) yield this.ymessage(msg);
 
   let playerlist = this.getPlayerList(2);
-  msg = this.i18n.__(this.winner_message);
+  msg = this.i18n.__('winner.' + this.winner_team);
   yield this.ymessage(msg + '\n\n' + playerlist);
 
   console.log('game_end', this.chat_id);
