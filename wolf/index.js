@@ -152,6 +152,9 @@ Wolf.prototype.enter = function (day, time) {
   }
   // dusk: vote stage
   this.queue = new EventQueue(this, time === 'dusk');
+  if (time === 'day') {
+    this.queue.setQuickMode(false);
+  }
 };
 
 Wolf.prototype.runQueue = function () {

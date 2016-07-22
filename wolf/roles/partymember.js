@@ -78,14 +78,17 @@ class PartyMember extends Role {
       } else if (target.role.id === 'prophet') {
         // 70% chance failed
         if (Math.random() < 0.7) {
-          this.ba.sendMessage({
-            chat_id: this.user_id,
-            text: this.i18n.__('partymember.refused', {
-              name: target_name
-            })
-          }, (err, r) => {
-            if (err) console.log(err);
-          });
+          let members = this.getPartners('partymember', false, true);
+          for (let p of members) {
+            this.ba.sendMessage({
+              chat_id: p.id,
+              text: this.i18n.__('partymember.refused', {
+                name: target_name
+              })
+            }, (err, r) => {
+              if (err) console.log(err);
+            });
+          }
           this.ba.sendMessage({
             chat_id: target.id,
             text: this.i18n.__('prophet.refuse_party')

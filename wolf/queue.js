@@ -11,7 +11,12 @@ function EventQueue(wolf, isVote) {
   this.ended = false;
   this.isVote = isVote;
   this.finish_cb = null;
+  this.quickmode = true;
 }
+
+EventQueue.prototype.setQuickMode = function (quickmode) {
+  this.quickmode = quickmode;
+};
 
 EventQueue.prototype.add = function (from, ev, user_id, priority) {
   this.queue.push({
@@ -24,7 +29,7 @@ EventQueue.prototype.add = function (from, ev, user_id, priority) {
   //console.log('queue add', ev, user_id);
 
   // TODO: discount no selection role like witch in night
-  if (this.queue.length >= this.voters.length) {
+  if (this.quickmode && this.queue.length >= this.voters.length) {
     // all selected, run first
     this.finish();
   }
