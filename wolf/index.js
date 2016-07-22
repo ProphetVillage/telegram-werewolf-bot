@@ -30,6 +30,10 @@ function Wolf(botapi, db, chat_id, opts) {
   if (this.opts['game'] !== false) {
     this.setStartTimer();
   }
+
+  // stats
+  this.stats_killed = {};
+  this.stats_killed_by = {};
 }
 
 Wolf.MAX_PLAYERS = 12;
@@ -196,6 +200,10 @@ Wolf.prototype.checkEnded = function () {
     }
     alive_count++;
   }
+
+  // count killed
+  this.queue.countKilled();
+
   if (this.queue.getDeathCount() > 0) {
     let deads = this.queue.death;
     for (let d of deads) {
@@ -205,6 +213,7 @@ Wolf.prototype.checkEnded = function () {
       }
     }
   }
+
   if (alive_party_count >= alive_count) {
     this.winner_team = Role.teams.PARTY;
   } else if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
@@ -216,6 +225,7 @@ Wolf.prototype.checkEnded = function () {
   } else {
     return false;
   }
+
   return true;
 };
 
@@ -382,13 +392,13 @@ Wolf.prototype.getPlayerList = function (showrole) {
     }
 
     playerlist += ' - ' + ((u.role && u.role.dead)
-        ? this.i18n.__('status.dead')
-        : this.i18n.__('status.alive'));
+        ? this.i18n.status('dead')
+        : this.i18n.status('alive'));
 
     if (showrole === 2 && this.winner_team) {
       playerlist += ' ' + ((u.role.team === this.winner_team)
-          ? this.i18n.__('common.won')
-          : this.i18n.__('common.lost'));
+          ? this.i18n.status('won')
+          : this.i18n.status('lost'));
     }
 
     playerlist += '\n';
@@ -406,6 +416,17 @@ Wolf.prototype.transformRole = function (player, roleId) {
 
     // add chains
     player.role.role_chains = rc;
+  }
+};
+
+Wolf.prototype.statsKilled = function (player, killer) {
+  if (player && killer) {
+    if (!(killer.id in this.stats_killed)) {
+      this.stats_killed[killer.id] = [];
+    }
+
+    this.stats_killed[killer.id].push(player.id);
+    this.stats_killed_by[player.id] = killer.id;
   }
 };
 

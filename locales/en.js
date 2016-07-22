@@ -7,9 +7,7 @@
 		"voted_choose": "Now, you can vote to kill someone as suspect.",
 		"voted_flat": "Flat votes",
 		"death_lock": "Death Lock",
-		"players": "Players ({{num}}):",
-    "won": "won",
-    "lost": "lost"
+		"players": "Players ({{num}}):"
 	},
 	"game": {
 		"start": "Game start!",
@@ -43,7 +41,9 @@
 	},
 	"status": {
 		"dead": "Dead",
-		"alive": "Alive"
+		"alive": "Alive",
+		"won": "Won",
+		"lost": "Lost"
 	},
 	"scene": {
 		"night": "Tonight, a beautiful night. <b>{{time}}s</b> to wait.",
@@ -54,7 +54,7 @@
 		"wolf": "Wolf win!",
 		"villager": "Villager win!",
 		"partymember": "Party win!",
-    "tanner": "Tanner win!",
+		"tanner": "Tanner win!",
 		"none": "No one win!"
 	},
 	"death": {
@@ -63,7 +63,7 @@
 		"bite": "{{name}} has been bitten.",
 		"poison": "{{name}} has been poisoned.",
 		"isparty": "{{name}} was caught by his corruption.",
-    "caught_by_commissar": "Unfortunately {{name}} encountered commissar, he was caught.",
+		"caught_by_commissar": "Unfortunately {{name}} encountered commissar, he was caught.",
 		"silent_night": "A silent night.",
 		"showjob": "{{name}} is {{job}}."
 	},
@@ -164,8 +164,8 @@
 		"found_partymember": "Found a corrupting party member {{name}}.",
 		"notfound": "{{name}} is not a corrupting party member."
 	},
-  "tanner": {
-    "name": "Tanner",
-    "announcement": "You are a tanner, your goal is to get lynched, and you will win."
-  }
+	"tanner": {
+		"name": "Tanner",
+		"announcement": "You are a tanner, your goal is to get lynched, and you will win."
+	}
 }

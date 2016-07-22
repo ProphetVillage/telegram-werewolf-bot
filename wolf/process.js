@@ -114,8 +114,102 @@ function *game_process() {
   let playerlist = this.getPlayerList(2);
   msg = this.i18n.__('winner.' + this.winner_team);
   yield this.ymessage(msg + '\n\n' + playerlist);
+  yield update_stats(this, this.db, this.players);
 
   console.log('game_end', this.chat_id);
+}
+
+function *update_stats(wolf, db, players) {
+  players.forEach(function (p) {
+    db.stats.findOne({
+      user_id: p.id
+    }, (err, stat) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      let notexists = false;
+
+      if (!stat) {
+        notexists = true;
+
+        stat = {
+          user_id: p.id,
+          game: {
+            total: 0,
+            won: 0,
+            survived: 0
+          },
+          role: {},
+          killed: {},
+          killed_by: {}
+        };
+      }
+
+      // stat
+      stat.name = wolf.i18n.player_name(p, true);
+      stat.game.total++;
+      if (wolf.winner_team === p.role.team) {
+        stat.game.won++;
+      }
+      if (!p.role.dead) {
+        stat.game.survived++;
+      }
+
+      let role_id = p.role.getInitialRoleId();
+      if (role_id in stat.role) {
+        stat.role[role_id]++;
+      } else {
+        stat.role[role_id] = 1;
+      }
+
+      if (p.id in wolf.stats_killed) {
+        for (let deadId of wolf.stats_killed[p.id]) {
+          let d = wolf.findPlayer(parseInt(deadId));
+          if (d) {
+            if (d.id in stat.killed) {
+              stat.killed[d.id].times++;
+            } else {
+              stat.killed[d.id] = {
+                times: 1,
+                user_id: d.id
+              };
+            }
+            stat.killed[d.id].name = wolf.i18n.player_name(d, true);
+          }
+        }
+      }
+
+      if (p.id in wolf.stats_killed_by) {
+        let killerId = wolf.stats_killed_by[p.id];
+        let k = wolf.findPlayer(parseInt(killerId));
+        if (k) {
+          if (k.id in stat.killed_by) {
+            stat.killed_by[k.id].times++;
+          } else {
+            stat.killed_by[k.id] = {
+              times: 1,
+              user_id: k.id
+            };
+          }
+          stat.killed_by[k.id].name = wolf.i18n.player_name(k, true);
+        }
+      }
+
+      if (notexists) {
+        db.stats.save(stat, (err, r) => {});
+      } else {
+        // update
+        delete stat._id;
+        delete stat.user_id;
+
+        db.stats.update({ user_id: p.id }, {
+          $set: stat
+        }, (err, r) => {});
+      }
+    });
+  });
 }
 
 module.exports = game_process;

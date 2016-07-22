@@ -7,9 +7,7 @@
 		"voted_choose": "现在将进行投票处决一个人。",
 		"voted_flat": "平票",
 		"death_lock": "死亡选择中断",
-		"players": "玩家 ({{num}})：",
-    "won": "胜利",
-    "lost": "失败"
+		"players": "玩家 ({{num}})："
 	},
 	"game": {
 		"start": "游戏开始！",
@@ -43,7 +41,9 @@
 	},
 	"status": {
 		"dead": "死亡",
-		"alive": "存活"
+		"alive": "存活",
+		"won": "胜利",
+		"lost": "失败"
 	},
 	"scene": {
 		"night": "微风的夜晚，似乎有什么事情将要发生。请等待 <b>{{time}}</b> 秒。",
@@ -54,7 +54,7 @@
 		"wolf": "狼人胜！",
 		"villager": "村民胜！",
 		"partymember": "党的胜利！",
-    "tanner": "皮匠胜！",
+		"tanner": "皮匠胜！",
 		"none": "无人胜利"
 	},
 	"death": {
@@ -167,8 +167,8 @@
 		"found_partymember": "发现了一个腐败的党员 {{name}}。",
 		"notfound": "{{name}} 并不是一个腐败的党员。"
 	},
-  "tanner": {
-    "name": "皮匠",
-    "announcement": "你是皮匠，你对生活失去了希望，如果你被投死，那就解放了整个村子。"
-  }
+	"tanner": {
+		"name": "皮匠",
+		"announcement": "你是皮匠，你对生活失去了希望，如果你被投死，那就解放了整个村子。"
+	}
 }

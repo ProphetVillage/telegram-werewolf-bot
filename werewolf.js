@@ -3,6 +3,7 @@
 const fs = require('fs');
 const request = require('request');
 const _ = require('underscore');
+const S = require('string');
 
 const config = require('./config');
 const BotApi = require('./lib/botapi');
@@ -20,9 +21,11 @@ var __db = new DB(config.db, (err, _db) => {
   }
   db.groups = _db.collection('groups');
   db.users = _db.collection('users');
+  db.stats = _db.collection('user_stats');
 
   db.groups.ensureIndex({ chat_id: 1 }, { unique: true, background: true });
   db.users.ensureIndex({ user_id: 1 }, { unique: true, background: true });
+  db.stats.ensureIndex({ user_id: 1 }, { unique: true, background: true });
 });
 var def_i18n = new i18nJ('en');
 
@@ -44,7 +47,7 @@ ba.setCheck((cmd, upd) => {
     if (chat.type === 'group' || chat.type === 'supergroup') {
       return false;
     } else {
-      if (cmd === 'start') {
+      if (cmd === 'start' || cmd === 'stats') {
         return false;
       } else {
         ba.sendMessage({
@@ -529,6 +532,33 @@ ba.commands.on('nextgame', (upd, followString) => {
   } else {
     nextgame_fn();
   }
+});
+
+ba.commands.on('stats', (upd, followString) => {
+  let chat_id = upd.message.chat.id;
+  let user_id = upd.message.from.id;
+
+  db.stats.findOne({ user_id: user_id }, (err, stat) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    let msg;
+    if (stat) {
+      msg = JSON.stringify(stat);
+    } else {
+      msg = 'No stats';
+    }
+
+    msg = S(msg).escapeHTML().s;
+
+    ba.sendMessage({
+      chat_id: chat_id,
+      reply_to_message_id: upd.message.message_id,
+      text: msg
+    });
+  });
 });
 
 ba.commands.on('help', (upd, followString) => {

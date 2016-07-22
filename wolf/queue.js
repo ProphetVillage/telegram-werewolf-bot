@@ -219,4 +219,12 @@ EventQueue.prototype.getDeathCount = function () {
   return this.death.length;
 };
 
+EventQueue.prototype.countKilled = function () {
+  if (this.getDeathCount() > 0) {
+    for (let d of this.death) {
+      this.wolf.statsKilled(d.dead, d.killer);
+    }
+  }
+};
+
 module.exports = EventQueue;

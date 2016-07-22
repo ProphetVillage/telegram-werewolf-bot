@@ -28,7 +28,7 @@ function Role(wolf, player) {
 }
 
 Role.teams = {
-  NONE: 'none'
+  NONE: 'none',
   VILLAGER: 'villager',
   WOLF: 'wolf',
   PARTY: 'partymember',
@@ -291,6 +291,14 @@ Role.prototype.getPartners = function (role = this.id, dead = false, self = fals
     }
   }
   return partners;
+};
+
+Role.prototype.getInitialRoleId = function () {
+  if (this.role_chains.length > 0) {
+    return this.role_chains[0];
+  } else {
+    return this.id;
+  }
 };
 
 module.exports = Role;

@@ -46,7 +46,7 @@ i18nJ.prototype.player_name = function (player, isSelection=false) {
     } else {
       pn = `<b>${name}</b>`;
     }
-    return isSelection ? name : pn;  
+    return isSelection ? name : pn;
   }
 };
 
@@ -57,6 +57,10 @@ i18nJ.prototype.player_list = function (players) {
     s += this.player_name(p);
   }
   return s;
+};
+
+i18nJ.prototype.status = function (s) {
+  return (symbol[s] ? symbol[s] : '') + this._i18n.__('status.' + s);
 };
 
 module.exports = i18nJ;
