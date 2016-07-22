@@ -44,7 +44,7 @@
 		"alive": "Alive",
 		"won": "Won",
 		"lost": "Lost",
-    "stats": "Player {{name}}:\nGames played total: <b>{{total}}</b>\nGames won: <b>{{won}}</b>\nGames survived: <b>{{survived}}</b>\nMost common role: <b>{{most_role}}</b>\nMost killed: {{most_killed_name}} <b>{{most_killed_times}}</b> times\nMost killed by: {{most_killed_by_name}} <b>{{most_killed_by_times}}</b> times"
+		"stats": "Player {{name}}:\nGames played total: <b>{{total}}</b>\nGames won: <b>{{won}}</b>\nGames survived: <b>{{survived}}</b>\nMost common role: <b>{{most_role}}</b>\nMost killed: <b>{{most_killed_name}}</b> <b>{{most_killed_times}}</b> times\nMost killed by: <b>{{most_killed_by_name}}</b> <b>{{most_killed_by_times}}</b> times"
 	},
 	"scene": {
 		"night": "Tonight, a beautiful night. <b>{{time}}s</b> to wait.",
@@ -149,7 +149,7 @@
 		"see": "You found {{name}} is {{job}}."
 	},
 	"partymember": {
-		"name": "ParyMember",
+		"name": "PartyMember",
 		"announcement": "You are a party member, every night you persuade someone to join your party.",
 		"choose": "This night, which one you want to persuade?",
 		"selected": "{{member_name}} selected {{target_name}}",
