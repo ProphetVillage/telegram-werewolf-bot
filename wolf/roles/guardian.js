@@ -8,7 +8,7 @@ class Guardian extends Role {
 
     this.id = 'guardian';
     this.name = this.i18n.job_name('guardian');
-    this.priority = 3;
+    this.priority = 4;
 
     this.allowEvents = [ 'vote', 'protect' ];
   }
