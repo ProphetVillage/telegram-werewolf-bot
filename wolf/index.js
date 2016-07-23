@@ -219,7 +219,7 @@ Wolf.prototype.checkEnded = function () {
     }
   }
 
-  if (alive_party_count === 1 && alive_commissar_count === 1) {
+  if (alive_count === 2 && alive_party_count === 1 && alive_commissar_count === 1) {
     // one party member & one commissar, villagers won
     this.winner_team = Role.teams.VILLAGER;
   } else if (alive_party_count >= alive_count) {
