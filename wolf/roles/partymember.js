@@ -48,6 +48,32 @@ class PartyMember extends Role {
         this.endOfLife('caught_by_commissar', target, queue);
         return;
 
+      } else if (target.role.id === 'elder') {
+        if (!target.role.is_partify) {
+          // one more time needed
+          target.role.is_partify = true;
+
+          let members = this.getPartners('partymember', false, true);
+          for (let p of members) {
+            this.ba.sendMessage({
+              chat_id: p.id,
+              text: this.i18n.__('partymember.refused', {
+                name: target_name
+              })
+            }, (err, r) => {
+              if (err) console.log(err);
+            });
+          }
+          this.ba.sendMessage({
+            chat_id: this.user_id,
+            text: this.i18n.__('elder.refuse_party', {
+              name: target_name
+            })
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+          return;
+        }
       } else if (target.role.id === 'mason') {
         // message other mason
         let masons = this.getPartners('mason');

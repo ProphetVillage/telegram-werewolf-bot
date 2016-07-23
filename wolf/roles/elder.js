@@ -11,6 +11,7 @@ class Elder extends Role {
     this.priority = 0;
 
     this.is_bitten = false;
+    this.is_partify = false;
 
     this.allowEvents = [ 'vote' ];
   }

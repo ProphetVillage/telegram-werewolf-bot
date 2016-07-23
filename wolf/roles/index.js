@@ -91,11 +91,7 @@ exports.setRandomRoles = function (wolf, players) {
   };
 
   if (player_count < 7) {
-    if (getRandom(1, 0)) {
-      other_list.wolf = 1;
-    } else {
-      other_list.partymember = 1;
-    }
+    other_list.wolf = 1;
     other_list.villager = getRandom(1, 0);
     other_list.mason = getRandom(2, 0);
   } else if (player_count < 10) {

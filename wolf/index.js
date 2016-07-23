@@ -183,6 +183,7 @@ Wolf.prototype.checkEnded = function () {
   let alive_vill_count = 0;
   let alive_wolf_count = 0;
   let alive_party_count = 0;
+  let alive_commissar_count = 0;
   let alive_count = 0;
   for (let u of this.players) {
     if (u.role.dead) {
@@ -194,6 +195,10 @@ Wolf.prototype.checkEnded = function () {
         break;
       case 'partymember':
         alive_party_count++;
+        break;
+      case 'commissar':
+        alive_commissar_count++;
+        alive_vill_count++;
         break;
       default:
         alive_vill_count++;
@@ -214,7 +219,10 @@ Wolf.prototype.checkEnded = function () {
     }
   }
 
-  if (alive_party_count >= alive_count) {
+  if (alive_party_count === 1 && alive_commissar_count === 1) {
+    // one party member & one commissar, villagers won
+    this.winner_team = Role.teams.VILLAGER;
+  } else if (alive_party_count >= alive_count) {
     this.winner_team = Role.teams.PARTY;
   } else if (alive_wolf_count > 0 && alive_wolf_count >= alive_count / 2) {
     this.winner_team = Role.teams.WOLF;
