@@ -582,7 +582,6 @@ ba.commands.on('stats', (upd, followString) => {
 
     ba.sendMessage({
       chat_id: user_id,
-      reply_to_message_id: upd.message.message_id,
       text: msg
     });
   });
