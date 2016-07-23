@@ -13,6 +13,15 @@ class Fool extends Prophet {
     this.allowEvents = [ 'vote', 'know' ];
   }
 
+  eventAnnouncement() {
+    this.ba.sendMessage({
+      chat_id: this.user_id,
+      text: this.i18n.__('prophet.announcement'),
+    }, (err, r) => {
+      if (err) console.log(err);
+    });
+  }
+
   action(ev, target, queue) {
     if (ev === 'know') {
       let names = [];
