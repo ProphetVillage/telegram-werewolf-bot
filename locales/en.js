@@ -81,6 +81,7 @@
 		"bite_you": "You have been bitten.",
 		"selected": "{{wolf_name}} selected {{target_name}}",
 		"notice_detective": "You found someone suspect, {{name}} is {{job}}.",
+    "food_ran": "Your food ran!",
 		"partner": {
 			"one": "{{playerlist}} is also a wolf.",
 			"other": "{{playerlist}} are also wolves."
