@@ -65,7 +65,7 @@ class PartyMember extends Role {
             });
           }
           this.ba.sendMessage({
-            chat_id: this.user_id,
+            chat_id: target.id,
             text: this.i18n.__('elder.refuse_party', {
               name: target_name
             })
