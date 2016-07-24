@@ -39,12 +39,31 @@ class Witch extends Role {
     let deadPlayers = queue.deadPlayers;
     let keyboard = [];
 
-    for (let u of deadPlayers) {
-      let pname = this.i18n.player_name(u, true);
-      keyboard.push([{
-        text: this.i18n.__('witch.selection_cure', { name: pname }),
-        callback_data: this.makeCommand('cure', u.id, this.chat_id)
-      }]);
+    if (this.pill_cure) {
+      for (let u of deadPlayers) {
+        let pname = this.i18n.player_name(u, true);
+        keyboard.push([{
+          text: this.i18n.__('witch.selection_cure', { name: pname }),
+          callback_data: this.makeCommand('cure', u.id, this.chat_id)
+        }]);
+      }
+    }
+
+    if (this.pill_poison) {
+      for (let u of players) {
+        if (!u.role.dead) {
+          let pname = this.wolf.i18n.player_name(u, true);
+          // \/[evname] [user_id] [chat_id]
+          keyboard.push([{
+            text: this.i18n.__('witch.selection_poison', { name: pname }),
+            callback_data: this.makeCommand('poison', u.id, this.chat_id)
+          }]);
+        }
+      }
+    }
+
+    if (keyboard.length <= 0) {
+      return;
     }
 
     var msg;
@@ -54,17 +73,6 @@ class Witch extends Role {
       });
     } else {
       msg = this.i18n.__('witch.choose_silent_night');
-    }
-
-    for (let u of players) {
-      if (!u.role.dead) {
-        let pname = this.wolf.i18n.player_name(u, true);
-        // \/[evname] [user_id] [chat_id]
-        keyboard.push([{
-          text: this.i18n.__('witch.selection_poison', { name: pname }),
-          callback_data: this.makeCommand('poison', u.id, this.chat_id)
-        }]);
-      }
     }
 
     // skip
