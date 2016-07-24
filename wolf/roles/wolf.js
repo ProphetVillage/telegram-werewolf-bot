@@ -46,7 +46,7 @@ class Wolf extends Role {
           });
         } else {
           this.ba.sendMessage({
-            chat_id: target.id,
+            chat_id: this.user_id,
             text: this.i18n.__('wolf.food_ran')
           }, (err, r) => {
             if (err) console.log(err);
