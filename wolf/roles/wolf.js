@@ -24,6 +24,16 @@ class Wolf extends Role {
         }, (err, r) => {
           if (err) console.log(err);
         });
+        // send msg to wolf
+        let members = this.getPartners('wolf', false, true);
+        for (let p of members) {
+          this.ba.sendMessage({
+            chat_id: p.id,
+            text: this.i18n.__('wolf.been_guarded')
+          }, (err, r) => {
+            if (err) console.log(err);
+          });
+        }
         let u = target.role.getBuffFrom('guard');
         if (u) {
           this.ba.sendMessage({
@@ -45,12 +55,15 @@ class Wolf extends Role {
             if (err) console.log(err);
           });
         } else {
-          this.ba.sendMessage({
-            chat_id: this.user_id,
-            text: this.i18n.__('wolf.food_ran')
-          }, (err, r) => {
-            if (err) console.log(err);
-          });
+          let members = this.getPartners('wolf', false, true);
+          for (let p of members) {
+            this.ba.sendMessage({
+              chat_id: p.id,
+              text: this.i18n.__('wolf.food_ran')
+            }, (err, r) => {
+              if (err) console.log(err);
+            });
+          }
         }
       }
     }

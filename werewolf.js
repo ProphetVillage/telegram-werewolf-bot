@@ -587,6 +587,15 @@ ba.commands.on('stats', (upd, followString) => {
   });
 });
 
+ba.commands.on('chatid', (upd, followString) => {
+  let chat_id = upd.message.chat.id;
+
+  ba.sendMessage({
+    chat_id: chat_id,
+    text: 'chat_id: ' + chat_id
+  });
+});
+
 ba.commands.on('help', (upd, followString) => {
   let chat_id = upd.message.chat.id;
   var wolf = game_sessions[chat_id];

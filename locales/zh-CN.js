@@ -85,6 +85,7 @@
 		"selected": "{{wolf_name}} 选择了 {{target_name}}",
 		"notice_detective": "你发现有人鬼鬼祟祟的，{{name}} 是 {{job}}。",
     "food_ran": "你的食物跑了！",
+    "been_guarded": "你的食物好像被保护住了！",
 		"partner": {
 			"one": "{{playerlist}} 也是一只狼人。",
 			"other": "{{playerlist}} 也是狼人。"

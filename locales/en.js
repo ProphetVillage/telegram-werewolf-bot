@@ -82,6 +82,7 @@
 		"selected": "{{wolf_name}} selected {{target_name}}",
 		"notice_detective": "You found someone suspect, {{name}} is {{job}}.",
     "food_ran": "Your food ran!",
+    "been_guarded": "Your food has been guarded.",
 		"partner": {
 			"one": "{{playerlist}} is also a wolf.",
 			"other": "{{playerlist}} are also wolves."
