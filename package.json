@@ -1,6 +1,6 @@
 {
   "name": "telegram-werewolf-bot",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A werewolf game bot for Telegram written in Node.js",
   "main": "werewolf.js",
   "scripts": {
@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "co": "*",
+    "hat": "0.0.3",
     "i18n-2": "^0.6.3",
     "mongodb": "^2.2.4",
     "request": "*",

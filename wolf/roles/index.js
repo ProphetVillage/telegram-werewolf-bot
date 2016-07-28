@@ -62,7 +62,7 @@ var getRandom = function (max = 1, base = 0) {
 exports.setRandomRolesT = function (wolf, players) {
   players[0].role = new Roles.PartyMember(wolf, players[0]);
   if (players.length > 1) {
-    players[1].role = new Roles.Commissar(wolf, players[1]);
+    players[1].role = new Roles.Prophet(wolf, players[1]);
   }
 };
 
@@ -145,13 +145,19 @@ exports.processCallback = function (wolf, upd, followString) {
         break;
       }
       let sdata = cq.data.split(' ');
-      if (sdata.length < 3) {
+      if (sdata.length < 4) {
+        break;
+      }
+      let chat_id = sdata.pop();
+      let event_key = sdata.pop();
+      if (u.role.event_key !== event_key) {
+        // add key prevents recall
         break;
       }
       let data = {
         action: sdata[0].substr(1),
         user_id: parseInt(sdata[1]),
-        chat_id: parseInt(sdata[2]),
+        chat_id
       };
       if (data.user_id) {
         data.target = wolf.findPlayer(data.user_id);

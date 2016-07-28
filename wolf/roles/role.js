@@ -1,5 +1,6 @@
 'use strict';
 
+const hat = require('hat');
 const role_list = require('./index').role_list;
 
 function Role(wolf, player) {
@@ -36,7 +37,7 @@ Role.teams = {
 };
 
 Role.prototype.makeCommand = function (action, user_id, chat_id) {
-  return '/' + action + ' ' + user_id + ' ' + chat_id;
+  return `/${action} ${user_id} ${this.event_key} ${chat_id}`;
 };
 
 Role.prototype.addBuff = function (buff, time, _from) {
@@ -82,6 +83,13 @@ Role.prototype.action = function (ev, target, queue) {
   if (!this.dead) {
     // do something
   }
+};
+
+Role.prototype.timePassed = function () {
+  this.event_key = hat(64, 36);
+  this.event_message_id = null;
+  this.done = false;
+  this.updateBuff();
 };
 
 Role.prototype.endOfLife = function (ev, killer, queue) {
