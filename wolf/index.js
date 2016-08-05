@@ -58,7 +58,7 @@ Wolf.prototype.init = function (chat, cb) {
     let locale = self.opts.locale ? self.opts.locale : Wolf.DEL_LOCALE;
     self.i18n = new i18nJ(locale);
 
-    if (self.opts['game'] !== false && r.next_game_queue) {
+    if (r && self.opts['game'] !== false && r.next_game_queue) {
       for (let q of r.next_game_queue) {
         self.ba.sendMessage({
           chat_id: q.user_id,
