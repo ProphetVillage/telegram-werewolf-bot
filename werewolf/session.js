@@ -3,12 +3,13 @@
 const db = require('./database');
 const i18nJ = require('../i18n');
 
-var def_i18n = new i18nJ('en');
+const def_i18n = new i18nJ('en');
 
 class GameSessionManager {
   constructor() {
     // chat_id => Wolf class
-    this.sessions = {}
+    this.def_i18n = def_i18n;
+    this.sessions = {};
   }
   gameStart(wolf) {
     this.sessions[wolf.chat_id] = wolf;

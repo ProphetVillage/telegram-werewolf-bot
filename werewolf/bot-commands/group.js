@@ -8,6 +8,8 @@ const Wolf = require('../../wolf');
 
 function groupCommands(ba, game_sessions) {
 
+const def_i18n = game_sessions.def_i18n;
+
 // user signin
 ba.commands.on('start', (upd, followString) => {
   let chat = upd.message.chat;
