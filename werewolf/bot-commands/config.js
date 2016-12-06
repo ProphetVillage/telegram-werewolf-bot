@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require('../database');
+const Wolf = require('../../wolf');
 
 function configCommands(ba, game_sessions) {
 
